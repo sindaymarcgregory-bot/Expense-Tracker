@@ -30,6 +30,7 @@ public class LoginForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        roundedPanel1 = new Components.RoundedPanel();
         loginPanel = new javax.swing.JPanel();
         lblbUsername = new javax.swing.JTextField();
         lblPassword = new javax.swing.JPasswordField();
@@ -182,6 +183,7 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JTextField lblbUsername;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JPanel loginPanel;
+    private Components.RoundedPanel roundedPanel1;
     private javax.swing.JLabel txtPassword;
     private javax.swing.JLabel txtUsername;
     // End of variables declaration//GEN-END:variables
