@@ -28,21 +28,335 @@ public class HomeFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        mainToolBar = new javax.swing.JToolBar();
+        jButton1 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        mainToolBar1 = new javax.swing.JToolBar();
+        dashBoardButton = new javax.swing.JButton();
+        expenseButton = new javax.swing.JButton();
+        incomeButton = new javax.swing.JButton();
+        budgetButton = new javax.swing.JButton();
+        reportButton = new javax.swing.JButton();
+        ProfileButton = new javax.swing.JButton();
+        logoutButton = new javax.swing.JButton();
+        HomePanel = new javax.swing.JPanel();
+
+        jPanel1.setBackground(new java.awt.Color(101, 146, 135));
+
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(242, 242, 242));
+        jLabel1.setText("MoneyGa");
+
+        mainToolBar.setBackground(new java.awt.Color(101, 146, 135));
+        mainToolBar.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        mainToolBar.setRollover(true);
+
+        jButton1.setBackground(new java.awt.Color(101, 146, 135));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("DashBoard");
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+        mainToolBar.add(jButton1);
+
+        jButton8.setBackground(new java.awt.Color(101, 146, 135));
+        jButton8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(255, 255, 255));
+        jButton8.setText("Expense");
+        jButton8.setFocusable(false);
+        jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton8.addActionListener(this::jButton8ActionPerformed);
+        mainToolBar.add(jButton8);
+
+        jButton9.setBackground(new java.awt.Color(101, 146, 135));
+        jButton9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton9.setForeground(new java.awt.Color(255, 255, 255));
+        jButton9.setText("Income");
+        jButton9.setFocusable(false);
+        jButton9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton9.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton9.addActionListener(this::jButton9ActionPerformed);
+        mainToolBar.add(jButton9);
+
+        jButton10.setBackground(new java.awt.Color(101, 146, 135));
+        jButton10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton10.setForeground(new java.awt.Color(255, 255, 255));
+        jButton10.setText("Budget");
+        jButton10.setFocusable(false);
+        jButton10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton10.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton10.addActionListener(this::jButton10ActionPerformed);
+        mainToolBar.add(jButton10);
+
+        jButton11.setBackground(new java.awt.Color(101, 146, 135));
+        jButton11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton11.setForeground(new java.awt.Color(255, 255, 255));
+        jButton11.setText("Report");
+        jButton11.setFocusable(false);
+        jButton11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton11.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton11.addActionListener(this::jButton11ActionPerformed);
+        mainToolBar.add(jButton11);
+
+        jButton12.setBackground(new java.awt.Color(101, 146, 135));
+        jButton12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton12.setForeground(new java.awt.Color(255, 255, 255));
+        jButton12.setText("Profile");
+        jButton12.setFocusable(false);
+        jButton12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton12.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton12.addActionListener(this::jButton12ActionPerformed);
+        mainToolBar.add(jButton12);
+
+        jButton13.setBackground(new java.awt.Color(101, 146, 135));
+        jButton13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton13.setForeground(new java.awt.Color(255, 255, 255));
+        jButton13.setText("Logout");
+        jButton13.setFocusable(false);
+        jButton13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton13.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton13.addActionListener(this::jButton13ActionPerformed);
+        mainToolBar.add(jButton13);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(14, Short.MAX_VALUE))
+            .addComponent(mainToolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jLabel1)
+                .addGap(91, 91, 91)
+                .addComponent(mainToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel3.setBackground(new java.awt.Color(101, 146, 135));
+
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(242, 242, 242));
+        jLabel2.setText("MoneyGa");
+
+        mainToolBar1.setBackground(new java.awt.Color(101, 146, 135));
+        mainToolBar1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        mainToolBar1.setRollover(true);
+
+        dashBoardButton.setBackground(new java.awt.Color(101, 146, 135));
+        dashBoardButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        dashBoardButton.setForeground(new java.awt.Color(255, 255, 255));
+        dashBoardButton.setText("DashBoard");
+        dashBoardButton.setFocusable(false);
+        dashBoardButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        dashBoardButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        dashBoardButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                dashBoardButtonMouseEntered(evt);
+            }
+        });
+        dashBoardButton.addActionListener(this::dashBoardButtonActionPerformed);
+        mainToolBar1.add(dashBoardButton);
+
+        expenseButton.setBackground(new java.awt.Color(101, 146, 135));
+        expenseButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        expenseButton.setForeground(new java.awt.Color(255, 255, 255));
+        expenseButton.setText("Expense");
+        expenseButton.setFocusable(false);
+        expenseButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        expenseButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        expenseButton.addActionListener(this::expenseButtonActionPerformed);
+        mainToolBar1.add(expenseButton);
+
+        incomeButton.setBackground(new java.awt.Color(101, 146, 135));
+        incomeButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        incomeButton.setForeground(new java.awt.Color(255, 255, 255));
+        incomeButton.setText("Income");
+        incomeButton.setFocusable(false);
+        incomeButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        incomeButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        incomeButton.addActionListener(this::incomeButtonActionPerformed);
+        mainToolBar1.add(incomeButton);
+
+        budgetButton.setBackground(new java.awt.Color(101, 146, 135));
+        budgetButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        budgetButton.setForeground(new java.awt.Color(255, 255, 255));
+        budgetButton.setText("Budget");
+        budgetButton.setFocusable(false);
+        budgetButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        budgetButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        budgetButton.addActionListener(this::budgetButtonActionPerformed);
+        mainToolBar1.add(budgetButton);
+
+        reportButton.setBackground(new java.awt.Color(101, 146, 135));
+        reportButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        reportButton.setForeground(new java.awt.Color(255, 255, 255));
+        reportButton.setText("Report");
+        reportButton.setFocusable(false);
+        reportButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        reportButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        reportButton.addActionListener(this::reportButtonActionPerformed);
+        mainToolBar1.add(reportButton);
+
+        ProfileButton.setBackground(new java.awt.Color(101, 146, 135));
+        ProfileButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        ProfileButton.setForeground(new java.awt.Color(255, 255, 255));
+        ProfileButton.setText("Profile");
+        ProfileButton.setFocusable(false);
+        ProfileButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ProfileButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        ProfileButton.addActionListener(this::ProfileButtonActionPerformed);
+        mainToolBar1.add(ProfileButton);
+
+        logoutButton.setBackground(new java.awt.Color(101, 146, 135));
+        logoutButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        logoutButton.setForeground(new java.awt.Color(255, 255, 255));
+        logoutButton.setText("Logout");
+        logoutButton.setFocusable(false);
+        logoutButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        logoutButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        logoutButton.addActionListener(this::logoutButtonActionPerformed);
+        mainToolBar1.add(logoutButton);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addContainerGap(14, Short.MAX_VALUE))
+            .addComponent(mainToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jLabel2)
+                .addGap(73, 73, 73)
+                .addComponent(mainToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        HomePanel.setBackground(new java.awt.Color(220, 232, 208));
+
+        javax.swing.GroupLayout HomePanelLayout = new javax.swing.GroupLayout(HomePanel);
+        HomePanel.setLayout(HomePanelLayout);
+        HomePanelLayout.setHorizontalGroup(
+            HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 773, Short.MAX_VALUE)
+        );
+        HomePanelLayout.setVerticalGroup(
+            HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(HomePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(HomePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void dashBoardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashBoardButtonActionPerformed
+        DashBoardPanel dB = new DashBoardPanel();
+        HomePanel.removeAll();
+        HomePanel.add(dB);
+        HomePanel.revalidate();
+        HomePanel.repaint();
+
+
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dashBoardButtonActionPerformed
+
+    private void expenseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expenseButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_expenseButtonActionPerformed
+
+    private void incomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incomeButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_incomeButtonActionPerformed
+
+    private void budgetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_budgetButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_budgetButtonActionPerformed
+
+    private void reportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_reportButtonActionPerformed
+
+    private void ProfileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProfileButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ProfileButtonActionPerformed
+
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_logoutButtonActionPerformed
+
+    private void dashBoardButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashBoardButtonMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dashBoardButtonMouseEntered
 
     /**
      * @param args the command line arguments
@@ -70,5 +384,26 @@ public class HomeFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel HomePanel;
+    private javax.swing.JButton ProfileButton;
+    private javax.swing.JButton budgetButton;
+    private javax.swing.JButton dashBoardButton;
+    private javax.swing.JButton expenseButton;
+    private javax.swing.JButton incomeButton;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton logoutButton;
+    private javax.swing.JToolBar mainToolBar;
+    private javax.swing.JToolBar mainToolBar1;
+    private javax.swing.JButton reportButton;
     // End of variables declaration//GEN-END:variables
 }
