@@ -1,13 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
-/**
- *
- * @author Arch Salon
- */
 public class Budget {
-    
+    private double monthlyBudget;
+
+    public Budget() {
+
+    }
+
+    public Budget(double monthlyBudget) {
+        this.monthlyBudget = monthlyBudget;
+    }
+
+    public double getMonthlyBudget() {
+        return monthlyBudget;
+    }
+
+    public void setMonthlyBudget(double monthlyBudget) {
+        this.monthlyBudget = monthlyBudget;
+    }
 }
