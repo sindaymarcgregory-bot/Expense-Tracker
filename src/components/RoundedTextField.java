@@ -1,11 +1,11 @@
-package Components;
+package components;
 
 import java.awt.*;
-import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class RoundedPasswordField extends JPasswordField {
-    public RoundedPasswordField() {
+public class RoundedTextField extends JTextField {
+    public RoundedTextField() {
 
         setOpaque(false);
 
