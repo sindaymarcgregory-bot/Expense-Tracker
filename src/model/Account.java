@@ -1,7 +1,8 @@
 package model;
 
 public class Account {
-     private User user;
+
+    private User user;
     private double balance;
     private double totalIncome;
     private double totalExpense;
