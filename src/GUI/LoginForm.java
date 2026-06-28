@@ -19,8 +19,6 @@ public class LoginForm extends javax.swing.JFrame {
      */
     public LoginForm() {
         initComponents();
-         leftPanel.setBackground(new Color(111, 151, 143));
-         leftPanel.setOpaque(false);
         setLocationRelativeTo(null); 
         setSize(1280, 720);          
     }
@@ -43,9 +41,8 @@ public class LoginForm extends javax.swing.JFrame {
         txtPassword = new javax.swing.JLabel();
         btnSignup = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        leftPanel = new components.RoundedPanel();
-        lblbLogo = new javax.swing.JLabel();
         roundedPanel2 = new components.RoundedPanel();
+        lblbLogo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
@@ -77,38 +74,27 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(111, 151, 143));
         jLabel1.setText("Don't have an account?");
 
-        leftPanel.setBackground(new java.awt.Color(111, 151, 143));
+        roundedPanel2.setBackground(new java.awt.Color(111, 151, 143));
 
         lblbLogo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lblbLogo.setForeground(new java.awt.Color(255, 255, 255));
         lblbLogo.setText("MoneyGa");
 
-        javax.swing.GroupLayout leftPanelLayout = new javax.swing.GroupLayout(leftPanel);
-        leftPanel.setLayout(leftPanelLayout);
-        leftPanelLayout.setHorizontalGroup(
-            leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(leftPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblbLogo)
-                .addContainerGap(76, Short.MAX_VALUE))
-        );
-        leftPanelLayout.setVerticalGroup(
-            leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(leftPanelLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(lblbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(397, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout roundedPanel2Layout = new javax.swing.GroupLayout(roundedPanel2);
         roundedPanel2.setLayout(roundedPanel2Layout);
         roundedPanel2Layout.setHorizontalGroup(
             roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblbLogo)
+                .addContainerGap())
         );
         roundedPanel2Layout.setVerticalGroup(
             roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 319, Short.MAX_VALUE)
+            .addGroup(roundedPanel2Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(lblbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(470, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
@@ -123,18 +109,16 @@ public class LoginForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSignup))
                     .addGroup(loginPanelLayout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addComponent(leftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(151, 151, 151)
+                        .addGap(95, 95, 95)
+                        .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(249, 249, 249)
                         .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblbUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPassword)
-                            .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
-                        .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(78, 78, 78))
+                            .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(325, Short.MAX_VALUE))
         );
         loginPanelLayout.setVerticalGroup(
             loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,16 +136,13 @@ public class LoginForm extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnLogin))
                     .addGroup(loginPanelLayout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(leftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(loginPanelLayout.createSequentialGroup()
-                        .addGap(104, 104, 104)
+                        .addGap(30, 30, 30)
                         .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(10, 10, 10)
+                .addGap(362, 362, 362)
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(0, Short.MAX_VALUE))
         );
 
         getContentPane().add(loginPanel);
@@ -209,7 +190,6 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JPasswordField lblPassword;
     private javax.swing.JLabel lblbLogo;
     private javax.swing.JTextField lblbUsername;
-    private components.RoundedPanel leftPanel;
     private javax.swing.JPanel loginPanel;
     private components.RoundedPanel roundedPanel1;
     private components.RoundedPanel roundedPanel2;
