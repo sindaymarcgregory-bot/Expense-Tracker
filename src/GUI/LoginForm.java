@@ -49,6 +49,7 @@ public class LoginForm extends javax.swing.JFrame {
         loginPanel.setMinimumSize(new java.awt.Dimension(1024, 600));
 
         btnLogin.setBackground(new java.awt.Color(111, 151, 143));
+        btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("Login");
         btnLogin.addActionListener(this::btnLoginActionPerformed);

@@ -36,6 +36,7 @@ public class SignUpForm extends javax.swing.JFrame {
         txtUsername = new javax.swing.JLabel();
         txtPassword = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,6 +45,7 @@ public class SignUpForm extends javax.swing.JFrame {
         loginPanel.setMinimumSize(new java.awt.Dimension(1024, 600));
 
         btnSignUp2.setBackground(new java.awt.Color(111, 151, 143));
+        btnSignUp2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSignUp2.setForeground(new java.awt.Color(255, 255, 255));
         btnSignUp2.setText("Signup");
         btnSignUp2.addActionListener(this::btnSignUp2ActionPerformed);
@@ -58,11 +60,15 @@ public class SignUpForm extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lblLogo.png"))); // NOI18N
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(82, 133, 123));
+        jLabel1.setText("Create Account");
+
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
         loginPanel.setLayout(loginPanelLayout);
         loginPanelLayout.setHorizontalGroup(
             loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
+            .addGroup(loginPanelLayout.createSequentialGroup()
                 .addContainerGap(256, Short.MAX_VALUE)
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
@@ -75,13 +81,18 @@ public class SignUpForm extends javax.swing.JFrame {
                         .addGap(322, 322, 322))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(246, 246, 246))))
+                        .addGap(246, 246, 246))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(371, 371, 371))))
         );
         loginPanelLayout.setVerticalGroup(
             loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(loginPanelLayout.createSequentialGroup()
                 .addComponent(jLabel2)
-                .addGap(57, 57, 57)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addComponent(txtUsername)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblbUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -107,7 +118,7 @@ public class SignUpForm extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 632, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -151,6 +162,7 @@ public class SignUpForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSignUp2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField lblPassword;
     private javax.swing.JTextField lblbUsername;
