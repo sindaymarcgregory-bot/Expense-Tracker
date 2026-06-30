@@ -1,40 +1,56 @@
 package services;
 
-import java.util.ArrayList;
+import database.DBConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import model.User;
 
 public class UserService {
 
-    private static final ArrayList<User> users = new ArrayList<>();
-
-    // Default test account
-    static {
-        User testUser = new User();
-        testUser.setUsername("admin");
-        testUser.setPassword("1234");
-
-        users.add(testUser);
-    }
-
     public boolean register(User user) {
 
-        for (User u : users) {
-            if (u.getUsername().equalsIgnoreCase(user.getUsername())) {
-                return false;
-            }
-        }
+        String sql = "INSERT INTO users(username, password) VALUES (?, ?)";
 
-        users.add(user);
-        return true;
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getPassword());
+
+            ps.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public User login(String username, String password) {
 
-        for (User u : users) {
-            if (u.getUsername().equals(username)
-                    && u.getPassword().equals(password)) {
-                return u;
+        String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, username);
+            ps.setString(2, password);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                User user = new User();
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+
+                return user;
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         return null;
