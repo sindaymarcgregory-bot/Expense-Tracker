@@ -4,10 +4,8 @@
  */
 package GUI;
 
-/**
- *
- * @author Arch Salon
- */
+import javax.swing.JOptionPane;
+
 public class HomeFrame extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HomeFrame.class.getName());
@@ -177,10 +175,21 @@ public class HomeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        int choice = JOptionPane.showConfirmDialog(
+            this,
+        "Are you sure you want to logout?",
+        "Logout Confirmation",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.WARNING_MESSAGE
+    );
+
+    if (choice == JOptionPane.YES_OPTION) {
         LoginForm login = new LoginForm();
         login.setVisible(true);
-
         this.dispose();
+    }
+    // If NO is clicked, nothing happens.
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
