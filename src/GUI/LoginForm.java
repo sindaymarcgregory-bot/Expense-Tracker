@@ -5,6 +5,9 @@
 package GUI;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import model.User;
+import services.UserService;
 
 /**
  *
@@ -19,7 +22,9 @@ public class LoginForm extends javax.swing.JFrame {
      */
     public LoginForm() {
         initComponents();
-        setLocationRelativeTo(null);      
+        setLocationRelativeTo(null); 
+        
+        getRootPane().setDefaultButton(btnLogin);
     }
 
     /**
@@ -132,9 +137,25 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSignupActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+      String username = lblbUsername.getText().trim();
+    String password = String.valueOf(lblPassword.getPassword());
+
+    UserService service = new UserService();
+
+    User user = service.login(username, password);
+
+    if (user != null) {
+
         HomeFrame home = new HomeFrame();
         home.setVisible(true);
-        this.dispose();
+        dispose();
+
+    } else {
+
+        JOptionPane.showMessageDialog(this,
+                "Invalid username or password.");
+
+    }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**

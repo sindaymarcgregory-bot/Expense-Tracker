@@ -85,6 +85,7 @@ public class HomeFrame extends javax.swing.JFrame {
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("Logout");
+        jButton6.addActionListener(this::jButton6ActionPerformed);
 
         javax.swing.GroupLayout sideBarPanelLayout = new javax.swing.GroupLayout(sideBarPanel);
         sideBarPanel.setLayout(sideBarPanelLayout);
@@ -175,6 +176,13 @@ public class HomeFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        LoginForm login = new LoginForm();
+        login.setVisible(true);
+
+        this.dispose();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -201,21 +209,7 @@ public class HomeFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel SideBarPanel;
-    private javax.swing.JPanel SideBarPanel1;
     private javax.swing.JPanel bodyPanel;
-    private javax.swing.JButton btnAccount;
-    private javax.swing.JButton btnAccount1;
-    private javax.swing.JButton btnDashboard;
-    private javax.swing.JButton btnDashboard1;
-    private javax.swing.JButton btnExpenses;
-    private javax.swing.JButton btnExpenses1;
-    private javax.swing.JButton btnHistory;
-    private javax.swing.JButton btnHistory1;
-    private javax.swing.JButton btnIncome;
-    private javax.swing.JButton btnIncome1;
-    private javax.swing.JButton btnLogout;
-    private javax.swing.JButton btnLogout1;
     private javax.swing.JPanel changePanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

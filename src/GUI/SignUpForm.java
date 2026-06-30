@@ -4,6 +4,10 @@
  */
 package GUI;
 
+import javax.swing.JOptionPane;
+import model.User;
+import services.UserService;
+
 /**
  *
  * @author Arch Salon
@@ -18,6 +22,8 @@ public class SignUpForm extends javax.swing.JFrame {
     public SignUpForm() {
         initComponents();
         setLocationRelativeTo(null);
+        
+        getRootPane().setDefaultButton(btnSignUp2);
     }
 
     /**
@@ -130,9 +136,24 @@ public class SignUpForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSignUp2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUp2ActionPerformed
+        String username = lblbUsername.getText().trim();
+    String password = String.valueOf(lblPassword.getPassword());
+
+    User user = new User();
+    user.setUsername(username);
+    user.setPassword(password);
+
+    UserService service = new UserService();
+
+    if (service.register(user)) {
+        JOptionPane.showMessageDialog(this, "Account created!");
+
         LoginForm login = new LoginForm();
         login.setVisible(true);
-        this.dispose();
+        dispose();
+    } else {
+        JOptionPane.showMessageDialog(this, "Username already exists.");
+    }
     }//GEN-LAST:event_btnSignUp2ActionPerformed
 
     /**

@@ -1,4 +1,4 @@
-package service;
+package services;
 
 import java.util.ArrayList;
 import model.Expense;
