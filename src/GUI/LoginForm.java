@@ -137,11 +137,34 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSignupActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-      String username = lblbUsername.getText().trim();
+    String username = lblbUsername.getText().trim();
     String password = String.valueOf(lblPassword.getPassword());
 
-    UserService service = new UserService();
+    // Check if both fields are empty
+    if (username.isEmpty() && password.isEmpty()) {
+        JOptionPane.showMessageDialog(this,
+                "Please enter your username and password.");
+        lblbUsername.requestFocus();
+        return;
+    }
 
+    // Check if username is empty
+    if (username.isEmpty()) {
+        JOptionPane.showMessageDialog(this,
+                "Please enter your username.");
+        lblbUsername.requestFocus();
+        return;
+    }
+
+    // Check if password is empty
+    if (password.isEmpty()) {
+        JOptionPane.showMessageDialog(this,
+                "Please enter your password.");
+        lblPassword.requestFocus();
+        return;
+    }
+
+    UserService service = new UserService();
     User user = service.login(username, password);
 
     if (user != null) {
