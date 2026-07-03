@@ -101,10 +101,11 @@ public class HomeFrame extends javax.swing.JFrame {
                     .addGroup(sideBarPanelLayout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addComponent(jButton6))
-                    .addComponent(jButton3)
                     .addComponent(jButton5)
                     .addComponent(jButton2)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton3)))
                 .addGap(12, 12, 12))
         );
         sideBarPanelLayout.setVerticalGroup(
