@@ -37,10 +37,10 @@ public class HomeFrame extends javax.swing.JFrame {
         btnIncome = new javax.swing.JButton();
         btnExpenses = new javax.swing.JButton();
         btnHistory = new javax.swing.JButton();
-        btnAccount = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        btnAccount = new javax.swing.JButton();
         changePanel = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(220, 232, 208));
@@ -52,13 +52,9 @@ public class HomeFrame extends javax.swing.JFrame {
         bodyPanel.setBackground(new java.awt.Color(220, 232, 208));
         bodyPanel.setLayout(new javax.swing.BoxLayout(bodyPanel, javax.swing.BoxLayout.LINE_AXIS));
 
-<<<<<<< HEAD
         mainPanel.setBackground(new java.awt.Color(220, 232, 208));
-=======
-        changePanel.setBackground(new java.awt.Color(220, 232, 208));
-        changePanel.setMaximumSize(null);
-        changePanel.setMinimumSize(new java.awt.Dimension(1024, 600));
->>>>>>> 446617f81cc1a767cb247a670fcf45ae78c35597
+        mainPanel.setMaximumSize(null);
+        mainPanel.setMinimumSize(new java.awt.Dimension(1024, 600));
 
         sideBarPanel.setBackground(new java.awt.Color(111, 151, 143));
 
@@ -76,91 +72,87 @@ public class HomeFrame extends javax.swing.JFrame {
         btnIncome.setIconTextGap(2);
         btnIncome.addActionListener(this::btnIncomeActionPerformed);
 
-        jButton3.setBackground(new java.awt.Color(111, 151, 143));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Expenses");
+        btnExpenses.setBackground(new java.awt.Color(111, 151, 143));
+        btnExpenses.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnExpenses.setForeground(new java.awt.Color(255, 255, 255));
+        btnExpenses.setText("Expenses");
 
-        jButton4.setBackground(new java.awt.Color(111, 151, 143));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("History");
+        btnHistory.setBackground(new java.awt.Color(111, 151, 143));
+        btnHistory.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnHistory.setForeground(new java.awt.Color(255, 255, 255));
+        btnHistory.setText("History");
+        btnHistory.addActionListener(this::btnHistoryActionPerformed);
 
-        jButton5.setBackground(new java.awt.Color(111, 151, 143));
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Account");
+        btnLogout.setBackground(new java.awt.Color(111, 151, 143));
+        btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnLogout.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogout.setText("Logout");
+        btnLogout.addActionListener(this::btnLogoutActionPerformed);
 
-        jButton6.setBackground(new java.awt.Color(111, 151, 143));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Logout");
-        jButton6.addActionListener(this::jButton6ActionPerformed);
+        btnAccount.setBackground(new java.awt.Color(111, 151, 143));
+        btnAccount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAccount.setForeground(new java.awt.Color(255, 255, 255));
+        btnAccount.setText("Account");
+        btnAccount.addActionListener(this::btnAccountActionPerformed);
 
         javax.swing.GroupLayout sideBarPanelLayout = new javax.swing.GroupLayout(sideBarPanel);
         sideBarPanel.setLayout(sideBarPanelLayout);
         sideBarPanelLayout.setHorizontalGroup(
             sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sideBarPanelLayout.createSequentialGroup()
-                .addComponent(jButton1)
-                .addContainerGap())
             .addGroup(sideBarPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(sideBarPanelLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(jButton6))
-                    .addComponent(jButton5)
-                    .addComponent(jButton2)
-                    .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton3)))
-                .addGap(12, 12, 12))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sideBarPanelLayout.createSequentialGroup()
-                .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5)
-                    .addComponent(jButton1))
-                .addContainerGap())
+                        .addGap(41, 41, 41)
+                        .addComponent(btnLogout))
+                    .addGroup(sideBarPanelLayout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(btnAccount))
+                    .addGroup(sideBarPanelLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnExpenses)
+                            .addComponent(btnIncome)
+                            .addComponent(btnDashboard)
+                            .addComponent(btnHistory))))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         sideBarPanelLayout.setVerticalGroup(
             sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sideBarPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnAccount)
-                .addGap(198, 198, 198)
+                .addGap(147, 147, 147)
                 .addComponent(btnDashboard)
                 .addGap(18, 18, 18)
                 .addComponent(btnIncome)
                 .addGap(18, 18, 18)
                 .addComponent(btnExpenses)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton6)
-                .addContainerGap())
+                .addComponent(btnHistory)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
+                .addComponent(btnLogout)
+                .addGap(21, 21, 21))
         );
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sideBarLogo.png"))); // NOI18N
-
         changePanel.setBackground(new java.awt.Color(220, 232, 208));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sideBarLogo.png"))); // NOI18N
 
         javax.swing.GroupLayout changePanelLayout = new javax.swing.GroupLayout(changePanel);
         changePanel.setLayout(changePanelLayout);
         changePanelLayout.setHorizontalGroup(
             changePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-<<<<<<< HEAD
-            .addGap(0, 773, Short.MAX_VALUE)
-=======
             .addGroup(changePanelLayout.createSequentialGroup()
-                .addComponent(sideBarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 832, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
->>>>>>> 446617f81cc1a767cb247a670fcf45ae78c35597
+                .addGap(395, 395, 395)
+                .addComponent(jLabel2)
+                .addContainerGap(464, Short.MAX_VALUE))
         );
         changePanelLayout.setVerticalGroup(
             changePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, changePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -168,22 +160,19 @@ public class HomeFrame extends javax.swing.JFrame {
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(sideBarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(changePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(534, 534, 534)
+                .addComponent(changePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sideBarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel2))
-                    .addComponent(changePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(changePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(sideBarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -193,7 +182,7 @@ public class HomeFrame extends javax.swing.JFrame {
         mainContainer.setLayout(mainContainerLayout);
         mainContainerLayout.setHorizontalGroup(
             mainContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bodyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(bodyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1185, Short.MAX_VALUE)
         );
         mainContainerLayout.setVerticalGroup(
             mainContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
