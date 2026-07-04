@@ -39,17 +39,17 @@ public class DashBoardPanel extends javax.swing.JPanel {
         dashBoardPanel.setLayout(dashBoardPanelLayout);
         dashBoardPanelLayout.setHorizontalGroup(
             dashBoardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dashBoardPanelLayout.createSequentialGroup()
-                .addContainerGap(190, Short.MAX_VALUE)
+            .addGroup(dashBoardPanelLayout.createSequentialGroup()
+                .addGap(184, 184, 184)
                 .addComponent(jLabel1)
-                .addGap(184, 184, 184))
+                .addContainerGap(190, Short.MAX_VALUE))
         );
         dashBoardPanelLayout.setVerticalGroup(
             dashBoardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashBoardPanelLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(36, 36, 36)
                 .addComponent(jLabel1)
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addContainerGap(227, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
