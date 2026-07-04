@@ -7,6 +7,7 @@ package GUI;
 import javax.swing.JOptionPane;
 import model.User;
 import services.UserService;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -137,23 +138,26 @@ public class SignUpForm extends javax.swing.JFrame {
 
     private void btnSignUp2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUp2ActionPerformed
         String username = lblbUsername.getText().trim();
-    String password = String.valueOf(lblPassword.getPassword());
+        String password = String.valueOf(lblPassword.getPassword());
+        
+        // Hash the password
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
-    User user = new User();
-    user.setUsername(username);
-    user.setPassword(password);
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(hashedPassword);
 
-    UserService service = new UserService();
+        UserService service = new UserService();
 
-    if (service.register(user)) {
-        JOptionPane.showMessageDialog(this, "Account created!");
+        if (service.register(user)) {
+            JOptionPane.showMessageDialog(this, "Account created!");
 
-        LoginForm login = new LoginForm();
-        login.setVisible(true);
-        dispose();
-    } else {
-        JOptionPane.showMessageDialog(this, "Username already exists.");
-    }
+            LoginForm login = new LoginForm();
+            login.setVisible(true);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Username already exists.");
+        }
     }//GEN-LAST:event_btnSignUp2ActionPerformed
 
     /**

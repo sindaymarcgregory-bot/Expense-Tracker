@@ -50,6 +50,8 @@ public class HomeFrame extends javax.swing.JFrame {
         bodyPanel.setLayout(new javax.swing.BoxLayout(bodyPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         changePanel.setBackground(new java.awt.Color(220, 232, 208));
+        changePanel.setMaximumSize(null);
+        changePanel.setMinimumSize(new java.awt.Dimension(1024, 600));
 
         sideBarPanel.setBackground(new java.awt.Color(111, 151, 143));
 
@@ -134,7 +136,7 @@ public class HomeFrame extends javax.swing.JFrame {
             changePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(changePanelLayout.createSequentialGroup()
                 .addComponent(sideBarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1171, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 832, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

@@ -76,6 +76,12 @@
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="d0" green="e8" red="dc" type="rgb"/>
                 </Property>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="null"/>
+                </Property>
+                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[1024, 600]"/>
+                </Property>
               </Properties>
 
               <Layout>
@@ -83,7 +89,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="sideBarPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="1171" max="32767" attributes="0"/>
+                          <EmptySpace pref="832" max="32767" attributes="0"/>
                           <Component id="jLabel2" min="-2" pref="88" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
