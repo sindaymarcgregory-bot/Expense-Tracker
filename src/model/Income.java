@@ -1,6 +1,7 @@
 package model;
 
 public class Income {
+
     private String source;
     private double amount;
     private String date;
@@ -38,4 +39,5 @@ public class Income {
     public void setDate(String date) {
         this.date = date;
     }
+
 }

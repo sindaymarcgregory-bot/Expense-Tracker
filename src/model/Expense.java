@@ -1,19 +1,20 @@
 package model;
 
 public class Expense {
+
     private String title;
-    private double amount;
     private String category;
+    private double amount;
     private String date;
 
     public Expense() {
 
     }
 
-    public Expense(String title, double amount, String category, String date) {
+    public Expense(String title, String category, double amount, String date) {
         this.title = title;
-        this.amount = amount;
         this.category = category;
+        this.amount = amount;
         this.date = date;
     }
 
@@ -25,20 +26,20 @@ public class Expense {
         this.title = title;
     }
 
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
     public String getCategory() {
         return category;
     }
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     public String getDate() {
