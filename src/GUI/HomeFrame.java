@@ -60,7 +60,13 @@ public class HomeFrame extends javax.swing.JFrame {
         bodyPanel.setBackground(new java.awt.Color(220, 232, 208));
         bodyPanel.setLayout(new javax.swing.BoxLayout(bodyPanel, javax.swing.BoxLayout.LINE_AXIS));
 
+<<<<<<< HEAD
         mainPanel.setBackground(new java.awt.Color(220, 232, 208));
+=======
+        changePanel.setBackground(new java.awt.Color(220, 232, 208));
+        changePanel.setMaximumSize(null);
+        changePanel.setMinimumSize(new java.awt.Dimension(1024, 600));
+>>>>>>> 446617f81cc1a767cb247a670fcf45ae78c35597
 
         sideBarPanel.setBackground(new java.awt.Color(111, 151, 143));
 
@@ -148,7 +154,15 @@ public class HomeFrame extends javax.swing.JFrame {
         changePanel.setLayout(changePanelLayout);
         changePanelLayout.setHorizontalGroup(
             changePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< HEAD
             .addGap(0, 773, Short.MAX_VALUE)
+=======
+            .addGroup(changePanelLayout.createSequentialGroup()
+                .addComponent(sideBarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 832, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+>>>>>>> 446617f81cc1a767cb247a670fcf45ae78c35597
         );
         changePanelLayout.setVerticalGroup(
             changePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
