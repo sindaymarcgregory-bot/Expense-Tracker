@@ -1,23 +1,76 @@
 package model;
 
+import java.sql.Timestamp;
+
 public class Category {
 
-    private String categoryName;
+    private int id;
+    private int userId;
+    private String name;
+    private String type;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
     public Category() {
-
     }
 
-    public Category(String categoryName) {
-        this.categoryName = categoryName;
+    public Category(int id, int userId, String name, String type,
+            Timestamp createdAt, Timestamp updatedAt) {
+
+        this.id = id;
+        this.userId = userId;
+        this.name = name;
+        this.type = type;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public int getId() {
+        return id;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
 }

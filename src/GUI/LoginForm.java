@@ -1,25 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package GUI;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import model.User;
 import services.UserService;
+import utils.Session;
 
-/**
- *
- * @author Arch Salon
- */
 public class LoginForm extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginForm.class.getName());
 
-    /**
-     * Creates new form LoginForm
-     */
     public LoginForm() {
         initComponents();
         setLocationRelativeTo(null); 
@@ -168,6 +158,8 @@ public class LoginForm extends javax.swing.JFrame {
     User user = service.login(username, password);
 
     if (user != null) {
+        
+        Session.setCurrentUser(user);
 
         HomeFrame home = new HomeFrame();
         home.setVisible(true);

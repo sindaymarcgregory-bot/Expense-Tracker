@@ -8,16 +8,13 @@ package GUI;
  *
  * @author Arch Salon
  */
-public class IncomePanel extends javax.swing.JPanel {
+public class AccountPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form IncomePanel
+     * Creates new form AccountPanel
      */
-    public IncomePanel() {
+    public AccountPanel() {
         initComponents();
-        dcIncomeTransactionDate.setDate(new java.util.Date());
-        ((javax.swing.JTextField) dcIncomeTransactionDate.getDateEditor().getUiComponent()).setEditable(false);
-        dcIncomeTransactionDate.setDateFormatString("yyyy-MM-dd");
     }
 
     /**
@@ -33,17 +30,13 @@ public class IncomePanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtfldIncomeAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfldIncomeAmountActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfldIncomeAmountActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
