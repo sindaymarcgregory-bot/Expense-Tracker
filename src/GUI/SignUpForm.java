@@ -149,8 +149,11 @@ public class SignUpForm extends javax.swing.JFrame {
 
         UserService service = new UserService();
 
-        if (service.register(user)) {
-            JOptionPane.showMessageDialog(this, "Account created!");
+        User registeredUser = service.register(user);
+
+        if (registeredUser != null) {
+
+            JOptionPane.showMessageDialog(this, "Account created successfully!");
 
             LoginForm login = new LoginForm();
             login.setVisible(true);

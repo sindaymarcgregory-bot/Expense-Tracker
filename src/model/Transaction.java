@@ -1,30 +1,52 @@
 package model;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
+
 public class Transaction {
-    private String title;
+
+    private int id;
+    private int userId;
+    private int categoryId;
+
     private String type;
-    private double amount;
-    private String category;
-    private String date;
+
+    private BigDecimal amount;
+
+    private String description;
+
+    private Date transactionDate;
+
+    private Timestamp createdAt;
+
+    private Timestamp updatedAt;
 
     public Transaction() {
-
     }
 
-    public Transaction(String title, String type, double amount, String category, String date) {
-        this.title = title;
-        this.type = type;
-        this.amount = amount;
-        this.category = category;
-        this.date = date;
+    public int getId() {
+        return id;
     }
 
-    public String getTitle() {
-        return title;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getType() {
@@ -35,27 +57,44 @@ public class Transaction {
         this.type = type;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
-    public String getCategory() {
-        return category;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getDate() {
-        return date;
+    public Date getTransactionDate() {
+        return transactionDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setTransactionDate(Date transactionDate) {
+        this.transactionDate = transactionDate;
     }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
 }
