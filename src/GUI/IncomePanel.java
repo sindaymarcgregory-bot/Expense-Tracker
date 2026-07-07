@@ -15,9 +15,7 @@ public class IncomePanel extends javax.swing.JPanel {
      */
     public IncomePanel() {
         initComponents();
-        dcIncomeTransactionDate.setDate(new java.util.Date());
-        ((javax.swing.JTextField) dcIncomeTransactionDate.getDateEditor().getUiComponent()).setEditable(false);
-        dcIncomeTransactionDate.setDateFormatString("yyyy-MM-dd");
+        
     }
 
     /**

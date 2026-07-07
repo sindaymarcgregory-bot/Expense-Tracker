@@ -13,6 +13,5 @@ public class TestConnection {
         } else {
             System.out.println("Connection failed!");
         }
-
     }
 }
