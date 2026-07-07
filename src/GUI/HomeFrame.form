@@ -199,9 +199,6 @@
                         <Property name="text" type="java.lang.String" value="Income"/>
                         <Property name="iconTextGap" type="int" value="2"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIncomeActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnExpenses">
                       <Properties>
@@ -216,6 +213,9 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="Expenses"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExpensesActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnHistory">
                       <Properties>
@@ -230,9 +230,6 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="History"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHistoryActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnLogout">
                       <Properties>
@@ -264,9 +261,6 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="Account"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAccountActionPerformed"/>
-                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

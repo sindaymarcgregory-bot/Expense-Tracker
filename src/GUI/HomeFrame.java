@@ -70,18 +70,17 @@ public class HomeFrame extends javax.swing.JFrame {
         btnIncome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/income2.1.png"))); // NOI18N
         btnIncome.setText("Income");
         btnIncome.setIconTextGap(2);
-        btnIncome.addActionListener(this::btnIncomeActionPerformed);
 
         btnExpenses.setBackground(new java.awt.Color(111, 151, 143));
         btnExpenses.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnExpenses.setForeground(new java.awt.Color(255, 255, 255));
         btnExpenses.setText("Expenses");
+        btnExpenses.addActionListener(this::btnExpensesActionPerformed);
 
         btnHistory.setBackground(new java.awt.Color(111, 151, 143));
         btnHistory.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnHistory.setForeground(new java.awt.Color(255, 255, 255));
         btnHistory.setText("History");
-        btnHistory.addActionListener(this::btnHistoryActionPerformed);
 
         btnLogout.setBackground(new java.awt.Color(111, 151, 143));
         btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -93,7 +92,6 @@ public class HomeFrame extends javax.swing.JFrame {
         btnAccount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnAccount.setForeground(new java.awt.Color(255, 255, 255));
         btnAccount.setText("Account");
-        btnAccount.addActionListener(this::btnAccountActionPerformed);
 
         javax.swing.GroupLayout sideBarPanelLayout = new javax.swing.GroupLayout(sideBarPanel);
         sideBarPanel.setLayout(sideBarPanelLayout);
@@ -203,10 +201,6 @@ public class HomeFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncomeActionPerformed
-        switchPanel(new IncomePanel());
-    }//GEN-LAST:event_btnIncomeActionPerformed
-
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         int choice = JOptionPane.showConfirmDialog(
             this,
@@ -224,10 +218,20 @@ public class HomeFrame extends javax.swing.JFrame {
     // If NO is clicked, nothing happens.
 
     }//GEN-LAST:event_btnLogoutActionPerformed
+    // TODO add your handling code here:
+    // TODO add your handling code here:
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDashboardActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDashboardActionPerformed
+
+    private void btnExpensesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExpensesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExpensesActionPerformed
 
     /**
      * @param args the command line arguments
