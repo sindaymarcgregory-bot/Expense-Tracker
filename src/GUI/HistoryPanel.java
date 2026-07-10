@@ -14,6 +14,7 @@ public class HistoryPanel extends javax.swing.JPanel {
      * Creates new form HistoryPanel
      */
     public HistoryPanel() {
+        setSize(900,500);
         initComponents();
     }
 

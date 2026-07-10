@@ -14,6 +14,7 @@ public class ProfilePanel extends javax.swing.JPanel {
      * Creates new form ProfilePanel
      */
     public ProfilePanel() {
+        setSize(900,500);
         initComponents();
     }
 

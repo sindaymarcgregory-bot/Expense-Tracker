@@ -14,6 +14,7 @@ public class ReportPanel extends javax.swing.JPanel {
      * Creates new form ReportPanel
      */
     public ReportPanel() {
+        setSize(900,500);
         initComponents();
     }
 

@@ -15,6 +15,7 @@ public class BudgetPanel extends javax.swing.JPanel {
      */
     public BudgetPanel() {
         initComponents();
+        setSize(900,500);
     }
 
     /**

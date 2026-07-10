@@ -17,6 +17,7 @@ public class HomeFrame extends javax.swing.JFrame {
     public HomeFrame() {
         initComponents();
         setLocationRelativeTo(null);
+        setSize(1056,700);
     }
     
     private void showPanel(javax.swing.JPanel panel) {
@@ -37,6 +38,7 @@ public class HomeFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
         mainContainer = new javax.swing.JPanel();
         bodyPanel = new javax.swing.JPanel();
         mainPanel = new javax.swing.JPanel();
@@ -48,7 +50,9 @@ public class HomeFrame extends javax.swing.JFrame {
         btnLogout = new javax.swing.JButton();
         btnAccount = new javax.swing.JButton();
         changePanel = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(220, 232, 208));
@@ -70,13 +74,14 @@ public class HomeFrame extends javax.swing.JFrame {
         btnDashboard.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDashboard.setForeground(new java.awt.Color(255, 255, 255));
         btnDashboard.setText("Dashboard");
+        btnDashboard.setBorder(null);
         btnDashboard.addActionListener(this::btnDashboardActionPerformed);
 
         btnIncome.setBackground(new java.awt.Color(111, 151, 143));
         btnIncome.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnIncome.setForeground(new java.awt.Color(255, 255, 255));
-        btnIncome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/income2.1.png"))); // NOI18N
         btnIncome.setText("Income");
+        btnIncome.setBorder(null);
         btnIncome.setIconTextGap(2);
         btnIncome.addActionListener(this::btnIncomeActionPerformed);
 
@@ -84,24 +89,28 @@ public class HomeFrame extends javax.swing.JFrame {
         btnExpenses.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnExpenses.setForeground(new java.awt.Color(255, 255, 255));
         btnExpenses.setText("Expenses");
+        btnExpenses.setBorder(null);
         btnExpenses.addActionListener(this::btnExpensesActionPerformed);
 
         btnHistory.setBackground(new java.awt.Color(111, 151, 143));
         btnHistory.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnHistory.setForeground(new java.awt.Color(255, 255, 255));
         btnHistory.setText("History");
+        btnHistory.setBorder(null);
         btnHistory.addActionListener(this::btnHistoryActionPerformed);
 
-        btnLogout.setBackground(new java.awt.Color(111, 151, 143));
+        btnLogout.setBackground(new java.awt.Color(0, 102, 102));
         btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLogout.setForeground(new java.awt.Color(255, 255, 255));
         btnLogout.setText("Logout");
+        btnLogout.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         btnLogout.addActionListener(this::btnLogoutActionPerformed);
 
         btnAccount.setBackground(new java.awt.Color(111, 151, 143));
         btnAccount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnAccount.setForeground(new java.awt.Color(255, 255, 255));
         btnAccount.setText("Account");
+        btnAccount.setBorder(null);
         btnAccount.addActionListener(this::btnAccountActionPerformed);
 
         javax.swing.GroupLayout sideBarPanelLayout = new javax.swing.GroupLayout(sideBarPanel);
@@ -109,61 +118,56 @@ public class HomeFrame extends javax.swing.JFrame {
         sideBarPanelLayout.setHorizontalGroup(
             sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sideBarPanelLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
                 .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(sideBarPanelLayout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(btnLogout))
-                    .addGroup(sideBarPanelLayout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(btnAccount))
-                    .addGroup(sideBarPanelLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnExpenses)
-                            .addComponent(btnIncome)
-                            .addComponent(btnDashboard)
-                            .addComponent(btnHistory))))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btnIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnExpenses, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         sideBarPanelLayout.setVerticalGroup(
             sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sideBarPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnAccount)
-                .addGap(147, 147, 147)
-                .addComponent(btnDashboard)
+                .addGap(87, 87, 87)
+                .addComponent(btnAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(btnDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnIncome)
+                .addComponent(btnIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnExpenses)
-                .addGap(18, 18, 18)
-                .addComponent(btnHistory)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
-                .addComponent(btnLogout)
-                .addGap(21, 21, 21))
+                .addComponent(btnExpenses, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(90, 90, 90)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(167, Short.MAX_VALUE))
         );
 
         changePanel.setBackground(new java.awt.Color(220, 232, 208));
         changePanel.setMinimumSize(new java.awt.Dimension(895, 600));
         changePanel.setName(""); // NOI18N
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sideBarLogo.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lblLogo.png"))); // NOI18N
 
         javax.swing.GroupLayout changePanelLayout = new javax.swing.GroupLayout(changePanel);
         changePanel.setLayout(changePanelLayout);
         changePanelLayout.setHorizontalGroup(
             changePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, changePanelLayout.createSequentialGroup()
-                .addContainerGap(809, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addContainerGap())
+            .addGroup(changePanelLayout.createSequentialGroup()
+                .addGap(208, 208, 208)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(218, Short.MAX_VALUE))
         );
         changePanelLayout.setVerticalGroup(
             changePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, changePanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addContainerGap())
+            .addGroup(changePanelLayout.createSequentialGroup()
+                .addGap(204, 204, 204)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -173,8 +177,7 @@ public class HomeFrame extends javax.swing.JFrame {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addComponent(sideBarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(changePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(changePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,24 +211,6 @@ public class HomeFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        int choice = JOptionPane.showConfirmDialog(
-            this,
-        "Are you sure you want to logout?",
-        "Logout Confirmation",
-        JOptionPane.YES_NO_OPTION,
-        JOptionPane.WARNING_MESSAGE
-    );
-
-    if (choice == JOptionPane.YES_OPTION) {
-        LoginForm login = new LoginForm();
-        login.setVisible(true);
-        this.dispose();
-    }
-    // If NO is clicked, nothing happens.
-
-    }//GEN-LAST:event_btnLogoutActionPerformed
     // TODO add your handling code here:
     // TODO add your handling code here:
     // TODO add your handling code here:
@@ -236,25 +221,42 @@ public class HomeFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void btnDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDashboardActionPerformed
-        showPanel(new DashBoardPanel());
-    }//GEN-LAST:event_btnDashboardActionPerformed
+    private void btnAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccountActionPerformed
+        showPanel(new AccountPanel());
+    }//GEN-LAST:event_btnAccountActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        int choice = JOptionPane.showConfirmDialog(
+            this,
+            "Are you sure you want to logout?",
+            "Logout Confirmation",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE
+        );
+
+        if (choice == JOptionPane.YES_OPTION) {
+            LoginForm login = new LoginForm();
+            login.setVisible(true);
+            this.dispose();
+        }
+        // If NO is clicked, nothing happens.
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryActionPerformed
+        showPanel(new HistoryPanel());
+    }//GEN-LAST:event_btnHistoryActionPerformed
 
     private void btnExpensesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExpensesActionPerformed
         showPanel(new ExpensePanel());
     }//GEN-LAST:event_btnExpensesActionPerformed
 
     private void btnIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncomeActionPerformed
-         showPanel(new IncomePanel());
+        showPanel(new IncomePanel());
     }//GEN-LAST:event_btnIncomeActionPerformed
 
-    private void btnHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryActionPerformed
-        showPanel(new HistoryPanel());
-    }//GEN-LAST:event_btnHistoryActionPerformed
-
-    private void btnAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccountActionPerformed
-        showPanel(new AccountPanel());
-    }//GEN-LAST:event_btnAccountActionPerformed
+    private void btnDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDashboardActionPerformed
+        showPanel(new DashBoardPanel());
+    }//GEN-LAST:event_btnDashboardActionPerformed
 
     /**
      * @param args the command line arguments
@@ -290,7 +292,8 @@ public class HomeFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnIncome;
     private javax.swing.JButton btnLogout;
     private javax.swing.JPanel changePanel;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel mainContainer;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel sideBarPanel;
