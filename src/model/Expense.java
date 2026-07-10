@@ -1,30 +1,31 @@
 package model;
 
+import java.math.BigDecimal;
+
 public class Expense {
 
-    private String title;
+
     private String category;
-    private double amount;
+    private BigDecimal amount;
     private String date;
+    private String description;
+    
 
     public Expense() {
 
     }
 
-    public Expense(String title, String category, double amount, String date) {
-        this.title = title;
+    public Expense( String category, BigDecimal amount, String date, String description) {
+        
         this.category = category;
         this.amount = amount;
         this.date = date;
+        this.description = description;
     }
 
-    public String getTitle() {
-        return title;
-    }
+   
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+   
 
     public String getCategory() {
         return category;
@@ -34,11 +35,11 @@ public class Expense {
         this.category = category;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
@@ -48,5 +49,12 @@ public class Expense {
 
     public void setDate(String date) {
         this.date = date;
+    }
+    
+    public String getDescription(){
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

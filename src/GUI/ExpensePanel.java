@@ -7,6 +7,7 @@ package GUI;
 import model.Category;
 import services.CategoryService;
 import java.util.ArrayList;
+import services.TransactionService;
 import utils.Session;
 
 /**
@@ -56,20 +57,18 @@ public class ExpensePanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         cmboExpenseCategory = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        amountField = new javax.swing.JTextField();
+        expenseAmountField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         expenseTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        descriptionTextArea = new javax.swing.JTextArea();
+        expenseDescriptionTextArea = new javax.swing.JTextArea();
         addExpenseButton = new javax.swing.JButton();
         clearExpenseButton = new javax.swing.JButton();
         deleteRecordExpenseButton = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(220, 232, 208));
         jPanel1.setMaximumSize(null);
-        jPanel1.setMinimumSize(null);
-        jPanel1.setPreferredSize(null);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(111, 151, 143));
@@ -96,14 +95,15 @@ public class ExpensePanel extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(111, 151, 143));
         jLabel3.setText("Notes");
 
-        descriptionTextArea.setColumns(20);
-        descriptionTextArea.setRows(5);
-        descriptionTextArea.setText("Enter your description here...\n\n");
-        jScrollPane2.setViewportView(descriptionTextArea);
+        expenseDescriptionTextArea.setColumns(20);
+        expenseDescriptionTextArea.setRows(5);
+        expenseDescriptionTextArea.setText("Enter your description here...\n\n");
+        jScrollPane2.setViewportView(expenseDescriptionTextArea);
 
         addExpenseButton.setBackground(new java.awt.Color(111, 151, 143));
         addExpenseButton.setForeground(new java.awt.Color(242, 242, 242));
         addExpenseButton.setText("Add");
+        addExpenseButton.addActionListener(this::addExpenseButtonActionPerformed);
 
         clearExpenseButton.setBackground(new java.awt.Color(111, 151, 143));
         clearExpenseButton.setForeground(new java.awt.Color(242, 242, 242));
@@ -122,7 +122,7 @@ public class ExpensePanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmboExpenseCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(expenseAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
@@ -156,7 +156,7 @@ public class ExpensePanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(expenseAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(32, Short.MAX_VALUE))
@@ -182,15 +182,33 @@ public class ExpensePanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addExpenseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addExpenseButtonActionPerformed
+      
+        
+        
+        
+      double expenseAmount = Double.parseDouble(expenseAmountField.getText());
+      String expenseDescription = expenseDescriptionTextArea.getText();
+      Category category = (Category) cmboExpenseCategory.getSelectedItem();
+        
+      TransactionService etransaction = new TransactionService();
+        
+      
+        
+        
+        
+        
+    }//GEN-LAST:event_addExpenseButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addExpenseButton;
-    private javax.swing.JTextField amountField;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton clearExpenseButton;
     private javax.swing.JComboBox<Category> cmboExpenseCategory;
     private javax.swing.JButton deleteRecordExpenseButton;
-    private javax.swing.JTextArea descriptionTextArea;
+    private javax.swing.JTextField expenseAmountField;
+    private javax.swing.JTextArea expenseDescriptionTextArea;
     private javax.swing.JTable expenseTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

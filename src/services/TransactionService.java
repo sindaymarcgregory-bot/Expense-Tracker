@@ -8,6 +8,8 @@ import model.Transaction;
 
 public class TransactionService {
 
+    
+    //add
     public boolean addTransaction(Transaction transaction) {
 
         String sql = """
@@ -35,5 +37,16 @@ public class TransactionService {
 
         return false;
     }
+    
+    //read all
+    
+    
+    
+    
+    //read one
+    
+    
+    
+    /
 
 }
