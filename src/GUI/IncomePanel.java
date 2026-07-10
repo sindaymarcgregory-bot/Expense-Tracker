@@ -35,7 +35,6 @@ public class IncomePanel extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(220, 232, 208));
         jPanel1.setMaximumSize(null);
-        jPanel1.setMinimumSize(null);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(111, 151, 143));
