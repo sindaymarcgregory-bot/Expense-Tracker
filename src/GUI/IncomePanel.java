@@ -1,5 +1,7 @@
 package GUI;
 
+import model.Category;
+
 public class IncomePanel extends javax.swing.JPanel {
 
 
@@ -19,34 +21,31 @@ public class IncomePanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        CategoryComboBox = new javax.swing.JComboBox<>();
+        cmboIncomeCategory = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        amountField = new javax.swing.JTextField();
+        amountFieldIncome = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        expenseTable = new javax.swing.JTable();
+        incomeTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        descriptionTextArea = new javax.swing.JTextArea();
-        addExpenseButton = new javax.swing.JButton();
-        clearExpenseButton = new javax.swing.JButton();
-        deleteRecordExpenseButton = new javax.swing.JButton();
+        incomeDescriptionTextArea = new javax.swing.JTextArea();
+        addIncomeButton = new javax.swing.JButton();
+        clearIncomeButton = new javax.swing.JButton();
+        deleteRecordIncomeButton = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(220, 232, 208));
         jPanel1.setMaximumSize(null);
-        jPanel1.setMinimumSize(new java.awt.Dimension(883, 600));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1024, 600));
+        jPanel1.setMinimumSize(null);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(111, 151, 143));
         jLabel2.setText("Category");
 
-        CategoryComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(111, 151, 143));
         jLabel1.setText("Amount");
 
-        expenseTable.setModel(new javax.swing.table.DefaultTableModel(
+        incomeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -57,57 +56,57 @@ public class IncomePanel extends javax.swing.JPanel {
                 "Amount", "Category", "Description", "Date"
             }
         ));
-        jScrollPane1.setViewportView(expenseTable);
+        jScrollPane1.setViewportView(incomeTable);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(111, 151, 143));
         jLabel3.setText("Notes");
 
-        descriptionTextArea.setColumns(20);
-        descriptionTextArea.setRows(5);
-        descriptionTextArea.setText("Enter your description here...\n\n");
-        jScrollPane2.setViewportView(descriptionTextArea);
+        incomeDescriptionTextArea.setColumns(20);
+        incomeDescriptionTextArea.setRows(5);
+        incomeDescriptionTextArea.setText("Enter your description here...\n\n");
+        jScrollPane2.setViewportView(incomeDescriptionTextArea);
 
-        addExpenseButton.setBackground(new java.awt.Color(111, 151, 143));
-        addExpenseButton.setForeground(new java.awt.Color(242, 242, 242));
-        addExpenseButton.setText("Add");
+        addIncomeButton.setBackground(new java.awt.Color(111, 151, 143));
+        addIncomeButton.setForeground(new java.awt.Color(242, 242, 242));
+        addIncomeButton.setText("Add");
 
-        clearExpenseButton.setBackground(new java.awt.Color(111, 151, 143));
-        clearExpenseButton.setForeground(new java.awt.Color(242, 242, 242));
-        clearExpenseButton.setText("Clear");
+        clearIncomeButton.setBackground(new java.awt.Color(111, 151, 143));
+        clearIncomeButton.setForeground(new java.awt.Color(242, 242, 242));
+        clearIncomeButton.setText("Clear");
 
-        deleteRecordExpenseButton.setBackground(new java.awt.Color(111, 151, 143));
-        deleteRecordExpenseButton.setForeground(new java.awt.Color(242, 242, 242));
-        deleteRecordExpenseButton.setText("Delete Record");
+        deleteRecordIncomeButton.setBackground(new java.awt.Color(111, 151, 143));
+        deleteRecordIncomeButton.setForeground(new java.awt.Color(242, 242, 242));
+        deleteRecordIncomeButton.setText("Delete Record");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(147, 147, 147)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2)
+                .addGap(47, 47, 47)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmboIncomeCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(amountField)
-                    .addComponent(CategoryComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(amountFieldIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(333, 333, 333))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addGap(300, 300, 300))
+                            .addComponent(addIncomeButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(clearIncomeButton)
+                            .addGap(37, 37, 37)
+                            .addComponent(deleteRecordIncomeButton)
+                            .addGap(39, 39, 39))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(26, 26, 26)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(addExpenseButton)
-                        .addGap(44, 44, 44)
-                        .addComponent(clearExpenseButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(deleteRecordExpenseButton)
-                        .addGap(15, 15, 15))))
+                            .addGap(98, 98, 98)))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,24 +115,24 @@ public class IncomePanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addGap(14, 14, 14)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(CategoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmboIncomeCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(amountFieldIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(38, Short.MAX_VALUE))
+                        .addContainerGap(32, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(addExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(clearExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(deleteRecordExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(addIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(clearIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(deleteRecordIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(53, 53, 53))))
         );
 
@@ -146,13 +145,13 @@ public class IncomePanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> CategoryComboBox;
-    private javax.swing.JButton addExpenseButton;
-    private javax.swing.JTextField amountField;
-    private javax.swing.JButton clearExpenseButton;
-    private javax.swing.JButton deleteRecordExpenseButton;
-    private javax.swing.JTextArea descriptionTextArea;
-    private javax.swing.JTable expenseTable;
+    private javax.swing.JButton addIncomeButton;
+    private javax.swing.JTextField amountFieldIncome;
+    private javax.swing.JButton clearIncomeButton;
+    private javax.swing.JComboBox<Category> cmboIncomeCategory;
+    private javax.swing.JButton deleteRecordIncomeButton;
+    private javax.swing.JTextArea incomeDescriptionTextArea;
+    private javax.swing.JTable incomeTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
