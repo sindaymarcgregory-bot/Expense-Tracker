@@ -109,6 +109,9 @@ public class IncomePanel extends javax.swing.JPanel {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
         jPanel1.add(incomeAmountField, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 497, 36));
 
+        jScrollPane1.setBackground(new java.awt.Color(220, 232, 208));
+
+        incomeTable.setBackground(new java.awt.Color(220, 232, 208));
         incomeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
