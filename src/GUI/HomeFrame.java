@@ -16,8 +16,9 @@ public class HomeFrame extends javax.swing.JFrame {
      */
     public HomeFrame() {
         initComponents();
+        setTitle("Expense Tracker");
         setLocationRelativeTo(null);
-        setSize(1056,700);
+        setSize(1056,650);
     }
     
     private void showPanel(javax.swing.JPanel panel) {

@@ -7,13 +7,13 @@ import services.UserService;
 import utils.Session;
 
 public class LoginForm extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginForm.class.getName());
 
     public LoginForm() {
         initComponents();
-        setLocationRelativeTo(null); 
-        
+        setLocationRelativeTo(null);
+
         getRootPane().setDefaultButton(btnLogin);
     }
 
@@ -112,7 +112,7 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(btnSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
 
         getContentPane().add(loginPanel);
@@ -127,50 +127,47 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSignupActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-    String username = lblbUsername.getText().trim();
-    String password = String.valueOf(lblPassword.getPassword());
+        String loginInput = lblbUsername.getText().trim();
+        String password = String.valueOf(lblPassword.getPassword());
 
-    // Check if both fields are empty
-    if (username.isEmpty() && password.isEmpty()) {
-        JOptionPane.showMessageDialog(this,
-                "Please enter your username and password.");
-        lblbUsername.requestFocus();
-        return;
-    }
+        if (loginInput.isEmpty() && password.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Please enter your username or email and password.");
+            lblbUsername.requestFocus();
+            return;
+        }
 
-    // Check if username is empty
-    if (username.isEmpty()) {
-        JOptionPane.showMessageDialog(this,
-                "Please enter your username.");
-        lblbUsername.requestFocus();
-        return;
-    }
+        if (loginInput.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Please enter your username or email.");
+            lblbUsername.requestFocus();
+            return;
+        }
 
-    // Check if password is empty
-    if (password.isEmpty()) {
-        JOptionPane.showMessageDialog(this,
-                "Please enter your password.");
-        lblPassword.requestFocus();
-        return;
-    }
+        if (password.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Please enter your password.");
+            lblPassword.requestFocus();
+            return;
+        }
 
-    UserService service = new UserService();
-    User user = service.login(username, password);
+        UserService service = new UserService();
+        User user = service.login(loginInput, password);
 
-    if (user != null) {
-        
-        Session.setCurrentUser(user);
+        if (user != null) {
 
-        HomeFrame home = new HomeFrame();
-        home.setVisible(true);
-        dispose();
+            Session.setCurrentUser(user);
 
-    } else {
+            HomeFrame home = new HomeFrame();
+            home.setVisible(true);
+            dispose();
 
-        JOptionPane.showMessageDialog(this,
-                "Invalid username or password.");
+        } else {
 
-    }
+            JOptionPane.showMessageDialog(this,
+                    "Invalid username/email or password.");
+
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**

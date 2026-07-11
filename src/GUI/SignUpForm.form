@@ -68,23 +68,55 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="258" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblbUsername" alignment="0" min="-2" pref="363" max="-2" attributes="0"/>
-                              <Component id="txtPassword" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblPassword" alignment="0" min="-2" pref="363" max="-2" attributes="0"/>
-                              <Component id="txtUsername" alignment="0" min="-2" pref="136" max="-2" attributes="0"/>
-                              <Component id="btnSignUp2" alignment="0" min="-2" pref="363" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="258" max="-2" attributes="0"/>
+                          <Component id="jLabel2" min="-2" pref="522" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jLabel2" alignment="1" min="-2" pref="522" max="-2" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="395" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="290" max="-2" attributes="0"/>
+                              <Component id="txtUsername2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="btnSignUp2" alignment="0" min="-2" pref="363" max="-2" attributes="0"/>
+                                  <Component id="setemailfield" min="-2" pref="363" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="txtPassword" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="setpasswordfield" min="-2" pref="363" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="txtUsername" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="setusernamefield" min="-2" pref="363" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="txtUsername3" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="fullnamefield" min="-2" pref="363" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="txtPassword1" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                      <Component id="setphonefield" min="-2" pref="132" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                                      <Component id="txtPassword2" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="setagefield" min="-2" pref="115" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace pref="276" max="32767" attributes="0"/>
@@ -95,27 +127,44 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="txtUsername" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblbUsername" min="-2" pref="44" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="txtPassword" min="-2" pref="16" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblPassword" min="-2" pref="44" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="btnSignUp2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="183" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="fullnamefield" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                      <Component id="txtUsername3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="setusernamefield" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                      <Component id="txtUsername" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtUsername2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="setemailfield" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtPassword" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                      <Component id="setpasswordfield" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtPassword1" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                      <Component id="txtPassword2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="setagefield" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="setphonefield" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="btnSignUp2" min="-2" pref="36" max="-2" attributes="0"/>
+                  <EmptySpace pref="73" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="lblbUsername">
-        </Component>
-        <Component class="javax.swing.JPasswordField" name="lblPassword">
+        <Component class="javax.swing.JTextField" name="setusernamefield">
         </Component>
         <Component class="javax.swing.JButton" name="btnSignUp2">
           <Properties>
@@ -142,7 +191,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="8f" green="97" red="6f" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Username or email"/>
+            <Property name="text" type="java.lang.String" value="Username"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="txtPassword">
@@ -172,6 +221,60 @@
               <Color blue="7b" green="85" red="52" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Create Account"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="txtUsername2">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="8f" green="97" red="6f" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Email"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="setpasswordfield">
+        </Component>
+        <Component class="javax.swing.JLabel" name="txtPassword1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="8f" green="97" red="6f" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Phone number"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="txtPassword2">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="8f" green="97" red="6f" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Age"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="setphonefield">
+        </Component>
+        <Component class="javax.swing.JTextField" name="setemailfield">
+        </Component>
+        <Component class="javax.swing.JTextField" name="setagefield">
+        </Component>
+        <Component class="javax.swing.JTextField" name="fullnamefield">
+        </Component>
+        <Component class="javax.swing.JLabel" name="txtUsername3">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="8f" green="97" red="6f" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Full Name"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.Dimension;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ public class IncomePanel extends javax.swing.JPanel {
 
     public IncomePanel() {
         initComponents();
+        //setPreferredSize(new Dimension(1024,600));
         loadIncomeCategories();
         loadIncomeTable();
         
@@ -87,16 +89,25 @@ public class IncomePanel extends javax.swing.JPanel {
         addIncomeButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
+        setPreferredSize(new java.awt.Dimension(882, 620));
+
         jPanel1.setBackground(new java.awt.Color(220, 232, 208));
-        jPanel1.setMaximumSize(null);
+        jPanel1.setMaximumSize(new java.awt.Dimension(1024, 700));
+        jPanel1.setPreferredSize(new java.awt.Dimension(882, 620));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(111, 151, 143));
         jLabel2.setText("Category");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
+
+        jPanel1.add(cmboIncomeCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 497, 36));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(111, 151, 143));
         jLabel1.setText("Amount");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
+        jPanel1.add(incomeAmountField, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 497, 36));
 
         incomeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -117,102 +128,48 @@ public class IncomePanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(incomeTable);
 
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 497, 317));
+
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(111, 151, 143));
         jLabel3.setText("Notes");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 60, -1, -1));
 
         incomeDescriptionTextArea.setColumns(20);
         incomeDescriptionTextArea.setRows(5);
         incomeDescriptionTextArea.setText("\n\n");
         jScrollPane2.setViewportView(incomeDescriptionTextArea);
 
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 90, 285, 174));
+
         updateIncomeButton.setBackground(new java.awt.Color(111, 151, 143));
         updateIncomeButton.setForeground(new java.awt.Color(242, 242, 242));
         updateIncomeButton.setText("Update");
         updateIncomeButton.addActionListener(this::updateIncomeButtonActionPerformed);
+        jPanel1.add(updateIncomeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 280, 80, 39));
 
         clearIncomeButton.setBackground(new java.awt.Color(111, 151, 143));
         clearIncomeButton.setForeground(new java.awt.Color(242, 242, 242));
         clearIncomeButton.setText("Clear");
         clearIncomeButton.addActionListener(this::clearIncomeButtonActionPerformed);
+        jPanel1.add(clearIncomeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 340, 80, 39));
 
         deleteIncomeButton.setBackground(new java.awt.Color(111, 151, 143));
         deleteIncomeButton.setForeground(new java.awt.Color(242, 242, 242));
         deleteIncomeButton.setText("Delete");
         deleteIncomeButton.addActionListener(this::deleteIncomeButtonActionPerformed);
+        jPanel1.add(deleteIncomeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 340, 80, 39));
 
         addIncomeButton.setBackground(new java.awt.Color(111, 151, 143));
         addIncomeButton.setForeground(new java.awt.Color(242, 242, 242));
         addIncomeButton.setText("Add");
         addIncomeButton.addActionListener(this::addIncomeButtonActionPerformed);
+        jPanel1.add(addIncomeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 280, 80, 39));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(111, 151, 143));
         jLabel4.setText("Enter your description here...");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cmboIncomeCategory, 0, 497, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
-                    .addComponent(incomeAmountField, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
-                    .addComponent(jScrollPane1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(98, 98, 98))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(addIncomeButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(updateIncomeButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(deleteIncomeButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(clearIncomeButton)
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3))
-                        .addContainerGap())))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cmboIncomeCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(incomeAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(32, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(deleteIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(addIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(updateIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(clearIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(53, 53, 53))))
-        );
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 240, -1, -1));
 
         add(jPanel1);
     }// </editor-fold>//GEN-END:initComponents

@@ -11,13 +11,17 @@ import org.mindrot.jbcrypt.BCrypt;
 public class UserService {
 
     public User register(User user) {
-        String sql = "INSERT INTO users(username, password) VALUES (?, ?)";
+        String sql = "INSERT INTO users(fullname, username, email, phone, age, password) VALUES (?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
-            ps.setString(1, user.getUsername());
-            ps.setString(2, user.getPassword());
+            ps.setString(1, user.getFullname());
+            ps.setString(2, user.getUsername());
+            ps.setString(3, user.getEmail());
+            ps.setString(4, user.getPhone());
+            ps.setInt(5, user.getAge());
+            ps.setString(6, user.getPassword());
+            
 
             int rows = ps.executeUpdate();
 
@@ -37,19 +41,37 @@ public class UserService {
 
             }
         } catch (SQLException e) {
-         e.printStackTrace();
+            e.printStackTrace();
         }
         return null;
     }
 
-    public User login(String username, String password) {
+    public boolean updateProfilePicture(int userId, String imagePath) {
 
-        String sql = "SELECT * FROM users WHERE username = ?";
+        String sql = "UPDATE users SET profile_picture = ? WHERE id = ?";
 
-        try (Connection conn = DBConnection.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, username);
+            ps.setString(1, imagePath);
+            ps.setInt(2, userId);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public User login(String loginInput, String password) {
+
+        String sql = "SELECT * FROM users WHERE username = ? OR email = ?";
+
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, loginInput);
+            ps.setString(2, loginInput);
 
             ResultSet rs = ps.executeQuery();
 
@@ -66,12 +88,18 @@ public class UserService {
                     user.setId(rs.getInt("id"));
                     user.setUsername(rs.getString("username"));
                     user.setPassword(storedHash);
+                    user.setAge(rs.getInt("age"));
+                    user.setFullname(rs.getString("fullname"));
+                    user.setEmail(rs.getString("email"));
+                    user.setPhone(rs.getString("phone"));
+                    user.setAge(rs.getInt("age"));
+                    user.setProfilePicture(rs.getString("profile_picture"));
 
                     return user;
                 }
             }
         } catch (SQLException e) {
-             e.printStackTrace();
+            e.printStackTrace();
         }
         return null;
     }

@@ -4,7 +4,18 @@
  */
 package GUI;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import model.User;
+import services.UserService;
+import utils.Session;
+import javax.swing.ImageIcon;
+import java.awt.Image;
+import java.io.File;
 
 /**
  *
@@ -17,7 +28,43 @@ public class AccountPanel extends javax.swing.JPanel {
      */
     public AccountPanel() {
         initComponents();
-        
+
+        java.awt.EventQueue.invokeLater(() -> {
+            loadUserInfo();
+        });
+    }
+
+    private void loadUserInfo() {
+
+        User user = Session.getCurrentUser();
+
+        if (user != null) {
+
+            useridfield.setText(String.format("%04d", user.getId()));
+            namefield.setText(user.getFullname());   // Use your actual field name
+            usernamefield.setText(user.getUsername());
+            emailfield.setText(user.getEmail());
+            phonefield.setText(user.getPhone());
+            agefield.setText(String.valueOf(user.getAge()));
+
+            if (user.getProfilePicture() != null && !user.getProfilePicture().isEmpty()) {
+
+                File imageFile = new File(user.getProfilePicture());
+
+                if (imageFile.exists()) {
+
+                    ImageIcon icon = new ImageIcon(imageFile.getAbsolutePath());
+
+                    Image image = icon.getImage().getScaledInstance(
+                            150,
+                            150,
+                            Image.SCALE_SMOOTH);
+
+                    lblProfilePicture.setIcon(new ImageIcon(image));
+                }
+            }
+
+        }
     }
 
     /**
@@ -34,6 +81,7 @@ public class AccountPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         sideBarPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+        lblProfilePicture = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -46,6 +94,8 @@ public class AccountPanel extends javax.swing.JPanel {
         emailfield = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         phonefield = new javax.swing.JTextField();
+        btnUploadPicture = new javax.swing.JButton();
+        btnEditDetails = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         sideBarPanel2 = new javax.swing.JPanel();
 
@@ -90,16 +140,25 @@ public class AccountPanel extends javax.swing.JPanel {
         });
 
         sideBarPanel.setBackground(new java.awt.Color(111, 151, 143));
+        sideBarPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(150, 150));
+
+        lblProfilePicture.setPreferredSize(new java.awt.Dimension(150, 150));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(lblProfilePicture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 167, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(lblProfilePicture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -119,18 +178,27 @@ public class AccountPanel extends javax.swing.JPanel {
         jLabel6.setText("Age:");
 
         usernamefield.setBackground(new java.awt.Color(111, 151, 143));
+        usernamefield.setFont(new java.awt.Font("SansSerif", 1, 17)); // NOI18N
+        usernamefield.setBorder(null);
         usernamefield.setEnabled(false);
 
         namefield.setBackground(new java.awt.Color(111, 151, 143));
+        namefield.setFont(new java.awt.Font("SansSerif", 1, 17)); // NOI18N
         namefield.setForeground(new java.awt.Color(111, 151, 143));
+        namefield.setBorder(null);
+        namefield.setEnabled(false);
 
         agefield.setEditable(false);
         agefield.setBackground(new java.awt.Color(111, 151, 143));
+        agefield.setFont(new java.awt.Font("SansSerif", 1, 17)); // NOI18N
+        agefield.setBorder(null);
         agefield.setEnabled(false);
         agefield.addActionListener(this::agefieldActionPerformed);
 
         useridfield.setEditable(false);
         useridfield.setBackground(new java.awt.Color(111, 151, 143));
+        useridfield.setFont(new java.awt.Font("SansSerif", 1, 17)); // NOI18N
+        useridfield.setBorder(null);
         useridfield.setEnabled(false);
         useridfield.addActionListener(this::useridfieldActionPerformed);
 
@@ -139,6 +207,8 @@ public class AccountPanel extends javax.swing.JPanel {
         jLabel7.setText("Email:");
 
         emailfield.setBackground(new java.awt.Color(111, 151, 143));
+        emailfield.setFont(new java.awt.Font("SansSerif", 1, 17)); // NOI18N
+        emailfield.setBorder(null);
         emailfield.setEnabled(false);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -146,7 +216,19 @@ public class AccountPanel extends javax.swing.JPanel {
         jLabel8.setText("Phone:");
 
         phonefield.setBackground(new java.awt.Color(111, 151, 143));
+        phonefield.setFont(new java.awt.Font("SansSerif", 1, 17)); // NOI18N
+        phonefield.setBorder(null);
         phonefield.setEnabled(false);
+
+        btnUploadPicture.setBackground(new java.awt.Color(204, 204, 204));
+        btnUploadPicture.setText("Upload Picture");
+        btnUploadPicture.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnUploadPicture.addActionListener(this::btnUploadPictureActionPerformed);
+
+        btnEditDetails.setBackground(new java.awt.Color(204, 204, 204));
+        btnEditDetails.setText("Edit Details");
+        btnEditDetails.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnEditDetails.addActionListener(this::btnEditDetailsActionPerformed);
 
         javax.swing.GroupLayout sideBarPanelLayout = new javax.swing.GroupLayout(sideBarPanel);
         sideBarPanel.setLayout(sideBarPanelLayout);
@@ -156,38 +238,49 @@ public class AccountPanel extends javax.swing.JPanel {
                 .addGap(17, 17, 17)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sideBarPanelLayout.createSequentialGroup()
+                .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sideBarPanelLayout.createSequentialGroup()
+                        .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(namefield, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                            .addComponent(usernamefield)))
+                    .addGroup(sideBarPanelLayout.createSequentialGroup()
                         .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addGap(58, 58, 58)
                         .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(agefield, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(useridfield, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(78, 78, 78))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sideBarPanelLayout.createSequentialGroup()
-                        .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sideBarPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addGroup(sideBarPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(41, 41, 41)))
-                        .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(namefield, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                            .addComponent(usernamefield))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(useridfield, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(agefield, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)))
                 .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(sideBarPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(emailfield, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(sideBarPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(phonefield, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(sideBarPanelLayout.createSequentialGroup()
+                                .addGap(107, 107, 107)
+                                .addComponent(jLabel7))
+                            .addGroup(sideBarPanelLayout.createSequentialGroup()
+                                .addGap(105, 105, 105)
+                                .addComponent(jLabel8)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sideBarPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sideBarPanelLayout.createSequentialGroup()
+                                .addComponent(emailfield, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(43, 43, 43))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sideBarPanelLayout.createSequentialGroup()
+                                .addComponent(phonefield, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(170, 170, 170))))))
+            .addGroup(sideBarPanelLayout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnUploadPicture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEditDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         sideBarPanelLayout.setVerticalGroup(
             sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,26 +291,28 @@ public class AccountPanel extends javax.swing.JPanel {
                     .addGroup(sideBarPanelLayout.createSequentialGroup()
                         .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(namefield, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(namefield, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
                         .addGap(18, 18, 18)
                         .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(usernamefield, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)
                             .addComponent(emailfield, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel8)
-                                .addComponent(phonefield, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel5)
-                                .addComponent(useridfield, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(15, 15, 15)
+                        .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(useridfield, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addGap(14, 14, 14)
                         .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(agefield, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(48, Short.MAX_VALUE))
+                            .addComponent(agefield, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(phonefield, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnUploadPicture)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnEditDetails)
+                .addContainerGap())
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
@@ -225,12 +320,13 @@ public class AccountPanel extends javax.swing.JPanel {
         jLabel1.setText("My Account");
 
         sideBarPanel2.setBackground(new java.awt.Color(111, 151, 143));
+        sideBarPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
         javax.swing.GroupLayout sideBarPanel2Layout = new javax.swing.GroupLayout(sideBarPanel2);
         sideBarPanel2.setLayout(sideBarPanel2Layout);
         sideBarPanel2Layout.setHorizontalGroup(
             sideBarPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 872, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         sideBarPanel2Layout.setVerticalGroup(
             sideBarPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,12 +337,15 @@ public class AccountPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(353, 353, 353))
-            .addComponent(sideBarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(sideBarPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(sideBarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(sideBarPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(360, 360, 360)
+                        .addComponent(jLabel1)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,7 +355,7 @@ public class AccountPanel extends javax.swing.JPanel {
                 .addComponent(sideBarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(sideBarPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -272,9 +371,66 @@ public class AccountPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_agefieldActionPerformed
 
+    private void btnUploadPictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadPictureActionPerformed
+
+        JFileChooser chooser = new JFileChooser();
+
+        int result = chooser.showOpenDialog(this);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+
+            File selectedFile = chooser.getSelectedFile();
+
+            User user = Session.getCurrentUser();
+
+            // Create the destination file name
+            String destination = "profile_pictures/"
+                    + String.format("%04d", user.getId()) + ".png";
+
+            try {
+
+                File folder = new File("profile_pictures");
+
+                if (!folder.exists()) {
+                    folder.mkdirs();
+                }
+
+                File destinationFile = new File(folder,
+                        String.format("%04d.png", user.getId()));
+
+                Files.copy(
+                        selectedFile.toPath(),
+                        destinationFile.toPath(),
+                        StandardCopyOption.REPLACE_EXISTING
+                );
+
+                String imagePath = destinationFile.getPath();
+
+                UserService service = new UserService();
+
+                service.updateProfilePicture(user.getId(), imagePath);
+
+                user.setProfilePicture(imagePath);
+
+                JOptionPane.showMessageDialog(this,
+                        "Profile picture uploaded successfully!");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, e.toString());
+            }
+        }
+    }//GEN-LAST:event_btnUploadPictureActionPerformed
+
+    private void btnEditDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditDetailsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditDetailsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField agefield;
+    private javax.swing.JButton btnEditDetails;
+    private javax.swing.JButton btnUploadPicture;
     private javax.swing.JTextField emailfield;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
@@ -286,6 +442,7 @@ public class AccountPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblProfilePicture;
     private javax.swing.JTextField namefield;
     private javax.swing.JTextField phonefield;
     private javax.swing.JPanel sideBarPanel;
