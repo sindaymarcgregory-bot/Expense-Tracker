@@ -6,40 +6,26 @@ import java.sql.Timestamp;
 
 public class Transaction {
 
-    private int id;
-    private int userId;
-    private int categoryId;
-
+    
+    
     private String type;
-
     private BigDecimal amount;
-
+    private int categoryId;
     private String description;
 
-    private Date transactionDate;
 
-    private Timestamp createdAt;
-
-    private Timestamp updatedAt;
-
-    public Transaction() {
+    public Transaction(String type, BigDecimal amount, int categoryId,  String description) {
+     
+        this.type = type;
+        this.amount = amount;
+        this.categoryId = categoryId;
+        this.description = description;
+        
+        
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
 
     public int getCategoryId() {
         return categoryId;
@@ -71,30 +57,6 @@ public class Transaction {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Date getTransactionDate() {
-        return transactionDate;
-    }
-
-    public void setTransactionDate(Date transactionDate) {
-        this.transactionDate = transactionDate;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Timestamp getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
 }

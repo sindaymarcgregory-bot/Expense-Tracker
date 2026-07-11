@@ -5,9 +5,8 @@ import java.math.BigDecimal;
 public class Expense {
 
 
-    private String category;
+    private int categoryId;
     private BigDecimal amount;
-    private String date;
     private String description;
     
 
@@ -15,11 +14,10 @@ public class Expense {
 
     }
 
-    public Expense( String category, BigDecimal amount, String date, String description) {
+    public Expense( int categoryId, BigDecimal amount, String description) {
         
-        this.category = category;
+        this.categoryId = categoryId;
         this.amount = amount;
-        this.date = date;
         this.description = description;
     }
 
@@ -27,12 +25,12 @@ public class Expense {
 
    
 
-    public String getCategory() {
-        return category;
+    public int getCategoryId() {
+        return categoryId;
     }
 
     public void setCategory(String category) {
-        this.category = category;
+        this.categoryId = categoryId;
     }
 
     public BigDecimal getAmount() {
@@ -43,13 +41,6 @@ public class Expense {
         this.amount = amount;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
     
     public String getDescription(){
         return description;
