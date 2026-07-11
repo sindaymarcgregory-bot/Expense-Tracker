@@ -146,4 +146,25 @@ public class CategoryService {
             e.printStackTrace();
         }
     }
+    
+    public String getCategoryNameById(int categoryId) {
+        String sql = """
+                SELECT category_name
+                FROM categories
+                WHERE id = ?
+                """;
+        try (
+                Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+        ) {
+            ps.setInt(1, categoryId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("category_name");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 }

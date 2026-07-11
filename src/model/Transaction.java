@@ -6,26 +6,57 @@ import java.sql.Timestamp;
 
 public class Transaction {
 
-    
-    
+    // Attributes
+    private int id;
+    private int userId;
+    private int categoryId;
     private String type;
     private BigDecimal amount;
-    private int categoryId;
+    private Date transactionDate;
     private String description;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
-
-    public Transaction(String type, BigDecimal amount, int categoryId,  String description) {
-     
-        this.type = type;
-        this.amount = amount;
-        this.categoryId = categoryId;
-        this.description = description;
-        
-        
+    public Transaction() {
     }
 
+    public Transaction(int id, int userId, int categoryId,
+            String type, BigDecimal amount,
+            Date transactionDate,
+            String description,
+            Timestamp createdAt,
+            Timestamp updatedAt) {
 
+        this.id = id;
+        this.userId = userId;
+        this.categoryId = categoryId;
+        this.type = type;
+        this.amount = amount;
+        this.transactionDate = transactionDate;
+        this.description = description;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
+    //==========================
+    // GETTERS AND SETTERS
+    //==========================
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     public int getCategoryId() {
         return categoryId;
@@ -43,6 +74,7 @@ public class Transaction {
         this.type = type;
     }
 
+
     public BigDecimal getAmount() {
         return amount;
     }
@@ -51,12 +83,36 @@ public class Transaction {
         this.amount = amount;
     }
 
+    public Date getTransactionDate() {
+        return transactionDate;
+    }
+
+    public void setTransactionDate(Date transactionDate) {
+        this.transactionDate = transactionDate;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
 }

@@ -4,9 +4,15 @@
  */
 package GUI;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import model.Category;
 import services.CategoryService;
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Transaction;
 import services.TransactionService;
 import utils.Session;
 
@@ -19,10 +25,42 @@ public class ExpensePanel extends javax.swing.JPanel {
     /**
      * Creates new form ExpensePanel
      */
+    
+    private int selectedTransactionId = -1;
+    
     public ExpensePanel() {
         initComponents();
         
         loadExpenseCategories();
+        
+        loadExpenseTable();
+        
+        expenseTable.getColumnModel().getColumn(0).setMinWidth(0);
+        expenseTable.getColumnModel().getColumn(0).setMaxWidth(0);
+        expenseTable.getColumnModel().getColumn(0).setPreferredWidth(0);  
+    }
+    
+    private void loadExpenseTable() {
+        DefaultTableModel model = (DefaultTableModel) expenseTable.getModel();
+        model.setRowCount(0);
+        TransactionService transactionService = new TransactionService();
+        CategoryService categoryService = new CategoryService();
+        int userId = Session.getCurrentUser().getId();
+        
+        List<Transaction> transactions = transactionService.getTransactionsByType(userId, "expense");
+    
+        for (Transaction transaction : transactions) {
+            String categoryName =
+                    categoryService.getCategoryNameById(
+                            transaction.getCategoryId());
+            model.addRow(new Object[]{
+                transaction.getId(),
+                transaction.getAmount(),
+                categoryName,
+                transaction.getDescription(),
+                transaction.getTransactionDate()
+            });
+        }
     }
     
     private void loadExpenseCategories() {
@@ -63,9 +101,11 @@ public class ExpensePanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         expenseDescriptionTextArea = new javax.swing.JTextArea();
-        addExpenseButton = new javax.swing.JButton();
+        updateExpenseButton = new javax.swing.JButton();
         clearExpenseButton = new javax.swing.JButton();
-        deleteRecordExpenseButton = new javax.swing.JButton();
+        deleteExpenseButton = new javax.swing.JButton();
+        addExpenseButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(220, 232, 208));
         jPanel1.setMaximumSize(null);
@@ -80,15 +120,21 @@ public class ExpensePanel extends javax.swing.JPanel {
 
         expenseTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Amount", "Category", "Description", "Date"
+                "ID", "Amount", "Category", "Description", "Date"
             }
         ));
+        expenseTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                expenseTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(expenseTable);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -97,21 +143,32 @@ public class ExpensePanel extends javax.swing.JPanel {
 
         expenseDescriptionTextArea.setColumns(20);
         expenseDescriptionTextArea.setRows(5);
-        expenseDescriptionTextArea.setText("Enter your description here...\n\n");
+        expenseDescriptionTextArea.setText("\n\n");
         jScrollPane2.setViewportView(expenseDescriptionTextArea);
 
-        addExpenseButton.setBackground(new java.awt.Color(111, 151, 143));
-        addExpenseButton.setForeground(new java.awt.Color(242, 242, 242));
-        addExpenseButton.setText("Add");
-        addExpenseButton.addActionListener(this::addExpenseButtonActionPerformed);
+        updateExpenseButton.setBackground(new java.awt.Color(111, 151, 143));
+        updateExpenseButton.setForeground(new java.awt.Color(242, 242, 242));
+        updateExpenseButton.setText("Update");
+        updateExpenseButton.addActionListener(this::updateExpenseButtonActionPerformed);
 
         clearExpenseButton.setBackground(new java.awt.Color(111, 151, 143));
         clearExpenseButton.setForeground(new java.awt.Color(242, 242, 242));
         clearExpenseButton.setText("Clear");
+        clearExpenseButton.addActionListener(this::clearExpenseButtonActionPerformed);
 
-        deleteRecordExpenseButton.setBackground(new java.awt.Color(111, 151, 143));
-        deleteRecordExpenseButton.setForeground(new java.awt.Color(242, 242, 242));
-        deleteRecordExpenseButton.setText("Delete Record");
+        deleteExpenseButton.setBackground(new java.awt.Color(111, 151, 143));
+        deleteExpenseButton.setForeground(new java.awt.Color(242, 242, 242));
+        deleteExpenseButton.setText("Delete");
+        deleteExpenseButton.addActionListener(this::deleteExpenseButtonActionPerformed);
+
+        addExpenseButton1.setBackground(new java.awt.Color(111, 151, 143));
+        addExpenseButton1.setForeground(new java.awt.Color(242, 242, 242));
+        addExpenseButton1.setText("Add");
+        addExpenseButton1.addActionListener(this::addExpenseButton1ActionPerformed);
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(111, 151, 143));
+        jLabel4.setText("Enter your description here...");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,28 +176,32 @@ public class ExpensePanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmboExpenseCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmboExpenseCategory, 0, 497, Short.MAX_VALUE)
                     .addComponent(jLabel1)
-                    .addComponent(expenseAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(expenseAmountField, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(333, 333, 333))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(addExpenseButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(clearExpenseButton)
-                            .addGap(37, 37, 37)
-                            .addComponent(deleteRecordExpenseButton)
-                            .addGap(39, 39, 39))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(98, 98, 98)))))
+                            .addGap(98, 98, 98))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(addExpenseButton1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(updateExpenseButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(deleteExpenseButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(clearExpenseButton)
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,11 +223,14 @@ public class ExpensePanel extends javax.swing.JPanel {
                         .addContainerGap(32, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(addExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(clearExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(deleteRecordExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(deleteExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addExpenseButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(updateExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(clearExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(53, 53, 53))))
         );
 
@@ -182,39 +246,201 @@ public class ExpensePanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addExpenseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addExpenseButtonActionPerformed
-      
+    private void updateExpenseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateExpenseButtonActionPerformed
+        if (selectedTransactionId == -1) {
+
+        JOptionPane.showMessageDialog(this,
+                "Please select a transaction first.");
+
+        return;
+        }
+
+        try {
+            Category category = (Category) cmboExpenseCategory.getSelectedItem();
+
+            BigDecimal amount = new BigDecimal(expenseAmountField.getText());
+
+            String description = expenseDescriptionTextArea.getText();
+
+            Transaction transaction = new Transaction();
+
+            transaction.setId(selectedTransactionId);
+            transaction.setCategoryId(category.getId());
+            transaction.setAmount(amount);
+            transaction.setDescription(description);
         
-        
-        
-      double expenseAmount = Double.parseDouble(expenseAmountField.getText());
-      String expenseDescription = expenseDescriptionTextArea.getText();
-      Category category = (Category) cmboExpenseCategory.getSelectedItem();
-        
-      TransactionService etransaction = new TransactionService();
-        
-      
-        
-        
-        
-        
-    }//GEN-LAST:event_addExpenseButtonActionPerformed
+            TransactionService service = new TransactionService();
+
+            if (service.updateTransaction(transaction)) {
+                JOptionPane.showMessageDialog(this, "Expense updated successfully!");
+
+                loadExpenseTable();
+
+                expenseAmountField.setText("");
+                expenseDescriptionTextArea.setText("");
+                cmboExpenseCategory.setSelectedIndex(0);
+
+                selectedTransactionId = -1;
+            } else {
+                JOptionPane.showMessageDialog(this, "Update failed.");
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Invalid amount.");
+        }
+    }//GEN-LAST:event_updateExpenseButtonActionPerformed
+
+    private void addExpenseButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addExpenseButton1ActionPerformed
+    try {
+        Category category = (Category) cmboExpenseCategory.getSelectedItem();
+
+        if (category == null) {
+            JOptionPane.showMessageDialog(this, "Please select a category.");
+            return;
+        }
+
+        String amountText = expenseAmountField.getText().trim();
+
+        if (amountText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter an amount.");
+            return;
+        }
+
+        BigDecimal amount = new BigDecimal(amountText);
+
+        String description = expenseDescriptionTextArea.getText().trim();
+
+        Transaction transaction = new Transaction();
+
+        transaction.setUserId(Session.getCurrentUser().getId());
+        transaction.setCategoryId(category.getId());
+        transaction.setType("expense");
+        transaction.setAmount(amount);
+        transaction.setDescription(description);
+
+        // Automatically use today's date
+        transaction.setTransactionDate(java.sql.Date.valueOf(LocalDate.now()));
+
+        TransactionService service = new TransactionService();
+
+        if (service.addTransaction(transaction)) {
+            JOptionPane.showMessageDialog(this, "Expense added successfully!");
+
+            // Refresh the JTable
+            loadExpenseTable();
+
+            // Clear the form
+            expenseAmountField.setText("");
+            expenseDescriptionTextArea.setText("");
+
+            if (cmboExpenseCategory.getItemCount() > 0) {
+                cmboExpenseCategory.setSelectedIndex(0);
+            }
+
+            // Reset selection
+            expenseTable.clearSelection();
+            selectedTransactionId = -1;
+        } else {
+            JOptionPane.showMessageDialog(this, "Unable to save expense.");
+        }
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(this, "Please enter a valid amount.");
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "An error occurred while saving the expense.");
+    }
+    }//GEN-LAST:event_addExpenseButton1ActionPerformed
+
+    private void expenseTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_expenseTableMouseClicked
+        int row = expenseTable.getSelectedRow();
+        if (row == -1) {
+            return;
+        }
+
+        // Save the selected transaction ID
+        selectedTransactionId = Integer.parseInt(expenseTable.getValueAt(row, 0).toString());
+
+        // Fill the form
+        expenseAmountField.setText(expenseTable.getValueAt(row, 1).toString());
+
+        String categoryName = expenseTable.getValueAt(row, 2).toString();
+
+        for (int i = 0; i < cmboExpenseCategory.getItemCount(); i++) {
+            Category category = cmboExpenseCategory.getItemAt(i);
+            if (category.getName().equals(categoryName)) {
+                cmboExpenseCategory.setSelectedIndex(i);
+                break;
+            }
+        }
+        expenseDescriptionTextArea.setText(expenseTable.getValueAt(row, 3).toString());
+    }//GEN-LAST:event_expenseTableMouseClicked
+
+    private void deleteExpenseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteExpenseButtonActionPerformed
+        if (selectedTransactionId == -1) {
+        JOptionPane.showMessageDialog(this, "Please select a transaction first.");
+        return;
+        }
+
+        int choice = JOptionPane.showConfirmDialog(
+                this,
+                "Delete this transaction?",
+                "Confirm Delete",
+                JOptionPane.YES_NO_OPTION);
+
+        if (choice != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        TransactionService service = new TransactionService();
+
+        if (service.deleteTransaction(selectedTransactionId)) {
+            JOptionPane.showMessageDialog(this, "Transaction deleted!");
+
+            loadExpenseTable();
+
+            expenseAmountField.setText("");
+            expenseDescriptionTextArea.setText("");
+            cmboExpenseCategory.setSelectedIndex(0);
+
+            selectedTransactionId = -1;
+        } else {
+            JOptionPane.showMessageDialog(this, "Unable to delete.");
+        }
+    }//GEN-LAST:event_deleteExpenseButtonActionPerformed
+
+    private void clearExpenseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearExpenseButtonActionPerformed
+        // Clear the input fields
+        expenseAmountField.setText("");
+        expenseDescriptionTextArea.setText("");
+
+        // Reset category
+        if (cmboExpenseCategory.getItemCount() > 0) {
+            cmboExpenseCategory.setSelectedIndex(0);
+        }
+
+        // Unselect any selected row
+        expenseTable.clearSelection();
+
+        // Reset selected transaction
+        selectedTransactionId = -1;
+    }//GEN-LAST:event_clearExpenseButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addExpenseButton;
+    private javax.swing.JButton addExpenseButton1;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton clearExpenseButton;
     private javax.swing.JComboBox<Category> cmboExpenseCategory;
-    private javax.swing.JButton deleteRecordExpenseButton;
+    private javax.swing.JButton deleteExpenseButton;
     private javax.swing.JTextField expenseAmountField;
     private javax.swing.JTextArea expenseDescriptionTextArea;
     private javax.swing.JTable expenseTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton updateExpenseButton;
     // End of variables declaration//GEN-END:variables
 }

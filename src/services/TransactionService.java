@@ -1,28 +1,51 @@
 package services;
 
 import DAO.TransactionDAO;
-import database.DBConnection;
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import model.Transaction;
 
 public class TransactionService {
-
-    private static final TransactionDAO transactionsDAO = new TransactionDAO();
-
-    public boolean registerExpense(Transaction transaction) {
+    private final TransactionDAO transactionDAO = new TransactionDAO();
+    
+    public boolean addTransaction(Transaction transaction) {
+        if (transaction.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
+            return false;
+        }
         try {
-            if (transaction.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
-                return false;
-            }
-            transactionsDAO.addExpense(transaction);
-            return true;
+            return transactionDAO.addTransaction(transaction);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+            e.printStackTrace();
             return false;
         }
     }
-
+    
+    public List<Transaction> getTransactionsByType(int userId, String type) {
+        try {
+            return transactionDAO.getTransactionsByType(userId, type);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+    
+    public boolean updateTransaction(Transaction transaction) {
+    try {
+        return transactionDAO.updateTransaction(transaction);
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+        }
+    }
+    
+    public boolean deleteTransaction(int id) {
+        try {
+            return transactionDAO.deleteTransaction(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
