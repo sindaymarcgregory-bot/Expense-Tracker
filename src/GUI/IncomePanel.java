@@ -92,22 +92,22 @@ public class IncomePanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(882, 620));
 
         jPanel1.setBackground(new java.awt.Color(220, 232, 208));
-        jPanel1.setMaximumSize(new java.awt.Dimension(1024, 700));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1024, 600));
+        jPanel1.setMinimumSize(new java.awt.Dimension(895, 600));
+        jPanel1.setPreferredSize(new java.awt.Dimension(917, 361));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(111, 151, 143));
         jLabel2.setText("Category");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, -1));
 
-        jPanel1.add(cmboIncomeCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 497, 36));
+        jPanel1.add(cmboIncomeCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 497, 36));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(111, 151, 143));
         jLabel1.setText("Amount");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, -1));
-        jPanel1.add(incomeAmountField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 497, 36));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
+        jPanel1.add(incomeAmountField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 497, 36));
 
         jScrollPane1.setBackground(new java.awt.Color(220, 232, 208));
 
@@ -131,50 +131,59 @@ public class IncomePanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(incomeTable);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 497, 317));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 497, 317));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(111, 151, 143));
         jLabel3.setText("Notes");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 80, -1, -1));
 
         incomeDescriptionTextArea.setColumns(20);
         incomeDescriptionTextArea.setRows(5);
         incomeDescriptionTextArea.setText("\n\n");
         jScrollPane2.setViewportView(incomeDescriptionTextArea);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 100, 285, 174));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 110, 285, 174));
 
         updateIncomeButton.setBackground(new java.awt.Color(111, 151, 143));
         updateIncomeButton.setForeground(new java.awt.Color(242, 242, 242));
         updateIncomeButton.setText("Update");
         updateIncomeButton.addActionListener(this::updateIncomeButtonActionPerformed);
-        jPanel1.add(updateIncomeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 380, 80, 39));
+        jPanel1.add(updateIncomeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 370, 80, 39));
 
         clearIncomeButton.setBackground(new java.awt.Color(111, 151, 143));
         clearIncomeButton.setForeground(new java.awt.Color(242, 242, 242));
         clearIncomeButton.setText("Clear");
         clearIncomeButton.addActionListener(this::clearIncomeButtonActionPerformed);
-        jPanel1.add(clearIncomeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 470, 80, 39));
+        jPanel1.add(clearIncomeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 460, 80, 39));
 
         deleteIncomeButton.setBackground(new java.awt.Color(111, 151, 143));
         deleteIncomeButton.setForeground(new java.awt.Color(242, 242, 242));
         deleteIncomeButton.setText("Delete");
         deleteIncomeButton.addActionListener(this::deleteIncomeButtonActionPerformed);
-        jPanel1.add(deleteIncomeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 470, 80, 39));
+        jPanel1.add(deleteIncomeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 470, 80, 39));
 
         addIncomeButton.setBackground(new java.awt.Color(111, 151, 143));
         addIncomeButton.setForeground(new java.awt.Color(242, 242, 242));
         addIncomeButton.setText("Add");
         addIncomeButton.addActionListener(this::addIncomeButtonActionPerformed);
-        jPanel1.add(addIncomeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 380, 80, 39));
+        jPanel1.add(addIncomeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 370, 80, 39));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(111, 151, 143));
         jLabel5.setText("Enter your description here...");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 290, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 290, -1, -1));
 
-        add(jPanel1);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 960, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtfldIncomeAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfldIncomeAmountActionPerformed
