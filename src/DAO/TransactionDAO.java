@@ -106,4 +106,131 @@ public class TransactionDAO {
         return stmt.executeUpdate() > 0;
         }
     }
+    
+    
+    public List<Transaction> getTransactionHistory(int userId) throws SQLException {
+
+        List<Transaction> history = new ArrayList<>();
+        String sql = """
+            SELECT *
+            FROM transactions
+            WHERE user_id = ?
+            ORDER BY transaction_date DESC, id DESC
+            """;
+        try (
+            Connection connection = DBConnection.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Transaction transaction = new Transaction();
+
+                transaction.setId(rs.getInt("id"));
+                transaction.setUserId(rs.getInt("user_id"));
+                transaction.setCategoryId(rs.getInt("category_id"));
+                transaction.setType(rs.getString("type"));
+                transaction.setAmount(rs.getBigDecimal("amount"));
+                transaction.setTransactionDate(rs.getDate("transaction_date"));
+                transaction.setDescription(rs.getString("description"));
+
+                history.add(transaction);
+            }
+        }
+        return history;
+    }
+    
+    public List<Transaction> getTransactionHistoryByType(int userId, String type) throws SQLException {
+        List<Transaction> history = new ArrayList<>();
+        String sql = """
+            SELECT *
+            FROM transactions
+            WHERE user_id = ?
+            AND type = ?
+            ORDER BY transaction_date DESC, id DESC
+            """;
+        try (
+            Connection connection = DBConnection.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, userId);
+            stmt.setString(2, type);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Transaction transaction = new Transaction();
+
+                transaction.setId(rs.getInt("id"));
+                transaction.setUserId(rs.getInt("user_id"));
+                transaction.setCategoryId(rs.getInt("category_id"));
+                transaction.setType(rs.getString("type"));
+                transaction.setAmount(rs.getBigDecimal("amount"));
+                transaction.setTransactionDate(rs.getDate("transaction_date"));
+                transaction.setDescription(rs.getString("description"));
+
+                history.add(transaction);
+            }
+        }
+        return history;
+    }
+    
+    public List<Transaction> searchTransactionHistory(int userId, String filter, String keyword) throws SQLException {
+        List<Transaction> history = new ArrayList<>();
+
+        StringBuilder sql = new StringBuilder("""
+            SELECT t.*
+            FROM transactions t
+            JOIN categories c
+            ON t.category_id = c.id
+            WHERE t.user_id = ?
+            """);
+
+        if (!filter.equalsIgnoreCase("All")) {
+            sql.append(" AND t.type = ? ");
+        }
+
+        sql.append("""
+            AND (
+                LOWER(c.category_name) LIKE ?
+                OR LOWER(t.description) LIKE ?
+                OR LOWER(t.type) LIKE ?
+            )
+            ORDER BY t.transaction_date DESC, t.id DESC
+            """);
+        try (
+            Connection connection = DBConnection.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql.toString());
+        ) {
+            int index = 1;
+
+            stmt.setInt(index++, userId);
+
+            if (!filter.equalsIgnoreCase("All")) {
+                stmt.setString(index++, filter.toLowerCase());
+            }
+            String search = "%" + keyword.toLowerCase() + "%";
+
+            stmt.setString(index++, search);
+            stmt.setString(index++, search);
+            stmt.setString(index++, search);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Transaction transaction = new Transaction();
+
+                transaction.setId(rs.getInt("id"));
+                transaction.setUserId(rs.getInt("user_id"));
+                transaction.setCategoryId(rs.getInt("category_id"));
+                transaction.setType(rs.getString("type"));
+                transaction.setAmount(rs.getBigDecimal("amount"));
+                transaction.setTransactionDate(rs.getDate("transaction_date"));
+                transaction.setDescription(rs.getString("description"));
+
+                history.add(transaction);
+            }
+        }
+        return history;
+    }
 }

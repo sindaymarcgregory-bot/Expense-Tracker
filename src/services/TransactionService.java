@@ -48,4 +48,31 @@ public class TransactionService {
             return false;
         }
     }
+    
+    public List<Transaction> getTransactionHistory(int userId) {
+        try {
+            return transactionDAO.getTransactionHistory(userId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+    
+    public List<Transaction> getTransactionHistoryByType(int userId, String type) {
+        try {
+            return transactionDAO.getTransactionHistoryByType(userId, type);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+    
+    public List<Transaction> searchTransactionHistory(int userId, String filter, String keyword) {
+        try {
+            return transactionDAO.searchTransactionHistory(userId, filter, keyword);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
 }
