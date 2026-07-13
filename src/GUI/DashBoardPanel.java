@@ -31,8 +31,6 @@ public class DashBoardPanel extends javax.swing.JPanel {
 
         dashBoardPanel.setBackground(new java.awt.Color(220, 232, 208));
         dashBoardPanel.setMaximumSize(null);
-        dashBoardPanel.setMinimumSize(null);
-        dashBoardPanel.setPreferredSize(null);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(111, 151, 143));
@@ -43,16 +41,16 @@ public class DashBoardPanel extends javax.swing.JPanel {
         dashBoardPanelLayout.setHorizontalGroup(
             dashBoardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashBoardPanelLayout.createSequentialGroup()
-                .addGap(299, 299, 299)
+                .addGap(288, 288, 288)
                 .addComponent(jLabel1)
-                .addContainerGap(298, Short.MAX_VALUE))
+                .addContainerGap(309, Short.MAX_VALUE))
         );
         dashBoardPanelLayout.setVerticalGroup(
             dashBoardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashBoardPanelLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(47, 47, 47)
                 .addComponent(jLabel1)
-                .addContainerGap(374, Short.MAX_VALUE))
+                .addContainerGap(364, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
