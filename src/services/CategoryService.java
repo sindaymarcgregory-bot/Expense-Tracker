@@ -65,4 +65,13 @@ public class CategoryService {
             return false;
         }
     }
+    
+    public boolean isCategoryInUse(int categoryId) {
+    try {
+        return categoryDAO.isCategoryInUse(categoryId);
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return true;
+    }
+    }
 }

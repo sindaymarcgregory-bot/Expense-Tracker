@@ -176,4 +176,31 @@ public class CategoryDAO {
         }
         return false;
     }
+    
+    // Check if category is used in any transaction
+public boolean isCategoryInUse(int categoryId) throws SQLException 
+{
+    String sql = """
+            SELECT COUNT(*)
+            FROM transactions
+            WHERE category_id = ?
+            """;
+
+    try (
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ) 
+    {
+
+        ps.setInt(1, categoryId);
+
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) 
+        {
+            return rs.getInt(1) > 0;
+        }
+    }
+    return false;
+    }
 }
