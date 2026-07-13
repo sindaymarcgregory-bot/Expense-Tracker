@@ -225,18 +225,23 @@ public class AccountPanel extends javax.swing.JPanel {
 
         usernamefield.setBackground(new java.awt.Color(111, 151, 143));
         usernamefield.setFont(new java.awt.Font("SansSerif", 1, 17)); // NOI18N
+        usernamefield.setText("username");
         usernamefield.setBorder(null);
         usernamefield.setEnabled(false);
+        usernamefield.addActionListener(this::usernamefieldActionPerformed);
 
         namefield.setBackground(new java.awt.Color(111, 151, 143));
         namefield.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         namefield.setForeground(new java.awt.Color(255, 255, 255));
+        namefield.setText("name");
         namefield.setBorder(null);
         namefield.setEnabled(false);
+        namefield.addActionListener(this::namefieldActionPerformed);
 
         agefield.setEditable(false);
         agefield.setBackground(new java.awt.Color(111, 151, 143));
         agefield.setFont(new java.awt.Font("SansSerif", 1, 17)); // NOI18N
+        agefield.setText("age");
         agefield.setBorder(null);
         agefield.setEnabled(false);
         agefield.addActionListener(this::agefieldActionPerformed);
@@ -244,6 +249,7 @@ public class AccountPanel extends javax.swing.JPanel {
         useridfield.setEditable(false);
         useridfield.setBackground(new java.awt.Color(111, 151, 143));
         useridfield.setFont(new java.awt.Font("SansSerif", 1, 17)); // NOI18N
+        useridfield.setText("userdid");
         useridfield.setBorder(null);
         useridfield.setEnabled(false);
         useridfield.addActionListener(this::useridfieldActionPerformed);
@@ -254,6 +260,7 @@ public class AccountPanel extends javax.swing.JPanel {
 
         emailfield.setBackground(new java.awt.Color(111, 151, 143));
         emailfield.setFont(new java.awt.Font("SansSerif", 1, 17)); // NOI18N
+        emailfield.setText("aknsd@masad.com");
         emailfield.setBorder(null);
         emailfield.setEnabled(false);
 
@@ -263,8 +270,10 @@ public class AccountPanel extends javax.swing.JPanel {
 
         phonefield.setBackground(new java.awt.Color(111, 151, 143));
         phonefield.setFont(new java.awt.Font("SansSerif", 1, 17)); // NOI18N
+        phonefield.setText("hahaaa");
         phonefield.setBorder(null);
         phonefield.setEnabled(false);
+        phonefield.addActionListener(this::phonefieldActionPerformed);
 
         btnUploadPicture.setBackground(new java.awt.Color(204, 204, 204));
         btnUploadPicture.setText("Upload Picture");
@@ -410,7 +419,7 @@ public class AccountPanel extends javax.swing.JPanel {
         sideBarPanel2Layout.setHorizontalGroup(
             sideBarPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sideBarPanel2Layout.createSequentialGroup()
-                .addGap(250, 250, 250)
+                .addGap(229, 229, 229)
                 .addGroup(sideBarPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblIncomeTitle)
                     .addComponent(lblExpenseTitle)
@@ -541,6 +550,18 @@ public class AccountPanel extends javax.swing.JPanel {
     private void btnEditDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditDetailsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEditDetailsActionPerformed
+
+    private void usernamefieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernamefieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usernamefieldActionPerformed
+
+    private void phonefieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phonefieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_phonefieldActionPerformed
+
+    private void namefieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namefieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_namefieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
