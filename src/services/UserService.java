@@ -1,106 +1,169 @@
 package services;
 
-import database.DBConnection;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import DAO.UserDAO;
 import java.sql.SQLException;
 import model.User;
-import org.mindrot.jbcrypt.BCrypt;
 
 public class UserService {
 
+  
+    //User DAO Object
+   
+    private final UserDAO userDAO = new UserDAO();
+
+   
+    //Register New User
+   
     public User register(User user) {
-        String sql = "INSERT INTO users(fullname, username, email, phone, age, password) VALUES (?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+        try {
 
-            ps.setString(1, user.getFullname());
-            ps.setString(2, user.getUsername());
-            ps.setString(3, user.getEmail());
-            ps.setString(4, user.getPhone());
-            ps.setInt(5, user.getAge());
-            ps.setString(6, user.getPassword());
-            
+            // Register the user
+            User registeredUser = userDAO.register(user);
 
-            int rows = ps.executeUpdate();
+            // If successful, create default categories
+            if (registeredUser != null) {
 
-            if (rows > 0) {
-
-                ResultSet rs = ps.getGeneratedKeys();
-
-                if (rs.next()) {
-
-                    user.setId(rs.getInt(1));
-
-                    CategoryService categoryService = new CategoryService();
-                    categoryService.insertDefaultCategories(user.getId());
-
-                    return user;
-                }
+                CategoryService categoryService = new CategoryService();
+                categoryService.insertDefaultCategories(registeredUser.getId());
 
             }
+
+            return registeredUser;
+
         } catch (SQLException e) {
+
             e.printStackTrace();
+
         }
+
         return null;
     }
 
-    public boolean updateProfilePicture(int userId, String imagePath) {
+    // ==========================================
+    // Login User
+    // ==========================================
+    public User login(String loginInput, String password) {
 
-        String sql = "UPDATE users SET profile_picture = ? WHERE id = ?";
+        try {
 
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setString(1, imagePath);
-            ps.setInt(2, userId);
-
-            return ps.executeUpdate() > 0;
+            return userDAO.login(loginInput, password);
 
         } catch (SQLException e) {
+
             e.printStackTrace();
+
+        }
+
+        return null;
+    }
+
+    // ==========================================
+    // Update Profile Picture
+    // ==========================================
+    public boolean updateProfilePicture(int userId, String imagePath)  {
+
+        try {
+
+            return userDAO.updateProfilePicture(userId, imagePath);
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+
         }
 
         return false;
     }
 
-    public User login(String loginInput, String password) {
+    // ==========================================
+    // Check if Username Already Exists
+    // ==========================================
+    public boolean usernameExists(String username) {
 
-        String sql = "SELECT * FROM users WHERE username = ? OR email = ?";
+        try {
 
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            return userDAO.usernameExists(username);
 
-            ps.setString(1, loginInput);
-            ps.setString(2, loginInput);
-
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-
-                String storedHash = rs.getString("password");
-
-                if (BCrypt.checkpw(password, storedHash)) {
-
-                    User user = new User();
-
-                    // If you add an id field later:
-                    // user.setId(rs.getInt("id"));
-                    user.setId(rs.getInt("id"));
-                    user.setUsername(rs.getString("username"));
-                    user.setPassword(storedHash);
-                    user.setAge(rs.getInt("age"));
-                    user.setFullname(rs.getString("fullname"));
-                    user.setEmail(rs.getString("email"));
-                    user.setPhone(rs.getString("phone"));
-                    user.setAge(rs.getInt("age"));
-                    user.setProfilePicture(rs.getString("profile_picture"));
-
-                    return user;
-                }
-            }
         } catch (SQLException e) {
+
             e.printStackTrace();
+
         }
+
+        return false;
+    }
+
+    // ==========================================
+    // Check if Email Already Exists
+    // ==========================================
+    public boolean emailExists(String email) {
+
+        try {
+
+            return userDAO.emailExists(email);
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+
+        }
+
+        return false;
+    }
+
+    // ==========================================
+    // Retrieve User by ID
+    // ==========================================
+    public User getUserById(int id) {
+
+        try {
+
+            return userDAO.getUserById(id);
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+
+        }
+
         return null;
     }
+
+    // ==========================================
+    // Update User Information
+    // ==========================================
+    public boolean updateUser(User user) {
+
+        try {
+
+            return userDAO.updateUser(user);
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+
+        }
+
+        return false;
+    }
+
+    // ==========================================
+    // Delete User
+    // ==========================================
+    public boolean deleteUser(int id) {
+
+        try {
+
+            return userDAO.deleteUser(id);
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+
+        }
+
+        return false;
+    }
+
 }
