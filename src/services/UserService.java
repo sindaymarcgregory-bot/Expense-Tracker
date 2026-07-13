@@ -40,9 +40,7 @@ public class UserService {
         return null;
     }
 
-    // ==========================================
     // Login User
-    // ==========================================
     public User login(String loginInput, String password) {
 
         try {
@@ -58,9 +56,7 @@ public class UserService {
         return null;
     }
 
-    // ==========================================
     // Update Profile Picture
-    // ==========================================
     public boolean updateProfilePicture(int userId, String imagePath)  {
 
         try {
@@ -76,9 +72,7 @@ public class UserService {
         return false;
     }
 
-    // ==========================================
     // Check if Username Already Exists
-    // ==========================================
     public boolean usernameExists(String username) {
 
         try {
@@ -94,9 +88,7 @@ public class UserService {
         return false;
     }
 
-    // ==========================================
     // Check if Email Already Exists
-    // ==========================================
     public boolean emailExists(String email) {
 
         try {
@@ -112,9 +104,7 @@ public class UserService {
         return false;
     }
 
-    // ==========================================
     // Retrieve User by ID
-    // ==========================================
     public User getUserById(int id) {
 
         try {
@@ -130,9 +120,8 @@ public class UserService {
         return null;
     }
 
-    // ==========================================
     // Update User Information
-    // ==========================================
+
     public boolean updateUser(User user) {
 
         try {
@@ -147,10 +136,8 @@ public class UserService {
 
         return false;
     }
-
-    // ==========================================
+    
     // Delete User
-    // ==========================================
     public boolean deleteUser(int id) {
 
         try {
