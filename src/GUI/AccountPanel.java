@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import DAO.TransactionDAO;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,6 +17,9 @@ import utils.Session;
 import javax.swing.ImageIcon;
 import java.awt.Image;
 import java.io.File;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 /**
  *
@@ -28,10 +32,42 @@ public class AccountPanel extends javax.swing.JPanel {
      */
     public AccountPanel() {
         initComponents();
+        loadStatistics();
 
         java.awt.EventQueue.invokeLater(() -> {
             loadUserInfo();
         });
+    }
+
+    private void loadStatistics() {
+
+        try {
+
+            TransactionDAO dao = new TransactionDAO();
+
+            int userId = Session.getCurrentUser().getId();
+
+            BigDecimal income = dao.getTotalByType(userId, "income");
+            BigDecimal expense = dao.getTotalByType(userId, "expense");
+
+            BigDecimal balance = income.subtract(expense);
+
+            int transactionCount = dao.getTransactionCount(userId);
+            int categoryCount = dao.getCategoryCount(userId);
+
+            // 👇 Paste it here
+            NumberFormat peso = NumberFormat.getCurrencyInstance(new Locale("en", "PH"));
+
+            lblTotalIncome.setText(peso.format(income));
+            lblTotalExpense.setText(peso.format(expense));
+            lblBalance.setText(peso.format(balance));
+
+            lblTransactionCount.setText(String.valueOf(transactionCount));
+            lblCategoryCount.setText(String.valueOf(categoryCount));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadUserInfo() {
@@ -98,6 +134,16 @@ public class AccountPanel extends javax.swing.JPanel {
         btnEditDetails = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         sideBarPanel2 = new javax.swing.JPanel();
+        lblIncomeTitle = new javax.swing.JLabel();
+        lblExpenseTitle = new javax.swing.JLabel();
+        lblBalanceTitle = new javax.swing.JLabel();
+        lblTransactionsTitle = new javax.swing.JLabel();
+        lblCategoriesTitle = new javax.swing.JLabel();
+        lblTotalIncome = new javax.swing.JLabel();
+        lblTotalExpense = new javax.swing.JLabel();
+        lblBalance = new javax.swing.JLabel();
+        lblTransactionCount = new javax.swing.JLabel();
+        lblCategoryCount = new javax.swing.JLabel();
 
         sideBarPanel1.setBackground(new java.awt.Color(111, 151, 143));
 
@@ -183,8 +229,8 @@ public class AccountPanel extends javax.swing.JPanel {
         usernamefield.setEnabled(false);
 
         namefield.setBackground(new java.awt.Color(111, 151, 143));
-        namefield.setFont(new java.awt.Font("SansSerif", 1, 17)); // NOI18N
-        namefield.setForeground(new java.awt.Color(111, 151, 143));
+        namefield.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        namefield.setForeground(new java.awt.Color(255, 255, 255));
         namefield.setBorder(null);
         namefield.setEnabled(false);
 
@@ -238,10 +284,9 @@ public class AccountPanel extends javax.swing.JPanel {
                 .addGap(17, 17, 17)
                 .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnEditDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnUploadPicture, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(18, 18, Short.MAX_VALUE)
+                    .addComponent(btnUploadPicture, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 22, Short.MAX_VALUE)
                 .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(sideBarPanelLayout.createSequentialGroup()
                         .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -320,30 +365,104 @@ public class AccountPanel extends javax.swing.JPanel {
         sideBarPanel2.setBackground(new java.awt.Color(111, 151, 143));
         sideBarPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
+        lblIncomeTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblIncomeTitle.setForeground(new java.awt.Color(0, 102, 102));
+        lblIncomeTitle.setText("Total Income");
+
+        lblExpenseTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblExpenseTitle.setForeground(new java.awt.Color(0, 102, 102));
+        lblExpenseTitle.setText("Total Expenses");
+
+        lblBalanceTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblBalanceTitle.setForeground(new java.awt.Color(0, 102, 102));
+        lblBalanceTitle.setText("Current Balance ");
+
+        lblTransactionsTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTransactionsTitle.setForeground(new java.awt.Color(0, 102, 102));
+        lblTransactionsTitle.setText("Transactions");
+
+        lblCategoriesTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblCategoriesTitle.setForeground(new java.awt.Color(0, 102, 102));
+        lblCategoriesTitle.setText("Categories Used");
+
+        lblTotalIncome.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTotalIncome.setForeground(new java.awt.Color(0, 102, 102));
+        lblTotalIncome.setText("0.00");
+
+        lblTotalExpense.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTotalExpense.setForeground(new java.awt.Color(0, 102, 102));
+        lblTotalExpense.setText("0.00");
+
+        lblBalance.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblBalance.setForeground(new java.awt.Color(0, 102, 102));
+        lblBalance.setText("0.00");
+
+        lblTransactionCount.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTransactionCount.setForeground(new java.awt.Color(0, 102, 102));
+        lblTransactionCount.setText("0");
+
+        lblCategoryCount.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblCategoryCount.setForeground(new java.awt.Color(0, 102, 102));
+        lblCategoryCount.setText("0");
+
         javax.swing.GroupLayout sideBarPanel2Layout = new javax.swing.GroupLayout(sideBarPanel2);
         sideBarPanel2.setLayout(sideBarPanel2Layout);
         sideBarPanel2Layout.setHorizontalGroup(
             sideBarPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(sideBarPanel2Layout.createSequentialGroup()
+                .addGap(250, 250, 250)
+                .addGroup(sideBarPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblIncomeTitle)
+                    .addComponent(lblExpenseTitle)
+                    .addComponent(lblBalanceTitle)
+                    .addComponent(lblTransactionsTitle)
+                    .addComponent(lblCategoriesTitle))
+                .addGap(150, 150, 150)
+                .addGroup(sideBarPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblBalance)
+                    .addComponent(lblTotalExpense)
+                    .addComponent(lblTotalIncome)
+                    .addGroup(sideBarPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblCategoryCount)
+                        .addComponent(lblTransactionCount)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         sideBarPanel2Layout.setVerticalGroup(
             sideBarPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 285, Short.MAX_VALUE)
+            .addGroup(sideBarPanel2Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(sideBarPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTotalIncome)
+                    .addComponent(lblIncomeTitle))
+                .addGap(18, 18, 18)
+                .addGroup(sideBarPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblExpenseTitle)
+                    .addComponent(lblTotalExpense))
+                .addGap(18, 18, 18)
+                .addGroup(sideBarPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBalanceTitle)
+                    .addComponent(lblBalance))
+                .addGap(18, 18, 18)
+                .addGroup(sideBarPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTransactionCount)
+                    .addComponent(lblTransactionsTitle))
+                .addGap(18, 18, 18)
+                .addGroup(sideBarPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCategoriesTitle)
+                    .addComponent(lblCategoryCount))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addComponent(sideBarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(sideBarPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(sideBarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(sideBarPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(360, 360, 360)
-                        .addComponent(jLabel1)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(360, 360, 360)
+                .addComponent(jLabel1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -352,8 +471,7 @@ public class AccountPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sideBarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(sideBarPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addComponent(sideBarPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -440,7 +558,17 @@ public class AccountPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblBalance;
+    private javax.swing.JLabel lblBalanceTitle;
+    private javax.swing.JLabel lblCategoriesTitle;
+    private javax.swing.JLabel lblCategoryCount;
+    private javax.swing.JLabel lblExpenseTitle;
+    private javax.swing.JLabel lblIncomeTitle;
     private javax.swing.JLabel lblProfilePicture;
+    private javax.swing.JLabel lblTotalExpense;
+    private javax.swing.JLabel lblTotalIncome;
+    private javax.swing.JLabel lblTransactionCount;
+    private javax.swing.JLabel lblTransactionsTitle;
     private javax.swing.JTextField namefield;
     private javax.swing.JTextField phonefield;
     private javax.swing.JPanel sideBarPanel;

@@ -4,10 +4,18 @@
  */
 package GUI;
 
-/**
- *
- * @author Arch Salon
- */
+import DAO.TransactionDAO;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import javax.swing.BorderFactory;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.data.general.DefaultPieDataset;
+import utils.Session;
+
 public class DashBoardPanel extends javax.swing.JPanel {
 
     /**
@@ -15,6 +23,63 @@ public class DashBoardPanel extends javax.swing.JPanel {
      */
     public DashBoardPanel() {
         initComponents();
+        loadPieChart();
+        
+
+    }
+
+    public void loadPieChart() {
+        
+
+        DefaultPieDataset dataset = new DefaultPieDataset();
+
+        try {
+
+            TransactionDAO dao = new TransactionDAO();
+
+            int userId = Session.getCurrentUser().getId();
+
+            dataset.setValue("Income",
+                    dao.getTotalByType(userId, "income"));
+
+            dataset.setValue("Expense",
+                    dao.getTotalByType(userId, "expense"));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        JFreeChart chart = ChartFactory.createPieChart(
+                "Income vs Expense",
+                dataset,
+                true,
+                true,
+                false
+        );
+
+        ChartPanel cp = new ChartPanel(chart);
+        cp.setPreferredSize(new Dimension(882, 520));
+        chart.setBackgroundPaint(Color.WHITE);
+        chart.getPlot().setBackgroundPaint(Color.WHITE);
+        chart.setBorderVisible(false);
+
+        chartPanel.setLayout(new BorderLayout());
+        chartPanel.removeAll();
+        chartPanel.add(cp, BorderLayout.CENTER);
+        chartPanel.revalidate();
+        chartPanel.repaint();
+
+        Color bg = new Color(220, 232, 208);
+
+        chart.setBackgroundPaint(bg);
+
+        PiePlot plot = (PiePlot) chart.getPlot();
+        plot.setBackgroundPaint(bg);
+        plot.setOutlineVisible(false);
+
+        cp.setBackground(bg);
+        cp.setBorder(BorderFactory.createEmptyBorder());
+
     }
 
     /**
@@ -26,48 +91,90 @@ public class DashBoardPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dashBoardPanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        chartPanel = new javax.swing.JPanel();
 
-        dashBoardPanel.setBackground(new java.awt.Color(220, 232, 208));
-        dashBoardPanel.setMaximumSize(null);
+        jPanel1.setBackground(new java.awt.Color(220, 232, 208));
+        jPanel1.setEnabled(false);
+        jPanel1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+                jPanel1formAncestorMoved(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(111, 151, 143));
-        jLabel1.setText("Dashboard Panel");
+        jLabel1.setText("Dashboard");
 
-        javax.swing.GroupLayout dashBoardPanelLayout = new javax.swing.GroupLayout(dashBoardPanel);
-        dashBoardPanel.setLayout(dashBoardPanelLayout);
-        dashBoardPanelLayout.setHorizontalGroup(
-            dashBoardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dashBoardPanelLayout.createSequentialGroup()
-                .addGap(288, 288, 288)
-                .addComponent(jLabel1)
-                .addContainerGap(309, Short.MAX_VALUE))
+        javax.swing.GroupLayout chartPanelLayout = new javax.swing.GroupLayout(chartPanel);
+        chartPanel.setLayout(chartPanelLayout);
+        chartPanelLayout.setHorizontalGroup(
+            chartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
-        dashBoardPanelLayout.setVerticalGroup(
-            dashBoardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dashBoardPanelLayout.createSequentialGroup()
-                .addGap(47, 47, 47)
+        chartPanelLayout.setVerticalGroup(
+            chartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(chartPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(760, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(364, Short.MAX_VALUE))
+                .addGap(364, 364, 364))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chartPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(478, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dashBoardPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 866, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dashBoardPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 626, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jPanel1formAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jPanel1formAncestorMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel1formAncestorMoved
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel dashBoardPanel;
+    private javax.swing.JPanel chartPanel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

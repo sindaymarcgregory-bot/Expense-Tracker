@@ -114,7 +114,7 @@ public class HistoryPanel extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Date", "Type", "Amount", "Category", "Description"
+                "ID", "Date", "Type", "Category", "Amount", "Description"
             }
         ));
         jScrollPane1.setViewportView(historyTable);
