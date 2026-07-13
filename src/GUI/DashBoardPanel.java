@@ -8,7 +8,10 @@ import DAO.TransactionDAO;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.List;
 import javax.swing.BorderFactory;
+import javax.swing.table.DefaultTableModel;
+import model.Transaction;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -24,12 +27,62 @@ public class DashBoardPanel extends javax.swing.JPanel {
     public DashBoardPanel() {
         initComponents();
         loadPieChart();
-        
+        loadRecentTransactions();
+
+    }
+
+    /**
+     * Loads the five most recent transactions and displays them inside the
+     * JTable.
+     */
+    private void loadRecentTransactions() {
+
+        try {
+
+            // Create a DAO object to communicate with the database.
+            TransactionDAO dao = new TransactionDAO();
+
+            // Get the ID of the currently logged-in user.
+            int userId = Session.getCurrentUser().getId();
+
+            // Retrieve the five most recent transactions.
+            List<Transaction> transactions = dao.getRecentTransactions(userId);
+
+            // Create a table model.
+            DefaultTableModel model = new DefaultTableModel();
+
+            // Add the column titles.
+            model.addColumn("Date");
+            model.addColumn("Type");
+            model.addColumn("Amount");
+            model.addColumn("Description");
+
+            // Add every transaction into the table.
+            for (Transaction transaction : transactions) {
+
+                model.addRow(new Object[]{
+                    transaction.getTransactionDate(),
+                    transaction.getType(),
+                    transaction.getAmount(),
+                    transaction.getDescription()
+
+                });
+
+            }
+
+            // Display the table model inside the JTable.
+            recentTransactionTable.setModel(model);
+
+        } catch (Exception e) {
+
+            // Print the error if something goes wrong.
+            e.printStackTrace();
+
+        }
 
     }
 
     public void loadPieChart() {
-        
 
         DefaultPieDataset dataset = new DefaultPieDataset();
 
@@ -50,7 +103,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
         }
 
         JFreeChart chart = ChartFactory.createPieChart(
-                "Income vs Expense",
+                "",
                 dataset,
                 true,
                 true,
@@ -92,8 +145,10 @@ public class DashBoardPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         chartPanel = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        recentTransactionTable = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(220, 232, 208));
         jPanel1.setEnabled(false);
@@ -107,42 +162,69 @@ public class DashBoardPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(111, 151, 143));
-        jLabel1.setText("Dashboard");
-
         javax.swing.GroupLayout chartPanelLayout = new javax.swing.GroupLayout(chartPanel);
         chartPanel.setLayout(chartPanelLayout);
         chartPanelLayout.setHorizontalGroup(
             chartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
+            .addGap(0, 127, Short.MAX_VALUE)
         );
         chartPanelLayout.setVerticalGroup(
             chartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
+            .addGap(0, 118, Short.MAX_VALUE)
         );
+
+        jScrollPane2.setBackground(new java.awt.Color(220, 232, 208));
+        jScrollPane2.setForeground(new java.awt.Color(220, 232, 208));
+        jScrollPane2.setEnabled(false);
+
+        recentTransactionTable.setBackground(new java.awt.Color(220, 232, 208));
+        recentTransactionTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        recentTransactionTable.setEnabled(false);
+        jScrollPane2.setViewportView(recentTransactionTable);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel1.setText("Recent Transactions");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(368, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(364, 364, 364))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(chartPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(196, 196, 196)
+                        .addComponent(jLabel1)))
+                .addContainerGap(306, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chartPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(508, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(chartPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(459, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -158,7 +240,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 626, Short.MAX_VALUE)
+            .addGap(0, 655, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -176,5 +258,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
     private javax.swing.JPanel chartPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable recentTransactionTable;
     // End of variables declaration//GEN-END:variables
 }

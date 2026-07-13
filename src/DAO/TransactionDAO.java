@@ -290,4 +290,60 @@ public class TransactionDAO {
 
         return 0;
     }
+
+    /**
+     * Retrieves the five most recent transactions of the current user. This
+     * method is used by the Dashboard to display the latest transactions in the
+     * Recent Transactions table.
+     */
+    public List<Transaction> getRecentTransactions(int userId) throws SQLException {
+
+        // Create an empty list that will store the transactions.
+        List<Transaction> transactions = new ArrayList<>();
+
+        // SQL query:
+        // Select all transaction records belonging to the current user.
+        // Sort them from newest to oldest.
+        // Only retrieve the latest 5 records.
+        String sql = """
+        SELECT *
+        FROM transactions
+        WHERE user_id = ?
+        ORDER BY transaction_date DESC, id DESC
+        LIMIT 5
+        """;
+
+        // Open a database connection.
+        try (
+                Connection connection = DBConnection.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql);) {
+
+            // Replace the ? in the SQL statement with the logged-in user's ID.
+            stmt.setInt(1, userId);
+
+            // Execute the query.
+            ResultSet rs = stmt.executeQuery();
+
+            // Read every row returned by MySQL.
+            while (rs.next()) {
+
+                // Create a Transaction object.
+                Transaction transaction = new Transaction();
+
+                // Copy the database values into the Transaction object.
+                transaction.setId(rs.getInt("id"));
+                transaction.setUserId(rs.getInt("user_id"));
+                transaction.setCategoryId(rs.getInt("category_id"));
+                transaction.setType(rs.getString("type"));
+                transaction.setTransactionDate(rs.getDate("transaction_date"));
+                transaction.setAmount(rs.getBigDecimal("amount"));
+                transaction.setDescription(rs.getString("description"));
+
+                // Add the transaction into our list.
+                transactions.add(transaction);
+            }
+        }
+
+        // Return all retrieved transactions.
+        return transactions;
+    }
 }
