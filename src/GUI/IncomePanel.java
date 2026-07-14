@@ -1,6 +1,5 @@
 package GUI;
 
-import java.awt.Dimension;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,22 +9,31 @@ import model.Category;
 import model.Transaction;
 import services.CategoryService;
 import services.TransactionService;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.table.DefaultTableCellRenderer;
 import utils.Session;
 
 public class IncomePanel extends javax.swing.JPanel {
+
     private int selectedTransactionId = -1;
 
     public IncomePanel() {
+
         initComponents();
-        //setPreferredSize(new Dimension(1024,600));
+
         loadIncomeCategories();
+
         loadIncomeTable();
-        
+
+        styleIncomeTable();
+
         incomeTable.getColumnModel().getColumn(0).setMinWidth(0);
         incomeTable.getColumnModel().getColumn(0).setMaxWidth(0);
         incomeTable.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
-    
+
     private void loadIncomeCategories() {
         CategoryService service = new CategoryService();
         int userId = Session.getCurrentUser().getId();
@@ -37,7 +45,7 @@ public class IncomePanel extends javax.swing.JPanel {
             cmboIncomeCategory.addItem(category);
         }
     }
-    
+
     private void loadIncomeTable() {
         DefaultTableModel model = (DefaultTableModel) incomeTable.getModel();
         model.setRowCount(0);
@@ -50,18 +58,138 @@ public class IncomePanel extends javax.swing.JPanel {
         List<Transaction> transactions = transactionService.getTransactionsByType(userId, "income");
 
         for (Transaction transaction : transactions) {
-            String categoryName =
-                    categoryService.getCategoryNameById(
+            String categoryName
+                    = categoryService.getCategoryNameById(
                             transaction.getCategoryId());
 
             model.addRow(new Object[]{
                 transaction.getId(),
-                transaction.getAmount(),
+                "₱" + String.format(
+                "%,.2f",
+                transaction.getAmount()
+                ),
                 categoryName,
                 transaction.getDescription(),
                 transaction.getTransactionDate()
             });
         }
+
+    }
+
+    // Style the income table
+    private void styleIncomeTable() {
+
+        // Hide ID column
+        incomeTable.getColumnModel()
+                .getColumn(0)
+                .setMinWidth(0);
+
+        incomeTable.getColumnModel()
+                .getColumn(0)
+                .setMaxWidth(0);
+
+        incomeTable.getColumnModel()
+                .getColumn(0)
+                .setPreferredWidth(0);
+
+        // Table font
+        incomeTable.setFont(
+                new Font("Segoe UI", Font.PLAIN, 13)
+        );
+
+        // Header font
+        incomeTable.getTableHeader()
+                .setFont(
+                        new Font("Segoe UI", Font.BOLD, 14)
+                );
+
+        // Row height
+        incomeTable.setRowHeight(35);
+
+        // Remove grid
+        incomeTable.setShowGrid(false);
+
+        // Remove spacing
+        incomeTable.setIntercellSpacing(
+                new Dimension(0, 0)
+        );
+
+        // Background
+        incomeTable.setBackground(
+                new Color(220, 232, 208)
+        );
+
+        // Selection
+        incomeTable.setSelectionBackground(
+                new Color(111, 151, 143)
+        );
+
+        incomeTable.setSelectionForeground(
+                Color.WHITE
+        );
+
+        // Scroll pane design
+        jScrollPane1.setBorder(null);
+
+        // Column sizes
+        incomeTable.getColumnModel()
+                .getColumn(1)
+                .setPreferredWidth(120);
+
+        incomeTable.getColumnModel()
+                .getColumn(2)
+                .setPreferredWidth(120);
+
+        incomeTable.getColumnModel()
+                .getColumn(3)
+                .setPreferredWidth(200);
+
+        incomeTable.getColumnModel()
+                .getColumn(4)
+                .setPreferredWidth(120);
+
+        DefaultTableCellRenderer incomeRenderer
+                = new DefaultTableCellRenderer();
+
+        incomeRenderer.setForeground(
+                new Color(0, 170, 80)
+        );
+
+        incomeTable.getColumnModel()
+                .getColumn(1)
+                .setCellRenderer(incomeRenderer);
+
+        // Center the category column
+        DefaultTableCellRenderer centerRenderer
+                = new DefaultTableCellRenderer();
+
+        centerRenderer.setHorizontalAlignment(
+                javax.swing.SwingConstants.CENTER
+        );
+
+        incomeTable.getColumnModel()
+                .getColumn(1)
+                .setCellRenderer(centerRenderer);
+
+        incomeTable.getColumnModel()
+                .getColumn(2)
+                .setCellRenderer(centerRenderer);
+
+        // Center the description column
+        incomeTable.getColumnModel()
+                .getColumn(3)
+                .setCellRenderer(centerRenderer);
+
+        incomeTable.getColumnModel()
+                .getColumn(4)
+                .setCellRenderer(centerRenderer);
+
+        // Center the description column
+        
+        centerRenderer.setHorizontalAlignment(
+                javax.swing.SwingConstants.CENTER
+        );
+
     }
 
     /**
@@ -87,7 +215,6 @@ public class IncomePanel extends javax.swing.JPanel {
         clearIncomeButton = new javax.swing.JButton();
         deleteIncomeButton = new javax.swing.JButton();
         addIncomeButton = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
         btnAddIncomeCategory = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(882, 620));
@@ -106,6 +233,7 @@ public class IncomePanel extends javax.swing.JPanel {
         jLabel1.setText("Amount");
 
         jScrollPane1.setBackground(new java.awt.Color(220, 232, 208));
+        jScrollPane1.setEnabled(false);
 
         incomeTable.setBackground(new java.awt.Color(220, 232, 208));
         incomeTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -156,10 +284,6 @@ public class IncomePanel extends javax.swing.JPanel {
         addIncomeButton.setText("Add");
         addIncomeButton.addActionListener(this::addIncomeButtonActionPerformed);
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(111, 151, 143));
-        jLabel5.setText("Enter your description here...");
-
         btnAddIncomeCategory.setBackground(new java.awt.Color(111, 151, 143));
         btnAddIncomeCategory.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnAddIncomeCategory.setForeground(new java.awt.Color(242, 242, 242));
@@ -184,21 +308,18 @@ public class IncomePanel extends javax.swing.JPanel {
                                 .addComponent(cmboIncomeCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAddIncomeCategory)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(deleteIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(clearIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(addIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(updateIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel3)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5)))
-                .addContainerGap(83, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+                            .addComponent(addIncomeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(updateIncomeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(deleteIncomeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(clearIncomeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(57, 57, 57))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,30 +328,29 @@ public class IncomePanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(addIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(updateIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(deleteIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(clearIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cmboIncomeCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAddIncomeCategory))
+                            .addComponent(btnAddIncomeCategory)
+                            .addComponent(cmboIncomeCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(32, 32, 32)
                         .addComponent(jLabel1)
                         .addGap(12, 12, 12)
                         .addComponent(incomeAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
-                        .addGap(66, 66, 66)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(updateIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(addIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(51, 51, 51)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(clearIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(deleteIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
 
@@ -238,7 +358,7 @@ public class IncomePanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 932, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 882, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,12 +372,12 @@ public class IncomePanel extends javax.swing.JPanel {
 
     private void incomeTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_incomeTableMouseClicked
         int row = incomeTable.getSelectedRow();
-        
+
         if (row == -1) {
             return;
         }
-        selectedTransactionId =
-                Integer.parseInt(incomeTable.getValueAt(row, 0).toString());
+        selectedTransactionId
+                = Integer.parseInt(incomeTable.getValueAt(row, 0).toString());
         incomeAmountField.setText(incomeTable.getValueAt(row, 1).toString());
 
         String categoryName = incomeTable.getValueAt(row, 2).toString();
@@ -274,78 +394,79 @@ public class IncomePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_incomeTableMouseClicked
 
     private void updateIncomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateIncomeButtonActionPerformed
-       if (selectedTransactionId == -1) {
-        JOptionPane.showMessageDialog(this, "Please select a transaction first.");
-        return;
-    }
-
-    try {
-        Category category =
-                (Category) cmboIncomeCategory.getSelectedItem();
-
-        BigDecimal amount =
-                new BigDecimal(incomeAmountField.getText());
-
-        String description =
-                incomeDescriptionTextArea.getText();
-
-        Transaction transaction = new Transaction();
-
-        transaction.setId(selectedTransactionId);
-        transaction.setCategoryId(category.getId());    
-        transaction.setAmount(amount);
-        transaction.setDescription(description);
-
-        TransactionService service = new TransactionService();
-
-        if (service.updateTransaction(transaction)) {
-            JOptionPane.showMessageDialog(this, "Income updated successfully!");
-            loadIncomeTable();
-            clearIncomeButton.doClick();
+        if (selectedTransactionId == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a transaction first.");
+            return;
         }
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Invalid amount.");
-    }
+
+        try {
+            Category category
+                    = (Category) cmboIncomeCategory.getSelectedItem();
+
+            BigDecimal amount
+                    = new BigDecimal(incomeAmountField.getText());
+
+            String description
+                    = incomeDescriptionTextArea.getText();
+
+            Transaction transaction = new Transaction();
+
+            transaction.setId(selectedTransactionId);
+            transaction.setCategoryId(category.getId());
+            transaction.setAmount(amount);
+            transaction.setDescription(description);
+
+            TransactionService service = new TransactionService();
+
+            if (service.updateTransaction(transaction)) {
+                JOptionPane.showMessageDialog(this, "Income updated successfully!");
+                loadIncomeTable();
+                clearIncomeButton.doClick();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Invalid amount.");
+        }
     }//GEN-LAST:event_updateIncomeButtonActionPerformed
 
     private void clearIncomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearIncomeButtonActionPerformed
-       incomeAmountField.setText("");
+        incomeAmountField.setText("");
 
         incomeDescriptionTextArea.setText("");
 
-        if (cmboIncomeCategory.getItemCount() > 0)
+        if (cmboIncomeCategory.getItemCount() > 0) {
             cmboIncomeCategory.setSelectedIndex(0);
+        }
         incomeTable.clearSelection();
 
         selectedTransactionId = -1;
     }//GEN-LAST:event_clearIncomeButtonActionPerformed
 
     private void deleteIncomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteIncomeButtonActionPerformed
-       if (selectedTransactionId == -1) {
-        JOptionPane.showMessageDialog(this, "Please select a transaction.");
-        return;
-    }
-
-    int confirm = JOptionPane.showConfirmDialog(this,
-            "Delete this income?",
-            "Confirm",
-            JOptionPane.YES_NO_OPTION);
-
-    if (confirm == JOptionPane.YES_OPTION) {
-        TransactionService service = new TransactionService();
-
-        if (service.deleteTransaction(selectedTransactionId)) {
-            JOptionPane.showMessageDialog(this, "Income deleted.");
-            loadIncomeTable();
-            clearIncomeButton.doClick();
+        if (selectedTransactionId == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a transaction.");
+            return;
         }
-    }
+
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Delete this income?",
+                "Confirm",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            TransactionService service = new TransactionService();
+
+            if (service.deleteTransaction(selectedTransactionId)) {
+                JOptionPane.showMessageDialog(this, "Income deleted.");
+                loadIncomeTable();
+                clearIncomeButton.doClick();
+            }
+        }
     }//GEN-LAST:event_deleteIncomeButtonActionPerformed
 
     private void addIncomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIncomeButtonActionPerformed
         try {
-            Category category =
-                    (Category) cmboIncomeCategory.getSelectedItem();
+            Category category
+                    = (Category) cmboIncomeCategory.getSelectedItem();
 
             if (category == null) {
                 JOptionPane.showMessageDialog(this, "Please select a category.");
@@ -362,7 +483,7 @@ public class IncomePanel extends javax.swing.JPanel {
             transaction.setType("income");
             transaction.setAmount(amount);
             transaction.setDescription(description);
-    
+
             transaction.setTransactionDate(
                     java.sql.Date.valueOf(java.time.LocalDate.now()));
 
@@ -388,7 +509,7 @@ public class IncomePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_addIncomeButtonActionPerformed
 
     private void btnAddIncomeCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddIncomeCategoryActionPerformed
-            String categoryName = JOptionPane.showInputDialog(this, "Enter new income category:");
+        String categoryName = JOptionPane.showInputDialog(this, "Enter new income category:");
 
         if (categoryName == null) {
             return;
@@ -448,7 +569,6 @@ public class IncomePanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

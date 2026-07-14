@@ -9,6 +9,14 @@ import javax.swing.table.DefaultTableModel;
 import model.Transaction;
 import services.CategoryService;
 import services.TransactionService;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.table.DefaultTableCellRenderer;
+import java.awt.Component;
+import javax.swing.BorderFactory;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import utils.Session;
 
 /**
@@ -21,18 +29,50 @@ public class HistoryPanel extends javax.swing.JPanel {
      * Creates new form HistoryPanel
      */
     public HistoryPanel() {
+
         initComponents();
-        
+
         loadHistoryTable();
 
-        historyTable.getColumnModel().getColumn(0).setMinWidth(0);
-        historyTable.getColumnModel().getColumn(0).setMaxWidth(0);
-        historyTable.getColumnModel().getColumn(0).setPreferredWidth(0);        
+        styleHistoryTable();
+        colorHistoryType();
     }
-    
+
+    private class TableCellPaddingRenderer extends DefaultTableCellRenderer {
+
+        @Override
+        public Component getTableCellRendererComponent(
+                JTable table,
+                Object value,
+                boolean isSelected,
+                boolean hasFocus,
+                int row,
+                int column) {
+
+            Component cell = super.getTableCellRendererComponent(
+                    table,
+                    value,
+                    isSelected,
+                    hasFocus,
+                    row,
+                    column);
+
+            setBorder(
+                    BorderFactory.createEmptyBorder(
+                            0,
+                            10,
+                            0,
+                            10
+                    )
+            );
+
+            return cell;
+        }
+    }
+
     private void loadHistoryTable() {
-        String keyword = historySearchField.getText().trim();   
-        String filter = cmboHistoryFilter.getSelectedItem().toString();    
+        String keyword = historySearchField.getText().trim();
+        String filter = cmboHistoryFilter.getSelectedItem().toString();
         DefaultTableModel model = (DefaultTableModel) historyTable.getModel();
         model.setRowCount(0);
         TransactionService transactionService = new TransactionService();
@@ -59,19 +99,191 @@ public class HistoryPanel extends javax.swing.JPanel {
         }
 
         for (Transaction transaction : transactions) {
-                String categoryName =
-                        categoryService.getCategoryNameById(
-                                transaction.getCategoryId());
-                model.addRow(new Object[]{
-
-                    transaction.getId(),
-                    transaction.getTransactionDate(),
-                    transaction.getType(),
-                    categoryName,
-                    transaction.getAmount(),
-                    transaction.getDescription()
-                });
+            String categoryName
+                    = categoryService.getCategoryNameById(
+                            transaction.getCategoryId());
+            model.addRow(new Object[]{
+                transaction.getId(),
+                transaction.getTransactionDate(),
+                transaction.getType(),
+                categoryName,
+                "₱" + String.format(
+                "%,.2f",
+                transaction.getAmount()
+                ),
+                transaction.getDescription()
+            });
         }
+    }
+
+    // Style the history table
+    private void styleHistoryTable() {
+
+        historyTable.setAutoResizeMode(
+                javax.swing.JTable.AUTO_RESIZE_OFF
+        );
+
+        historyTable.getColumnModel()
+                .getColumn(0)
+                .setMinWidth(0);
+
+        historyTable.getColumnModel()
+                .getColumn(0)
+                .setMaxWidth(0);
+
+        historyTable.getColumnModel()
+                .getColumn(0)
+                .setPreferredWidth(0);
+
+        historyTable.setFont(
+                new Font("Segoe UI", Font.PLAIN, 13)
+        );
+
+        historyTable.getTableHeader()
+                .setFont(
+                        new Font("Segoe UI", Font.BOLD, 14)
+                );
+
+        historyTable.setRowHeight(35);
+
+        historyTable.setShowGrid(false);
+
+        historyTable.setIntercellSpacing(
+                new Dimension(0, 0)
+        );
+
+        historyTable.setBackground(
+                new Color(220, 232, 208)
+        );
+
+        historyTable.setSelectionBackground(
+                new Color(111, 151, 143)
+        );
+
+        historyTable.setSelectionForeground(
+                Color.WHITE
+        );
+
+        jScrollPane1.setBorder(null);
+
+        historyTable.getColumnModel()
+                .getColumn(1)
+                .setPreferredWidth(100); // Date
+
+        historyTable.getColumnModel()
+                .getColumn(2)
+                .setPreferredWidth(100); // Type
+
+        historyTable.getColumnModel()
+                .getColumn(3)
+                .setPreferredWidth(130); // Category
+
+        historyTable.getColumnModel()
+                .getColumn(4)
+                .setPreferredWidth(150); // Amount
+
+        historyTable.getColumnModel()
+                .getColumn(5)
+                .setPreferredWidth(320); // Description
+        TableCellPaddingRenderer renderer
+                = new TableCellPaddingRenderer();
+
+        historyTable.setDefaultRenderer(
+                Object.class,
+                renderer
+        );
+
+        renderer.setHorizontalAlignment(
+                javax.swing.SwingConstants.LEFT
+        );
+
+        DefaultTableCellRenderer amountRenderer
+                = new TableCellPaddingRenderer();
+
+        amountRenderer.setHorizontalAlignment(
+                javax.swing.SwingConstants.RIGHT
+        );
+
+        historyTable.getColumnModel()
+                .getColumn(4)
+                .setCellRenderer(amountRenderer);
+
+        DefaultTableCellRenderer descriptionRenderer
+                = new DefaultTableCellRenderer();
+
+        descriptionRenderer.setHorizontalAlignment(
+                javax.swing.SwingConstants.CENTER
+        );
+
+        historyTable.getColumnModel()
+                .getColumn(5)
+                .setCellRenderer(descriptionRenderer);
+        historyTable.getColumnModel()
+                .getColumn(4)
+                .setCellRenderer(descriptionRenderer);
+        historyTable.getColumnModel()
+                .getColumn(3)
+                .setCellRenderer(descriptionRenderer);
+        historyTable.getColumnModel()
+                .getColumn(2)
+                .setCellRenderer(descriptionRenderer);
+        historyTable.getColumnModel()
+                .getColumn(1)
+                .setCellRenderer(descriptionRenderer);
+        
+
+    }
+
+    private void colorHistoryType() {
+
+        DefaultTableCellRenderer typeRenderer
+                = new DefaultTableCellRenderer() {
+
+            @Override
+            public java.awt.Component getTableCellRendererComponent(
+                    javax.swing.JTable table,
+                    Object value,
+                    boolean isSelected,
+                    boolean hasFocus,
+                    int row,
+                    int column) {
+
+                java.awt.Component c
+                        = super.getTableCellRendererComponent(
+                                table,
+                                value,
+                                isSelected,
+                                hasFocus,
+                                row,
+                                column
+                        );
+
+                if (!isSelected) {
+
+                    if ("income".equalsIgnoreCase(value.toString())) {
+
+                        c.setForeground(
+                                new Color(0, 170, 80)
+                        );
+
+                    } else if ("expense".equalsIgnoreCase(value.toString())) {
+
+                        c.setForeground(
+                                new Color(220, 70, 70)
+                        );
+
+                    }
+
+                }
+
+                return c;
+            }
+        };
+
+        historyTable.getColumnModel()
+                .getColumn(2)
+                .setCellRenderer(typeRenderer);
+
     }
 
     /**
@@ -103,6 +315,7 @@ public class HistoryPanel extends javax.swing.JPanel {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, 90, 30));
 
         jScrollPane1.setBackground(new java.awt.Color(220, 232, 208));
+        jScrollPane1.setEnabled(false);
 
         historyTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -114,19 +327,20 @@ public class HistoryPanel extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Date", "Type", "Amount", "Category", "Description"
+                "ID", "Date", "Type", "Category", "Amount", "Description"
             }
         ));
+        historyTable.setEnabled(false);
         jScrollPane1.setViewportView(historyTable);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 800, 440));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 810, 440));
 
         historySearchField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 historySearchFieldKeyReleased(evt);
             }
         });
-        jPanel1.add(historySearchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 100, 160, -1));
+        jPanel1.add(historySearchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 100, 160, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(111, 151, 143));
