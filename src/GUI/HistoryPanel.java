@@ -28,6 +28,12 @@ public class HistoryPanel extends javax.swing.JPanel {
     /**
      * Creates new form HistoryPanel
      */
+    private HomeFrame homeFrame;
+    
+    public void setHomeFrame(HomeFrame homeFrame) {
+        this.homeFrame = homeFrame;
+    }
+    
     public HistoryPanel() {
 
         initComponents();

@@ -86,7 +86,6 @@ public class UserService {
 
     // Check if Email Already Exists
     public boolean emailExists(String email) {
-
         try {
 
             return userDAO.emailExists(email);
@@ -102,7 +101,6 @@ public class UserService {
 
     // Retrieve User by ID
     public User getUserById(int id) {
-
         try {
 
             return userDAO.getUserById(id);
@@ -112,13 +110,11 @@ public class UserService {
             e.printStackTrace();
 
         }
-
         return null;
     }
 
     // Update User Information
     public boolean updateUser(User user) {
-
         try {
 
             return userDAO.updateUser(user);
