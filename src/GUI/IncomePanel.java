@@ -1,6 +1,5 @@
 package GUI;
 
-import java.awt.Dimension;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,22 +9,31 @@ import model.Category;
 import model.Transaction;
 import services.CategoryService;
 import services.TransactionService;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.table.DefaultTableCellRenderer;
 import utils.Session;
 
 public class IncomePanel extends javax.swing.JPanel {
+
     private int selectedTransactionId = -1;
 
     public IncomePanel() {
+
         initComponents();
-        //setPreferredSize(new Dimension(1024,600));
+
         loadIncomeCategories();
+
         loadIncomeTable();
-        
+
+        styleIncomeTable();
+
         incomeTable.getColumnModel().getColumn(0).setMinWidth(0);
         incomeTable.getColumnModel().getColumn(0).setMaxWidth(0);
         incomeTable.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
-    
+
     private void loadIncomeCategories() {
         CategoryService service = new CategoryService();
         int userId = Session.getCurrentUser().getId();
@@ -37,7 +45,7 @@ public class IncomePanel extends javax.swing.JPanel {
             cmboIncomeCategory.addItem(category);
         }
     }
-    
+
     private void loadIncomeTable() {
         DefaultTableModel model = (DefaultTableModel) incomeTable.getModel();
         model.setRowCount(0);
@@ -50,18 +58,138 @@ public class IncomePanel extends javax.swing.JPanel {
         List<Transaction> transactions = transactionService.getTransactionsByType(userId, "income");
 
         for (Transaction transaction : transactions) {
-            String categoryName =
-                    categoryService.getCategoryNameById(
+            String categoryName
+                    = categoryService.getCategoryNameById(
                             transaction.getCategoryId());
 
             model.addRow(new Object[]{
                 transaction.getId(),
-                transaction.getAmount(),
+                "₱" + String.format(
+                "%,.2f",
+                transaction.getAmount()
+                ),
                 categoryName,
                 transaction.getDescription(),
                 transaction.getTransactionDate()
             });
         }
+
+    }
+
+    // Style the income table
+    private void styleIncomeTable() {
+
+        // Hide ID column
+        incomeTable.getColumnModel()
+                .getColumn(0)
+                .setMinWidth(0);
+
+        incomeTable.getColumnModel()
+                .getColumn(0)
+                .setMaxWidth(0);
+
+        incomeTable.getColumnModel()
+                .getColumn(0)
+                .setPreferredWidth(0);
+
+        // Table font
+        incomeTable.setFont(
+                new Font("Segoe UI", Font.PLAIN, 13)
+        );
+
+        // Header font
+        incomeTable.getTableHeader()
+                .setFont(
+                        new Font("Segoe UI", Font.BOLD, 14)
+                );
+
+        // Row height
+        incomeTable.setRowHeight(35);
+
+        // Remove grid
+        incomeTable.setShowGrid(false);
+
+        // Remove spacing
+        incomeTable.setIntercellSpacing(
+                new Dimension(0, 0)
+        );
+
+        // Background
+        incomeTable.setBackground(
+                new Color(220, 232, 208)
+        );
+
+        // Selection
+        incomeTable.setSelectionBackground(
+                new Color(111, 151, 143)
+        );
+
+        incomeTable.setSelectionForeground(
+                Color.WHITE
+        );
+
+        // Scroll pane design
+        jScrollPane1.setBorder(null);
+
+        // Column sizes
+        incomeTable.getColumnModel()
+                .getColumn(1)
+                .setPreferredWidth(120);
+
+        incomeTable.getColumnModel()
+                .getColumn(2)
+                .setPreferredWidth(120);
+
+        incomeTable.getColumnModel()
+                .getColumn(3)
+                .setPreferredWidth(200);
+
+        incomeTable.getColumnModel()
+                .getColumn(4)
+                .setPreferredWidth(120);
+
+        DefaultTableCellRenderer incomeRenderer
+                = new DefaultTableCellRenderer();
+
+        incomeRenderer.setForeground(
+                new Color(0, 170, 80)
+        );
+
+        incomeTable.getColumnModel()
+                .getColumn(1)
+                .setCellRenderer(incomeRenderer);
+
+        // Center the category column
+        DefaultTableCellRenderer centerRenderer
+                = new DefaultTableCellRenderer();
+
+        centerRenderer.setHorizontalAlignment(
+                javax.swing.SwingConstants.CENTER
+        );
+
+        incomeTable.getColumnModel()
+                .getColumn(1)
+                .setCellRenderer(centerRenderer);
+
+        incomeTable.getColumnModel()
+                .getColumn(2)
+                .setCellRenderer(centerRenderer);
+
+        // Center the description column
+        incomeTable.getColumnModel()
+                .getColumn(3)
+                .setCellRenderer(centerRenderer);
+
+        incomeTable.getColumnModel()
+                .getColumn(4)
+                .setCellRenderer(centerRenderer);
+
+        // Center the description column
+        
+        centerRenderer.setHorizontalAlignment(
+                javax.swing.SwingConstants.CENTER
+        );
+
     }
 
     /**
@@ -105,6 +233,7 @@ public class IncomePanel extends javax.swing.JPanel {
         jLabel1.setText("Amount");
 
         jScrollPane1.setBackground(new java.awt.Color(220, 232, 208));
+        jScrollPane1.setEnabled(false);
 
         incomeTable.setBackground(new java.awt.Color(220, 232, 208));
         incomeTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -243,12 +372,12 @@ public class IncomePanel extends javax.swing.JPanel {
 
     private void incomeTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_incomeTableMouseClicked
         int row = incomeTable.getSelectedRow();
-        
+
         if (row == -1) {
             return;
         }
-        selectedTransactionId =
-                Integer.parseInt(incomeTable.getValueAt(row, 0).toString());
+        selectedTransactionId
+                = Integer.parseInt(incomeTable.getValueAt(row, 0).toString());
         incomeAmountField.setText(incomeTable.getValueAt(row, 1).toString());
 
         String categoryName = incomeTable.getValueAt(row, 2).toString();
@@ -265,78 +394,79 @@ public class IncomePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_incomeTableMouseClicked
 
     private void updateIncomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateIncomeButtonActionPerformed
-       if (selectedTransactionId == -1) {
-        JOptionPane.showMessageDialog(this, "Please select a transaction first.");
-        return;
-    }
-
-    try {
-        Category category =
-                (Category) cmboIncomeCategory.getSelectedItem();
-
-        BigDecimal amount =
-                new BigDecimal(incomeAmountField.getText());
-
-        String description =
-                incomeDescriptionTextArea.getText();
-
-        Transaction transaction = new Transaction();
-
-        transaction.setId(selectedTransactionId);
-        transaction.setCategoryId(category.getId());    
-        transaction.setAmount(amount);
-        transaction.setDescription(description);
-
-        TransactionService service = new TransactionService();
-
-        if (service.updateTransaction(transaction)) {
-            JOptionPane.showMessageDialog(this, "Income updated successfully!");
-            loadIncomeTable();
-            clearIncomeButton.doClick();
+        if (selectedTransactionId == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a transaction first.");
+            return;
         }
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Invalid amount.");
-    }
+
+        try {
+            Category category
+                    = (Category) cmboIncomeCategory.getSelectedItem();
+
+            BigDecimal amount
+                    = new BigDecimal(incomeAmountField.getText());
+
+            String description
+                    = incomeDescriptionTextArea.getText();
+
+            Transaction transaction = new Transaction();
+
+            transaction.setId(selectedTransactionId);
+            transaction.setCategoryId(category.getId());
+            transaction.setAmount(amount);
+            transaction.setDescription(description);
+
+            TransactionService service = new TransactionService();
+
+            if (service.updateTransaction(transaction)) {
+                JOptionPane.showMessageDialog(this, "Income updated successfully!");
+                loadIncomeTable();
+                clearIncomeButton.doClick();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Invalid amount.");
+        }
     }//GEN-LAST:event_updateIncomeButtonActionPerformed
 
     private void clearIncomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearIncomeButtonActionPerformed
-       incomeAmountField.setText("");
+        incomeAmountField.setText("");
 
         incomeDescriptionTextArea.setText("");
 
-        if (cmboIncomeCategory.getItemCount() > 0)
+        if (cmboIncomeCategory.getItemCount() > 0) {
             cmboIncomeCategory.setSelectedIndex(0);
+        }
         incomeTable.clearSelection();
 
         selectedTransactionId = -1;
     }//GEN-LAST:event_clearIncomeButtonActionPerformed
 
     private void deleteIncomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteIncomeButtonActionPerformed
-       if (selectedTransactionId == -1) {
-        JOptionPane.showMessageDialog(this, "Please select a transaction.");
-        return;
-    }
-
-    int confirm = JOptionPane.showConfirmDialog(this,
-            "Delete this income?",
-            "Confirm",
-            JOptionPane.YES_NO_OPTION);
-
-    if (confirm == JOptionPane.YES_OPTION) {
-        TransactionService service = new TransactionService();
-
-        if (service.deleteTransaction(selectedTransactionId)) {
-            JOptionPane.showMessageDialog(this, "Income deleted.");
-            loadIncomeTable();
-            clearIncomeButton.doClick();
+        if (selectedTransactionId == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a transaction.");
+            return;
         }
-    }
+
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Delete this income?",
+                "Confirm",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            TransactionService service = new TransactionService();
+
+            if (service.deleteTransaction(selectedTransactionId)) {
+                JOptionPane.showMessageDialog(this, "Income deleted.");
+                loadIncomeTable();
+                clearIncomeButton.doClick();
+            }
+        }
     }//GEN-LAST:event_deleteIncomeButtonActionPerformed
 
     private void addIncomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIncomeButtonActionPerformed
         try {
-            Category category =
-                    (Category) cmboIncomeCategory.getSelectedItem();
+            Category category
+                    = (Category) cmboIncomeCategory.getSelectedItem();
 
             if (category == null) {
                 JOptionPane.showMessageDialog(this, "Please select a category.");
@@ -353,7 +483,7 @@ public class IncomePanel extends javax.swing.JPanel {
             transaction.setType("income");
             transaction.setAmount(amount);
             transaction.setDescription(description);
-    
+
             transaction.setTransactionDate(
                     java.sql.Date.valueOf(java.time.LocalDate.now()));
 
@@ -379,7 +509,7 @@ public class IncomePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_addIncomeButtonActionPerformed
 
     private void btnAddIncomeCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddIncomeCategoryActionPerformed
-            String categoryName = JOptionPane.showInputDialog(this, "Enter new income category:");
+        String categoryName = JOptionPane.showInputDialog(this, "Enter new income category:");
 
         if (categoryName == null) {
             return;

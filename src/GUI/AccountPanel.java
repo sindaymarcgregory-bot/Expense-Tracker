@@ -419,7 +419,7 @@ public class AccountPanel extends javax.swing.JPanel {
         sideBarPanel2Layout.setHorizontalGroup(
             sideBarPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sideBarPanel2Layout.createSequentialGroup()
-                .addGap(229, 229, 229)
+                .addGap(250, 250, 250)
                 .addGroup(sideBarPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblIncomeTitle)
                     .addComponent(lblExpenseTitle)

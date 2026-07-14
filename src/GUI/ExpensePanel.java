@@ -14,6 +14,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Transaction;
 import services.TransactionService;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.table.DefaultTableCellRenderer;
 import utils.Session;
 
 /**
@@ -27,7 +31,6 @@ public class ExpensePanel extends javax.swing.JPanel {
      */
     private int selectedTransactionId = -1;
     private DashBoardPanel dashboard;
-    
 
     public ExpensePanel(DashBoardPanel dashboard) {
         initComponents();
@@ -35,15 +38,17 @@ public class ExpensePanel extends javax.swing.JPanel {
     }
 
     public ExpensePanel() {
+
         initComponents();
+
+        this.dashboard = dashboard;
 
         loadExpenseCategories();
 
         loadExpenseTable();
 
-        expenseTable.getColumnModel().getColumn(0).setMinWidth(0);
-        expenseTable.getColumnModel().getColumn(0).setMaxWidth(0);
-        expenseTable.getColumnModel().getColumn(0).setPreferredWidth(0);
+        styleExpenseTable();
+
     }
 
     private void loadExpenseTable() {
@@ -61,12 +66,113 @@ public class ExpensePanel extends javax.swing.JPanel {
                             transaction.getCategoryId());
             model.addRow(new Object[]{
                 transaction.getId(),
-                transaction.getAmount(),
+                "₱" + String.format(
+                "%,.2f",
+                transaction.getAmount()
+                ),
                 categoryName,
                 transaction.getDescription(),
                 transaction.getTransactionDate()
             });
         }
+    }
+    // Style the expense table
+
+    private void styleExpenseTable() {
+
+        expenseTable.getColumnModel()
+                .getColumn(0)
+                .setMinWidth(0);
+
+        expenseTable.getColumnModel()
+                .getColumn(0)
+                .setMaxWidth(0);
+
+        expenseTable.getColumnModel()
+                .getColumn(0)
+                .setPreferredWidth(0);
+
+        expenseTable.setFont(
+                new Font("Segoe UI", Font.PLAIN, 13)
+        );
+
+        expenseTable.getTableHeader()
+                .setFont(
+                        new Font("Segoe UI", Font.BOLD, 14)
+                );
+
+        expenseTable.setRowHeight(35);
+
+        expenseTable.setShowGrid(false);
+
+        expenseTable.setIntercellSpacing(
+                new Dimension(0, 0)
+        );
+
+        expenseTable.setBackground(
+                new Color(220, 232, 208)
+        );
+
+        expenseTable.setSelectionBackground(
+                new Color(111, 151, 143)
+        );
+
+        expenseTable.setSelectionForeground(
+                Color.WHITE
+        );
+
+        jScrollPane1.setBorder(null);
+
+        expenseTable.getColumnModel()
+                .getColumn(1)
+                .setPreferredWidth(120);
+
+        expenseTable.getColumnModel()
+                .getColumn(2)
+                .setPreferredWidth(120);
+
+        expenseTable.getColumnModel()
+                .getColumn(3)
+                .setPreferredWidth(200);
+
+        expenseTable.getColumnModel()
+                .getColumn(4)
+                .setPreferredWidth(120);
+
+        DefaultTableCellRenderer expenseRenderer
+                = new DefaultTableCellRenderer();
+
+        expenseRenderer.setForeground(
+                new Color(220, 70, 70)
+        );
+
+        expenseTable.getColumnModel()
+                .getColumn(1)
+                .setCellRenderer(expenseRenderer);
+
+        // Center the category column
+        DefaultTableCellRenderer centerRenderer
+                = new DefaultTableCellRenderer();
+
+        centerRenderer.setHorizontalAlignment(
+                javax.swing.SwingConstants.CENTER
+        );
+
+        expenseTable.getColumnModel()
+                .getColumn(1)
+                .setCellRenderer(centerRenderer);
+        expenseTable.getColumnModel()
+                .getColumn(2)
+                .setCellRenderer(centerRenderer);
+        expenseTable.getColumnModel()
+                .getColumn(3)
+                .setCellRenderer(centerRenderer);
+
+// Center the description column
+        expenseTable.getColumnModel()
+                .getColumn(4)
+                .setCellRenderer(centerRenderer);
+
     }
 
     private void loadExpenseCategories() {
@@ -126,6 +232,7 @@ public class ExpensePanel extends javax.swing.JPanel {
         jLabel1.setText("Amount");
 
         jScrollPane1.setBackground(new java.awt.Color(220, 232, 208));
+        jScrollPane1.setEnabled(false);
 
         expenseTable.setBackground(new java.awt.Color(220, 232, 208));
         expenseTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -140,6 +247,7 @@ public class ExpensePanel extends javax.swing.JPanel {
                 "ID", "Amount", "Category", "Description", "Date"
             }
         ));
+        expenseTable.setEnabled(false);
         expenseTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 expenseTableMouseClicked(evt);
@@ -233,9 +341,9 @@ public class ExpensePanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(updateExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(clearExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(deleteExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(deleteExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(clearExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 

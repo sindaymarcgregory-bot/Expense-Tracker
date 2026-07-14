@@ -16,6 +16,7 @@ public class Transaction {
     private String description;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    
 
     public Transaction() {
     }
