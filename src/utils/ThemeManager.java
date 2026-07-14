@@ -2,16 +2,15 @@ package utils;
 
 public class ThemeManager {
 
-    // Stores whether dark mode is enabled
     private static boolean darkMode = false;
 
-    // Enable or disable dark mode
-    public static void setDarkMode(boolean enabled) {
-        darkMode = enabled;
+    // Change theme state
+    public static void setDark(boolean value) {
+        darkMode = value;
     }
 
-    // Returns the current mode
-    public static boolean isDarkMode() {
+    // Check current theme
+    public static boolean isDark() {
         return darkMode;
     }
 

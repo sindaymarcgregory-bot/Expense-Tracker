@@ -673,7 +673,7 @@ public class AccountPanel extends javax.swing.JPanel {
     private void chkDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkDarkModeActionPerformed
 
         // Save the user's preference
-        ThemeManager.setDarkMode(chkDarkMode.isSelected());
+       ThemeManager.setDark(chkDarkMode.isSelected());
 
         // Reload the current panel
         HomeFrame home

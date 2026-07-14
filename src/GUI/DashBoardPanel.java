@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package GUI;
 
 import DAO.TransactionDAO;
@@ -20,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utils.Session;
+import utils.ThemeManager;
 
 public class DashBoardPanel extends javax.swing.JPanel {
 
@@ -44,6 +41,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
 
         styleTransactionTable();
 
+   
         //makeCardsRounded();
     }
 
@@ -435,7 +433,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
         );
         // Remove scroll pane border
         jScrollPane1.setBorder(null);
-        
+
         // Center the type, category and description columns
         DefaultTableCellRenderer centerRenderer
                 = new DefaultTableCellRenderer();
@@ -455,7 +453,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
         recentTransactionTable.getColumnModel()
                 .getColumn(3)
                 .setCellRenderer(centerRenderer);
-        
+
         // Apply colored renderer to Type column
         recentTransactionTable
                 .getColumnModel()

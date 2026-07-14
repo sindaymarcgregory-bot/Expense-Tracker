@@ -20,7 +20,6 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Locale;
-import javax.swing.SwingUtilities;
 import org.mindrot.jbcrypt.BCrypt;
 import utils.ThemeManager;
 
@@ -490,6 +489,7 @@ import utils.ThemeManager;
                 JOptionPane.showMessageDialog(this, e.toString());
             }
         }
+        
     }//GEN-LAST:event_btnUploadPictureActionPerformed
 
     private void btnChangeDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeDetailsActionPerformed
@@ -673,15 +673,18 @@ import utils.ThemeManager;
 
     private void chkDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkDarkModeActionPerformed
 
-        // Disable dark mode
-        ThemeManager.setDarkMode(false);
+        ThemeManager.setDark(chkDarkMode.isSelected());
+        
 
-        HomeFrame home
-                = (HomeFrame) SwingUtilities.getWindowAncestor(this);
+        HomeFrame homeFrame
+                = (HomeFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
 
-        home.showPanel(new AccountPanel());
-
-    }
+        if (!chkDarkMode.isSelected()) {
+            homeFrame.showPanel(new AccountPanel());
+        }
+        
+        
+    
 
     }//GEN-LAST:event_chkDarkModeActionPerformed
 
@@ -714,4 +717,4 @@ import utils.ThemeManager;
     private javax.swing.JTextField useridfield;
     private javax.swing.JTextField usernamefield;
     // End of variables declaration//GEN-END:variables
-
+}

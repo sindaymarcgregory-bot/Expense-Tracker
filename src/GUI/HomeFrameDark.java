@@ -8,7 +8,7 @@ import java.awt.BorderLayout;
 import javax.swing.JOptionPane;
 import utils.Session;
 
-public class HomeFrame extends javax.swing.JFrame {
+public class HomeFrameDark extends javax.swing.JFrame {
 
     private DashBoardPanel dashboardPanel;
     private ExpensePanel expensePanel;
@@ -16,13 +16,10 @@ public class HomeFrame extends javax.swing.JFrame {
     private HistoryPanel historyPanel;
     private AccountPanel accountPanel;
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HomeFrame.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HomeFrameDark.class.getName());
 
-    public HomeFrame() {
+    public HomeFrameDark() {
         initComponents();
-
-        accountPanel = new AccountPanel();
-
         lblUsername.setText(Session.getCurrentUser().getUsername());
         if (Session.getCurrentUser() != null) {
             lblUsername.setText(Session.getCurrentUser().getUsername());
@@ -85,13 +82,13 @@ public class HomeFrame extends javax.swing.JFrame {
         bodyPanel.setBackground(new java.awt.Color(220, 232, 208));
         bodyPanel.setLayout(new javax.swing.BoxLayout(bodyPanel, javax.swing.BoxLayout.LINE_AXIS));
 
-        mainPanel.setBackground(new java.awt.Color(220, 232, 208));
+        mainPanel.setBackground(new java.awt.Color(51, 51, 51));
         mainPanel.setMaximumSize(null);
         mainPanel.setMinimumSize(new java.awt.Dimension(1024, 600));
 
-        sideBarPanel.setBackground(new java.awt.Color(111, 151, 143));
+        sideBarPanel.setBackground(new java.awt.Color(0, 51, 51));
 
-        btnDashboard.setBackground(new java.awt.Color(111, 151, 143));
+        btnDashboard.setBackground(new java.awt.Color(0, 51, 51));
         btnDashboard.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDashboard.setForeground(new java.awt.Color(255, 255, 255));
         btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/statisctics (1).png"))); // NOI18N
@@ -99,7 +96,7 @@ public class HomeFrame extends javax.swing.JFrame {
         btnDashboard.setBorder(null);
         btnDashboard.addActionListener(this::btnDashboardActionPerformed);
 
-        btnIncome.setBackground(new java.awt.Color(111, 151, 143));
+        btnIncome.setBackground(new java.awt.Color(0, 51, 51));
         btnIncome.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnIncome.setForeground(new java.awt.Color(255, 255, 255));
         btnIncome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/financial-statement (1).png"))); // NOI18N
@@ -108,7 +105,7 @@ public class HomeFrame extends javax.swing.JFrame {
         btnIncome.setIconTextGap(2);
         btnIncome.addActionListener(this::btnIncomeActionPerformed);
 
-        btnExpenses.setBackground(new java.awt.Color(111, 151, 143));
+        btnExpenses.setBackground(new java.awt.Color(0, 51, 51));
         btnExpenses.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnExpenses.setForeground(new java.awt.Color(255, 255, 255));
         btnExpenses.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/spending (1).png"))); // NOI18N
@@ -116,7 +113,7 @@ public class HomeFrame extends javax.swing.JFrame {
         btnExpenses.setBorder(null);
         btnExpenses.addActionListener(this::btnExpensesActionPerformed);
 
-        btnHistory.setBackground(new java.awt.Color(111, 151, 143));
+        btnHistory.setBackground(new java.awt.Color(0, 51, 51));
         btnHistory.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnHistory.setForeground(new java.awt.Color(255, 255, 255));
         btnHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/history (1).png"))); // NOI18N
@@ -124,7 +121,7 @@ public class HomeFrame extends javax.swing.JFrame {
         btnHistory.setBorder(null);
         btnHistory.addActionListener(this::btnHistoryActionPerformed);
 
-        btnLogout.setBackground(new java.awt.Color(0, 102, 102));
+        btnLogout.setBackground(new java.awt.Color(0, 51, 51));
         btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLogout.setForeground(new java.awt.Color(255, 255, 255));
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/logout (1).png"))); // NOI18N
@@ -132,7 +129,7 @@ public class HomeFrame extends javax.swing.JFrame {
         btnLogout.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         btnLogout.addActionListener(this::btnLogoutActionPerformed);
 
-        btnAccount.setBackground(new java.awt.Color(111, 151, 143));
+        btnAccount.setBackground(new java.awt.Color(0, 51, 51));
         btnAccount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnAccount.setForeground(new java.awt.Color(255, 255, 255));
         btnAccount.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/accountant (1).png"))); // NOI18N
@@ -145,7 +142,7 @@ public class HomeFrame extends javax.swing.JFrame {
         lblWelcome.setText("Welcome, ");
 
         lblUsername.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        lblUsername.setForeground(new java.awt.Color(0, 102, 102));
+        lblUsername.setForeground(new java.awt.Color(0, 204, 204));
         lblUsername.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/user (1).png"))); // NOI18N
         lblUsername.setText("Username");
 
@@ -200,11 +197,12 @@ public class HomeFrame extends javax.swing.JFrame {
                 .addContainerGap(128, Short.MAX_VALUE))
         );
 
-        changePanel.setBackground(new java.awt.Color(220, 232, 208));
+        changePanel.setBackground(new java.awt.Color(51, 51, 51));
         changePanel.setMinimumSize(new java.awt.Dimension(895, 600));
         changePanel.setName(""); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lblLogo.png"))); // NOI18N
 
         javax.swing.GroupLayout changePanelLayout = new javax.swing.GroupLayout(changePanel);
@@ -213,14 +211,14 @@ public class HomeFrame extends javax.swing.JFrame {
             changePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, changePanelLayout.createSequentialGroup()
                 .addContainerGap(180, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(191, 191, 191))
+                .addComponent(jLabel1)
+                .addGap(219, 219, 219))
         );
         changePanelLayout.setVerticalGroup(
             changePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(changePanelLayout.createSequentialGroup()
-                .addGap(130, 130, 130)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(128, 128, 128)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -276,7 +274,7 @@ public class HomeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccountActionPerformed
-        showPanel(accountPanel);
+        showPanel(new AccountPanel());
     }//GEN-LAST:event_btnAccountActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
@@ -334,7 +332,7 @@ public class HomeFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new HomeFrame().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new HomeFrameDark().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
