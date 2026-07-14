@@ -47,7 +47,7 @@ public class ExpensePanel extends javax.swing.JPanel {
         CategoryService categoryService = new CategoryService();
         int userId = Session.getCurrentUser().getId();
         
-        List<Transaction> transactions = transactionService.getTransactionsByType(userId, "expense");
+        List<Transaction> transactions = transactionService.getTransactionHistoryByType(userId, "expense");
     
         for (Transaction transaction : transactions) {
             String categoryName =

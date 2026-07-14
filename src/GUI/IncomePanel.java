@@ -55,7 +55,7 @@ public class IncomePanel extends javax.swing.JPanel {
 
         int userId = Session.getCurrentUser().getId();
 
-        List<Transaction> transactions = transactionService.getTransactionsByType(userId, "income");
+        List<Transaction> transactions = transactionService.getTransactionHistoryByType(userId, "income");
 
         for (Transaction transaction : transactions) {
             String categoryName
@@ -185,7 +185,6 @@ public class IncomePanel extends javax.swing.JPanel {
                 .setCellRenderer(centerRenderer);
 
         // Center the description column
-        
         centerRenderer.setHorizontalAlignment(
                 javax.swing.SwingConstants.CENTER
         );
@@ -394,37 +393,51 @@ public class IncomePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_incomeTableMouseClicked
 
     private void updateIncomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateIncomeButtonActionPerformed
-        if (selectedTransactionId == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a transaction first.");
-            return;
-        }
-
         try {
+
+            if (selectedTransactionId == -1) {
+                throw new IllegalArgumentException(
+                        "Please select a transaction first."
+                );
+            }
+
             Category category
                     = (Category) cmboIncomeCategory.getSelectedItem();
-
-            BigDecimal amount
-                    = new BigDecimal(incomeAmountField.getText());
-
-            String description
-                    = incomeDescriptionTextArea.getText();
 
             Transaction transaction = new Transaction();
 
             transaction.setId(selectedTransactionId);
             transaction.setCategoryId(category.getId());
-            transaction.setAmount(amount);
-            transaction.setDescription(description);
+
+            transaction.setAmount(
+                    new BigDecimal(incomeAmountField.getText().trim())
+            );
+
+            transaction.setDescription(
+                    incomeDescriptionTextArea.getText().trim()
+            );
 
             TransactionService service = new TransactionService();
 
-            if (service.updateTransaction(transaction)) {
-                JOptionPane.showMessageDialog(this, "Income updated successfully!");
-                loadIncomeTable();
-                clearIncomeButton.doClick();
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Invalid amount.");
+            service.updateTransaction(transaction);
+
+            JOptionPane.showMessageDialog(this,
+                    "Income updated successfully.");
+
+            loadIncomeTable();
+
+            clearIncomeButton.doClick();
+
+        } catch (IllegalArgumentException ex) {
+
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage());
+
+        } catch (RuntimeException ex) {
+
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage());
+
         }
     }//GEN-LAST:event_updateIncomeButtonActionPerformed
 
@@ -442,24 +455,46 @@ public class IncomePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_clearIncomeButtonActionPerformed
 
     private void deleteIncomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteIncomeButtonActionPerformed
-        if (selectedTransactionId == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a transaction.");
-            return;
-        }
+        try {
 
-        int confirm = JOptionPane.showConfirmDialog(this,
-                "Delete this income?",
-                "Confirm",
-                JOptionPane.YES_NO_OPTION);
+            if (selectedTransactionId == -1) {
+                throw new IllegalArgumentException(
+                        "Please select a transaction."
+                );
+            }
 
-        if (confirm == JOptionPane.YES_OPTION) {
+            int option = JOptionPane.showConfirmDialog(
+                    this,
+                    "Delete this income?",
+                    "Confirm",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (option != JOptionPane.YES_OPTION) {
+                return;
+            }
+
             TransactionService service = new TransactionService();
 
-            if (service.deleteTransaction(selectedTransactionId)) {
-                JOptionPane.showMessageDialog(this, "Income deleted.");
-                loadIncomeTable();
-                clearIncomeButton.doClick();
-            }
+            service.deleteTransaction(selectedTransactionId);
+
+            JOptionPane.showMessageDialog(this,
+                    "Income deleted.");
+
+            loadIncomeTable();
+
+            clearIncomeButton.doClick();
+
+        } catch (IllegalArgumentException ex) {
+
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage());
+
+        } catch (RuntimeException ex) {
+
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage());
+
         }
     }//GEN-LAST:event_deleteIncomeButtonActionPerformed
 
@@ -509,50 +544,42 @@ public class IncomePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_addIncomeButtonActionPerformed
 
     private void btnAddIncomeCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddIncomeCategoryActionPerformed
-        String categoryName = JOptionPane.showInputDialog(this, "Enter new income category:");
+        try {
 
-        if (categoryName == null) {
-            return;
-        }
+            String categoryName = JOptionPane.showInputDialog(
+                    this,
+                    "Enter new income category:"
+            );
 
-        categoryName = categoryName.trim();
+            if (categoryName == null) {
+                return;
+            }
 
-        if (categoryName.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Category name cannot be empty.");
-            return;
-        }
+            Category category = new Category();
 
-        CategoryService categoryService = new CategoryService();
+            category.setUserId(Session.getCurrentUser().getId());
+            category.setName(categoryName);
+            category.setType("income");
 
-        int userId = Session.getCurrentUser().getId();
+            CategoryService service = new CategoryService();
 
-        if (categoryService.categoryExists(userId, categoryName, "income")) {
-            JOptionPane.showMessageDialog(this, "Category already exists.");
-            return;
-        }
+            service.addCategory(category);
 
-        Category category = new Category();
-
-        category.setUserId(userId);
-        category.setName(categoryName);
-        category.setType("income");
-
-        if (categoryService.addCategory(category)) {
-            JOptionPane.showMessageDialog(this, "Category added successfully.");
+            JOptionPane.showMessageDialog(this,
+                    "Category added successfully.");
 
             loadIncomeCategories();
 
-            // Automatically select the newly added category
-            for (int i = 0; i < cmboIncomeCategory.getItemCount(); i++) {
-                Category c = cmboIncomeCategory.getItemAt(i);
+        } catch (IllegalArgumentException ex) {
 
-                if (c.getName().equalsIgnoreCase(categoryName)) {
-                    cmboIncomeCategory.setSelectedIndex(i);
-                    break;
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to add category.");
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage());
+
+        } catch (RuntimeException ex) {
+
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage());
+
         }
     }//GEN-LAST:event_btnAddIncomeCategoryActionPerformed
 

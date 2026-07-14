@@ -12,7 +12,7 @@ import model.Transaction;
 
 public class TransactionDAO {
 
-    public boolean addTransaction(Transaction transaction) throws SQLException {
+    public boolean addTransaction(Transaction transaction) throws SQLException {//create method
 
         String sql = """
                 INSERT INTO transactions
@@ -34,7 +34,85 @@ public class TransactionDAO {
 
         }
 
-    }
+    }//end of create
+
+    //read allTransactions
+    // Read all transactions of a user
+    public List<Transaction> getAllTransactions(int userId) throws SQLException {
+
+        List<Transaction> transactions = new ArrayList<>();
+
+        String sql = """
+        SELECT *
+        FROM transactions
+        WHERE user_id = ?
+        ORDER BY transaction_date DESC, id DESC
+        """;//sql command
+
+        try (
+                Connection connection = DBConnection.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql);) {
+
+            stmt.setInt(1, userId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                Transaction transaction = new Transaction();
+
+                transaction.setId(rs.getInt("id"));
+                transaction.setUserId(rs.getInt("user_id"));
+                transaction.setCategoryId(rs.getInt("category_id"));
+                transaction.setType(rs.getString("type"));
+                transaction.setTransactionDate(rs.getDate("transaction_date"));
+                transaction.setAmount(rs.getBigDecimal("amount"));
+                transaction.setDescription(rs.getString("description"));
+                transaction.setCreatedAt(rs.getTimestamp("created_at"));
+                transaction.setUpdatedAt(rs.getTimestamp("updated_at"));
+
+                transactions.add(transaction);
+            }
+        }
+
+        return transactions;
+    }//end of getALlTransactions
+
+    //read one / getTransactions
+    public Transaction getTransactionById(int transactionId) throws SQLException {
+
+        String sql = """
+        SELECT *
+        FROM transactions
+        WHERE id = ?
+        """;
+
+        try (
+                Connection connection = DBConnection.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql);) {
+
+            stmt.setInt(1, transactionId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+
+                Transaction transaction = new Transaction();
+
+                transaction.setId(rs.getInt("id"));
+                transaction.setUserId(rs.getInt("user_id"));
+                transaction.setCategoryId(rs.getInt("category_id"));
+                transaction.setType(rs.getString("type"));
+                transaction.setTransactionDate(rs.getDate("transaction_date"));
+                transaction.setAmount(rs.getBigDecimal("amount"));
+                transaction.setDescription(rs.getString("description"));
+                transaction.setCreatedAt(rs.getTimestamp("created_at"));
+                transaction.setUpdatedAt(rs.getTimestamp("updated_at"));
+
+                return transaction;
+            }
+        }
+
+        return null;
+    }//end of getTransactionById
 
     public List<Transaction> getTransactionsByType(int userId, String type) throws SQLException {
         List<Transaction> transactions = new ArrayList<>();
