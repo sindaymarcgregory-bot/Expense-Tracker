@@ -15,7 +15,7 @@ public class HomeFrame extends javax.swing.JFrame {
     private final IncomePanel incomePanel;
     private final HistoryPanel historyPanel;
     private final AccountPanel accountPanel;
-    
+
     public DashBoardPanel getDashboardPanel() {
         return dashboardPanel;
     }
@@ -25,7 +25,7 @@ public class HomeFrame extends javax.swing.JFrame {
     public HomeFrame() {
         initComponents();
 
-        accountPanel = new AccountPanel();
+        
 
         lblUsername.setText(Session.getCurrentUser().getUsername());
         if (Session.getCurrentUser() != null) {
@@ -37,10 +37,10 @@ public class HomeFrame extends javax.swing.JFrame {
         incomePanel = new IncomePanel();
         historyPanel = new HistoryPanel();
         accountPanel = new AccountPanel();
-        
+
         expensePanel.setHomeFrame(this);
-    incomePanel.setHomeFrame(this);
-    historyPanel.setHomeFrame(this);
+        incomePanel.setHomeFrame(this);
+        historyPanel.setHomeFrame(this);
 
         setTitle("Expense Tracker");
         setLocationRelativeTo(null);
