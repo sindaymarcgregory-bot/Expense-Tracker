@@ -14,10 +14,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Transaction;
 import services.TransactionService;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import javax.swing.table.DefaultTableCellRenderer;
 import utils.Session;
 
 /**
@@ -29,169 +25,61 @@ public class ExpensePanel extends javax.swing.JPanel {
     /**
      * Creates new form ExpensePanel
      */
+    
     private int selectedTransactionId = -1;
-    private DashBoardPanel dashboard;
-
-    public ExpensePanel(DashBoardPanel dashboard) {
-        initComponents();
-        this.dashboard = dashboard;
-    }
-
+    
     public ExpensePanel() {
-
         initComponents();
-
-        this.dashboard = dashboard;
-
+        
         loadExpenseCategories();
-
+        
         loadExpenseTable();
-
-        styleExpenseTable();
-
+        
+        expenseTable.getColumnModel().getColumn(0).setMinWidth(0);
+        expenseTable.getColumnModel().getColumn(0).setMaxWidth(0);
+        expenseTable.getColumnModel().getColumn(0).setPreferredWidth(0);  
     }
-
+    
     private void loadExpenseTable() {
         DefaultTableModel model = (DefaultTableModel) expenseTable.getModel();
         model.setRowCount(0);
         TransactionService transactionService = new TransactionService();
         CategoryService categoryService = new CategoryService();
         int userId = Session.getCurrentUser().getId();
-
+        
         List<Transaction> transactions = transactionService.getTransactionsByType(userId, "expense");
-
+    
         for (Transaction transaction : transactions) {
-            String categoryName
-                    = categoryService.getCategoryNameById(
+            String categoryName =
+                    categoryService.getCategoryNameById(
                             transaction.getCategoryId());
             model.addRow(new Object[]{
                 transaction.getId(),
-                "₱" + String.format(
-                "%,.2f",
-                transaction.getAmount()
-                ),
+                transaction.getAmount(),
                 categoryName,
                 transaction.getDescription(),
                 transaction.getTransactionDate()
             });
         }
     }
-    // Style the expense table
-
-    private void styleExpenseTable() {
-
-        expenseTable.getColumnModel()
-                .getColumn(0)
-                .setMinWidth(0);
-
-        expenseTable.getColumnModel()
-                .getColumn(0)
-                .setMaxWidth(0);
-
-        expenseTable.getColumnModel()
-                .getColumn(0)
-                .setPreferredWidth(0);
-
-        expenseTable.setFont(
-                new Font("Segoe UI", Font.PLAIN, 13)
-        );
-
-        expenseTable.getTableHeader()
-                .setFont(
-                        new Font("Segoe UI", Font.BOLD, 14)
-                );
-
-        expenseTable.setRowHeight(35);
-
-        expenseTable.setShowGrid(false);
-
-        expenseTable.setIntercellSpacing(
-                new Dimension(0, 0)
-        );
-
-        expenseTable.setBackground(
-                new Color(220, 232, 208)
-        );
-
-        expenseTable.setSelectionBackground(
-                new Color(111, 151, 143)
-        );
-
-        expenseTable.setSelectionForeground(
-                Color.WHITE
-        );
-
-        jScrollPane1.setBorder(null);
-
-        expenseTable.getColumnModel()
-                .getColumn(1)
-                .setPreferredWidth(120);
-
-        expenseTable.getColumnModel()
-                .getColumn(2)
-                .setPreferredWidth(120);
-
-        expenseTable.getColumnModel()
-                .getColumn(3)
-                .setPreferredWidth(200);
-
-        expenseTable.getColumnModel()
-                .getColumn(4)
-                .setPreferredWidth(120);
-
-        DefaultTableCellRenderer expenseRenderer
-                = new DefaultTableCellRenderer();
-
-        expenseRenderer.setForeground(
-                new Color(220, 70, 70)
-        );
-
-        expenseTable.getColumnModel()
-                .getColumn(1)
-                .setCellRenderer(expenseRenderer);
-
-        // Center the category column
-        DefaultTableCellRenderer centerRenderer
-                = new DefaultTableCellRenderer();
-
-        centerRenderer.setHorizontalAlignment(
-                javax.swing.SwingConstants.CENTER
-        );
-
-        expenseTable.getColumnModel()
-                .getColumn(1)
-                .setCellRenderer(centerRenderer);
-        expenseTable.getColumnModel()
-                .getColumn(2)
-                .setCellRenderer(centerRenderer);
-        expenseTable.getColumnModel()
-                .getColumn(3)
-                .setCellRenderer(centerRenderer);
-
-// Center the description column
-        expenseTable.getColumnModel()
-                .getColumn(4)
-                .setCellRenderer(centerRenderer);
-
-    }
-
+    
     private void loadExpenseCategories() {
 
-        CategoryService service = new CategoryService();
+    CategoryService service = new CategoryService();
 
-        int userId = Session.getCurrentUser().getId();
+    int userId = Session.getCurrentUser().getId();
 
-        ArrayList<Category> categories
-                = service.getCategories(userId, "expense");
+    ArrayList<Category> categories =
+            service.getCategories(userId, "expense");
 
-        cmboExpenseCategory.removeAllItems();
+    cmboExpenseCategory.removeAllItems();
 
-        for (Category category : categories) {
+    for (Category category : categories) {
 
-            cmboExpenseCategory.addItem(category);
+        cmboExpenseCategory.addItem(category);
 
-        }
     }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -223,7 +111,6 @@ public class ExpensePanel extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(220, 232, 208));
         jPanel1.setMaximumSize(null);
-        jPanel1.setPreferredSize(new java.awt.Dimension(1020, 604));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(111, 151, 143));
@@ -234,7 +121,6 @@ public class ExpensePanel extends javax.swing.JPanel {
         jLabel1.setText("Amount");
 
         jScrollPane1.setBackground(new java.awt.Color(220, 232, 208));
-        jScrollPane1.setEnabled(false);
 
         expenseTable.setBackground(new java.awt.Color(220, 232, 208));
         expenseTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -249,7 +135,6 @@ public class ExpensePanel extends javax.swing.JPanel {
                 "ID", "Amount", "Category", "Description", "Date"
             }
         ));
-        expenseTable.setEnabled(false);
         expenseTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 expenseTableMouseClicked(evt);
@@ -322,12 +207,18 @@ public class ExpensePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-                    .addComponent(addExpenseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(updateExpenseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(clearExpenseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(deleteExpenseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(201, 201, 201))
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(deleteExpenseButton, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                                .addComponent(addExpenseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(updateExpenseButton, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                                .addComponent(clearExpenseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addGap(113, 113, 113))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,7 +230,7 @@ public class ExpensePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cmboExpenseCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btnAddExpenseCategory1)
@@ -349,7 +240,8 @@ public class ExpensePanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(expenseAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -362,145 +254,153 @@ public class ExpensePanel extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(deleteExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(clearExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(53, 53, 53)))
+                        .addGap(53, 53, 53))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 883, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddExpenseCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddExpenseCategoryActionPerformed
-        String categoryName = JOptionPane.showInputDialog(this, "Enter new expense category:");
+    private void updateExpenseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateExpenseButtonActionPerformed
+        if (selectedTransactionId == -1) {
 
-        // User pressed Cancel
-        if (categoryName == null) {
-            return;
+        JOptionPane.showMessageDialog(this,
+                "Please select a transaction first.");
+
+        return;
         }
 
-        categoryName = categoryName.trim();
-
-        // Empty category
-        if (categoryName.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Category name cannot be empty.");
-            return;
-        }
-
-        CategoryService service = new CategoryService();
-
-        int userId = Session.getCurrentUser().getId();
-
-        // Check if category already exists
-        if (service.categoryExists(userId, categoryName, "expense")) {
-
-            JOptionPane.showMessageDialog(this, "Category already exists.");
-            return;
-        }
-
-        // Create Category object
-        Category category = new Category();
-
-        category.setUserId(userId);
-        category.setName(categoryName);
-        category.setType("expense");
-
-        // Save category
-        if (service.addCategory(category)) {
-            JOptionPane.showMessageDialog(this, "Category added successfully.");
-
-            // Reload ComboBox
-            loadExpenseCategories();
-
-            // Automatically select the newly added category
-            for (int i = 0; i < cmboExpenseCategory.getItemCount(); i++) {
-                Category c = cmboExpenseCategory.getItemAt(i);
-
-                if (c.getName().equalsIgnoreCase(categoryName)) {
-                    cmboExpenseCategory.setSelectedIndex(i);
-                    break;
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to add category.");
-        }
-    }//GEN-LAST:event_btnAddExpenseCategoryActionPerformed
-
-    private void addExpenseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addExpenseButtonActionPerformed
         try {
             Category category = (Category) cmboExpenseCategory.getSelectedItem();
 
-            if (category == null) {
-                JOptionPane.showMessageDialog(this, "Please select a category.");
-                return;
-            }
+            BigDecimal amount = new BigDecimal(expenseAmountField.getText());
 
-            String amountText = expenseAmountField.getText().trim();
-
-            if (amountText.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please enter an amount.");
-                return;
-            }
-
-            BigDecimal amount = new BigDecimal(amountText);
-
-            String description = expenseDescriptionTextArea.getText().trim();
+            String description = expenseDescriptionTextArea.getText();
 
             Transaction transaction = new Transaction();
 
-            transaction.setUserId(Session.getCurrentUser().getId());
+            transaction.setId(selectedTransactionId);
             transaction.setCategoryId(category.getId());
-            transaction.setType("expense");
             transaction.setAmount(amount);
             transaction.setDescription(description);
-
-            // Automatically use today's date
-            transaction.setTransactionDate(java.sql.Date.valueOf(LocalDate.now()));
-
+        
             TransactionService service = new TransactionService();
 
-            if (service.addTransaction(transaction)) {
-                //dashboard.loadPieChart();
+            if (service.updateTransaction(transaction)) {
+                JOptionPane.showMessageDialog(this, "Expense updated successfully!");
 
-                JOptionPane.showMessageDialog(this, "Expense added successfully!");
-
-                // Refresh the JTable
                 loadExpenseTable();
 
-                // Clear the form
                 expenseAmountField.setText("");
                 expenseDescriptionTextArea.setText("");
+                cmboExpenseCategory.setSelectedIndex(0);
 
-                if (cmboExpenseCategory.getItemCount() > 0) {
-                    cmboExpenseCategory.setSelectedIndex(0);
-                }
-
-                // Reset selection
-                expenseTable.clearSelection();
                 selectedTransactionId = -1;
             } else {
-                JOptionPane.showMessageDialog(this, "Unable to save expense.");
+                JOptionPane.showMessageDialog(this, "Update failed.");
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Please enter a valid amount.");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "An error occurred while saving the expense.");
+            JOptionPane.showMessageDialog(this, "Invalid amount.");
         }
+    }//GEN-LAST:event_updateExpenseButtonActionPerformed
+
+    private void addExpenseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addExpenseButtonActionPerformed
+    try {
+        Category category = (Category) cmboExpenseCategory.getSelectedItem();
+
+        if (category == null) {
+            JOptionPane.showMessageDialog(this, "Please select a category.");
+            return;
+        }
+
+        String amountText = expenseAmountField.getText().trim();
+
+        if (amountText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter an amount.");
+            return;
+        }
+
+        BigDecimal amount = new BigDecimal(amountText);
+
+        String description = expenseDescriptionTextArea.getText().trim();
+
+        Transaction transaction = new Transaction();
+
+        transaction.setUserId(Session.getCurrentUser().getId());
+        transaction.setCategoryId(category.getId());
+        transaction.setType("expense");
+        transaction.setAmount(amount);
+        transaction.setDescription(description);
+
+        // Automatically use today's date
+        transaction.setTransactionDate(java.sql.Date.valueOf(LocalDate.now()));
+
+        TransactionService service = new TransactionService();
+
+        if (service.addTransaction(transaction)) {
+            JOptionPane.showMessageDialog(this, "Expense added successfully!");
+
+            // Refresh the JTable
+            loadExpenseTable();
+
+            // Clear the form
+            expenseAmountField.setText("");
+            expenseDescriptionTextArea.setText("");
+
+            if (cmboExpenseCategory.getItemCount() > 0) {
+                cmboExpenseCategory.setSelectedIndex(0);
+            }
+
+            // Reset selection
+            expenseTable.clearSelection();
+            selectedTransactionId = -1;
+        } else {
+            JOptionPane.showMessageDialog(this, "Unable to save expense.");
+        }
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(this, "Please enter a valid amount.");
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "An error occurred while saving the expense.");
+    }
     }//GEN-LAST:event_addExpenseButtonActionPerformed
+
+    private void expenseTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_expenseTableMouseClicked
+        int row = expenseTable.getSelectedRow();
+        if (row == -1) {
+            return;
+        }
+
+        // Save the selected transaction ID
+        selectedTransactionId = Integer.parseInt(expenseTable.getValueAt(row, 0).toString());
+
+        // Fill the form
+        expenseAmountField.setText(expenseTable.getValueAt(row, 1).toString());
+
+        String categoryName = expenseTable.getValueAt(row, 2).toString();
+
+        for (int i = 0; i < cmboExpenseCategory.getItemCount(); i++) {
+            Category category = cmboExpenseCategory.getItemAt(i);
+            if (category.getName().equals(categoryName)) {
+                cmboExpenseCategory.setSelectedIndex(i);
+                break;
+            }
+        }
+        expenseDescriptionTextArea.setText(expenseTable.getValueAt(row, 3).toString());
+    }//GEN-LAST:event_expenseTableMouseClicked
 
     private void deleteExpenseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteExpenseButtonActionPerformed
         if (selectedTransactionId == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a transaction first.");
-            return;
+        JOptionPane.showMessageDialog(this, "Please select a transaction first.");
+        return;
         }
 
         int choice = JOptionPane.showConfirmDialog(
@@ -545,8 +445,6 @@ public class ExpensePanel extends javax.swing.JPanel {
 
         // Reset selected transaction
         selectedTransactionId = -1;
-    }//GEN-LAST:event_clearExpenseButtonActionPerformed
-
     }//GEN-LAST:event_clearExpenseButtonActionPerformed
 
     private void btnDeleteExpenseCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteExpenseCategoryActionPerformed
@@ -600,48 +498,57 @@ public class ExpensePanel extends javax.swing.JPanel {
     private void btnAddExpenseCategory1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddExpenseCategory1ActionPerformed
         String categoryName = JOptionPane.showInputDialog(this, "Enter new expense category:");
 
+        // User pressed Cancel
+        if (categoryName == null) {
             return;
         }
 
-        try {
-            Category category = (Category) cmboExpenseCategory.getSelectedItem();
+        categoryName = categoryName.trim();
 
-            BigDecimal amount = new BigDecimal(expenseAmountField.getText());
+        // Empty category
+        if (categoryName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Category name cannot be empty.");
+            return;
+        }
 
-            String description = expenseDescriptionTextArea.getText();
+        CategoryService service = new CategoryService();
 
-            Transaction transaction = new Transaction();
+        int userId = Session.getCurrentUser().getId();
 
-            transaction.setId(selectedTransactionId);
-            transaction.setCategoryId(category.getId());
-            transaction.setAmount(amount);
-            transaction.setDescription(description);
+        // Check if category already exists
+        if (service.categoryExists(userId, categoryName, "expense")) {
 
-            TransactionService service = new TransactionService();
+            JOptionPane.showMessageDialog(this, "Category already exists.");
+            return;
+        }
 
-            if (service.updateTransaction(transaction)) {
-                JOptionPane.showMessageDialog(this, "Expense updated successfully!");
+        // Create Category object
+        Category category = new Category();
+        
+        category.setUserId(userId);
+        category.setName(categoryName);
+        category.setType("expense");
 
-                loadExpenseTable();
+        // Save category
+        if (service.addCategory(category)) {
+            JOptionPane.showMessageDialog(this, "Category added successfully.");
 
-                expenseAmountField.setText("");
-                expenseDescriptionTextArea.setText("");
-                cmboExpenseCategory.setSelectedIndex(0);
+            // Reload ComboBox
+            loadExpenseCategories();
 
-                selectedTransactionId = -1;
-            } else {
-                JOptionPane.showMessageDialog(this, "Update failed.");
+            // Automatically select the newly added category
+            for (int i = 0; i < cmboExpenseCategory.getItemCount(); i++) {
+                Category c = cmboExpenseCategory.getItemAt(i);
+            
+                if (c.getName().equalsIgnoreCase(categoryName)) {
+                    cmboExpenseCategory.setSelectedIndex(i);
+                    break;
+                }
             }
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Invalid amount.");
+        } else {
+            JOptionPane.showMessageDialog( this, "Failed to add category.");
         }
     }//GEN-LAST:event_btnAddExpenseCategory1ActionPerformed
-
-    private void updateExpenseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateExpenseButtonActionPerformed
-        if (selectedTransactionId == -1) {
-
-            JOptionPane.showMessageDialog(this,
-                    "Please select a transaction first.");
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -658,6 +565,7 @@ public class ExpensePanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
