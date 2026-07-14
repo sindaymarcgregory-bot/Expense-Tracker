@@ -287,7 +287,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
 
         // Change title
         lblBalanceTitle.setText(
-                "💳 Current Balance"
+                " Current Balance"
         );
 
         // Center amount
