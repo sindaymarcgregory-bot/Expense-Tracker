@@ -55,6 +55,8 @@ public class SignUpForm extends javax.swing.JFrame {
         setagefield = new javax.swing.JTextField();
         fullnamefield = new javax.swing.JTextField();
         txtUsername3 = new javax.swing.JLabel();
+        chkShowPassword = new javax.swing.JCheckBox();
+        btnBack = new javax.swing.JButton();
 
         txtUsername1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtUsername1.setForeground(new java.awt.Color(111, 151, 143));
@@ -102,6 +104,18 @@ public class SignUpForm extends javax.swing.JFrame {
         txtUsername3.setForeground(new java.awt.Color(111, 151, 143));
         txtUsername3.setText("Full Name");
 
+        chkShowPassword.setBackground(new java.awt.Color(220, 232, 208));
+        chkShowPassword.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        chkShowPassword.setForeground(new java.awt.Color(82, 133, 123));
+        chkShowPassword.setText("Show Password");
+        chkShowPassword.addActionListener(this::chkShowPasswordActionPerformed);
+
+        btnBack.setBackground(new java.awt.Color(220, 232, 208));
+        btnBack.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(82, 133, 123));
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back-arrow.png"))); // NOI18N
+        btnBack.addActionListener(this::btnBackActionPerformed);
+
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
         loginPanel.setLayout(loginPanelLayout);
         loginPanelLayout.setHorizontalGroup(
@@ -109,7 +123,8 @@ public class SignUpForm extends javax.swing.JFrame {
             .addGroup(loginPanelLayout.createSequentialGroup()
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(loginPanelLayout.createSequentialGroup()
-                        .addGap(258, 258, 258)
+                        .addComponent(btnBack)
+                        .addGap(179, 179, 179)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(loginPanelLayout.createSequentialGroup()
                         .addGap(395, 395, 395)
@@ -126,10 +141,6 @@ public class SignUpForm extends javax.swing.JFrame {
                             .addContainerGap()
                             .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
-                                    .addComponent(txtPassword)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(setpasswordfield, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
                                     .addComponent(txtUsername)
                                     .addGap(18, 18, 18)
                                     .addComponent(setusernamefield, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -144,13 +155,21 @@ public class SignUpForm extends javax.swing.JFrame {
                                     .addGap(68, 68, 68)
                                     .addComponent(txtPassword2)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(setagefield, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(276, Short.MAX_VALUE))
+                                    .addComponent(setagefield, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
+                                    .addComponent(txtPassword)
+                                    .addGap(18, 18, 18)
+                                    .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(chkShowPassword)
+                                        .addComponent(setpasswordfield, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addContainerGap(329, Short.MAX_VALUE))
         );
         loginPanelLayout.setVerticalGroup(
             loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(loginPanelLayout.createSequentialGroup()
-                .addComponent(jLabel2)
+                .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(btnBack))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -169,7 +188,9 @@ public class SignUpForm extends javax.swing.JFrame {
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(setpasswordfield, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkShowPassword)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPassword2)
@@ -177,7 +198,7 @@ public class SignUpForm extends javax.swing.JFrame {
                     .addComponent(setphonefield, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnSignUp2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -240,6 +261,21 @@ public class SignUpForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSignUp2ActionPerformed
 
+    private void chkShowPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkShowPasswordActionPerformed
+        if (chkShowPassword.isSelected()) {
+            setpasswordfield.setEchoChar((char) 0);
+        } else {
+            setpasswordfield.setEchoChar('•');
+        }
+    }//GEN-LAST:event_chkShowPasswordActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        LoginForm loginForm = new LoginForm();
+        loginForm.setVisible(true);
+
+        dispose(); // Closes the current SignUpForm
+    }//GEN-LAST:event_btnBackActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -266,7 +302,9 @@ public class SignUpForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSignUp2;
+    private javax.swing.JCheckBox chkShowPassword;
     private javax.swing.JTextField fullnamefield;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

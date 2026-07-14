@@ -3,53 +3,42 @@ package services;
 import DAO.TransactionDAO;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import model.Transaction;
 
 public class TransactionService {
 
     private final TransactionDAO transactionDAO = new TransactionDAO();//declaring the object DAO
+    private final ValidationService validationService = new ValidationService();
 
-    //start of the addTransaction
-    public boolean addTransaction(Transaction transaction) {
+    //start of the addTransaction or Create
+    public boolean addTransaction(Transaction transaction) throws SQLException {
 
-        // Category validation
+        // Validate amount
+        if (!validationService.isPositive(transaction.getAmount())) {
+            throw new IllegalArgumentException("Amount must be greater than zero.");
+        }
+
+        // Validate category
         if (transaction.getCategoryId() <= 0) {
             throw new IllegalArgumentException("Please select a category.");
         }
 
-        // Amount validation
-        if (transaction.getAmount() == null) {
-            throw new IllegalArgumentException("Amount is required.");
+         // Validate description
+        if (validationService.isEmpty(transaction.getDescription())) {
+            throw new IllegalArgumentException("Please enter a description.");
         }
 
-        if (transaction.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Amount must be greater than zero.");
-        }
+        // If this is an expense, check available balance
+        if (transaction.getType().equalsIgnoreCase("expense")) {
 
-        try {
+            BigDecimal balance = transactionDAO.getCurrentBalance(transaction.getUserId());
 
-            //Check balance only for expense transactions
-            if (transaction.getType().equalsIgnoreCase("expense")) {
-
-                BigDecimal currentBalance
-                        = transactionDAO.getCurrentBalance(transaction.getUserId());
-
-                if (transaction.getAmount().compareTo(currentBalance) > 0) {
-                    throw new IllegalArgumentException("Insufficient balance.");
-                }
+            if (transaction.getAmount().compareTo(balance) > 0) {
+                throw new IllegalArgumentException("Insufficient balance.\n\nAvailable Balance: ₱" + balance);
             }
-            //Save the transaction
-            return transactionDAO.addTransaction(transaction);
-
-        } catch (SQLException e) {
-
-            e.printStackTrace();
-            throw new RuntimeException("Unable to save transaction.");
-
         }
-
+        return transactionDAO.addTransaction(transaction);
     }
 
     //read all
@@ -71,61 +60,8 @@ public class TransactionService {
 
         }
 
-    }//end of readAll
-
-    //start of updateTransaction
-    public boolean updateTransaction(Transaction transaction) {
-
-        // if the user did not select any category
-        if (transaction.getCategoryId() <= 0) {
-            throw new IllegalArgumentException("Please select a category.");
-        }
-        //if there are no value in amount field
-        if (transaction.getAmount() == null) {
-            throw new IllegalArgumentException("Amount is required.");
-        }
-        //if the amount is less than or equal to zero
-        if (transaction.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Amount must be greater than zero.");
-        }
-
-        try {
-
-            return transactionDAO.updateTransaction(transaction);//calling the update method for updating
-
-        } catch (SQLException e) {
-
-            e.printStackTrace();
-
-            throw new RuntimeException("Unable to update transaction.");//notice the user of error
-
-        }
-
-    }//end of updateTransaction
-
-    //start of deleteTransaction
-    public boolean deleteTransaction(int id) {
-
-        //if the user did not select any transaction
-        if (id <= 0) {
-            throw new IllegalArgumentException("Please select a transaction first.");
-        }
-
-        try {
-
-            return transactionDAO.deleteTransaction(id);//calling the method that deletes the data
-
-        } catch (SQLException e) {
-
-            e.printStackTrace();
-
-            throw new RuntimeException("Unable to delete transaction.");//notice the user of error
-
-        }
-
-    }//end of deleteTransaction
-
-    //start of getTransactionHistory / readAll
+    }
+    
     public List<Transaction> getTransactionHistory(int userId) {
 
         //if the user is not selecting any transaction item
@@ -143,7 +79,7 @@ public class TransactionService {
 
         }
 
-    }//end of getTransactionHistory / readAll
+    }
 
     //getting the transaction history item for the history panel
     public List<Transaction> getTransactionHistoryByType(int userId, String type) {
@@ -170,10 +106,85 @@ public class TransactionService {
 
     }
 
+    //start of updateTransaction
+    public boolean updateTransaction(Transaction transaction) {
+
+        // Validate category.
+        if (transaction.getCategoryId() <= 0) {
+            throw new IllegalArgumentException("Please select a category.");
+        }
+
+        // Validate amount.
+        if (!validationService.isPositive(transaction.getAmount())) {
+            throw new IllegalArgumentException("Amount must be greater than zero.");
+        }
+
+        // Validate description.
+        if (validationService.isEmpty(transaction.getDescription())) {
+            throw new IllegalArgumentException("Please enter a description.");
+        }
+
+        try {
+
+            // Retrieve the original transaction.
+            Transaction oldTransaction = transactionDAO.getTransactionById(transaction.getId());
+
+            if (oldTransaction == null) {
+                throw new IllegalArgumentException("Transaction not found.");
+            }
+
+            // Check balance only for expense transactions.
+            if (oldTransaction.getType().equalsIgnoreCase("expense")) {
+
+                BigDecimal balance = transactionDAO.getCurrentBalance(oldTransaction.getUserId());
+
+                // Restore the previous expense before comparing.
+                balance = balance.add(oldTransaction.getAmount());
+
+                if (transaction.getAmount().compareTo(balance) > 0) {
+                    throw new IllegalArgumentException(
+                            "Insufficient balance.\n\nAvailable Balance: ₱"
+                            + balance);
+                }
+            }
+            return transactionDAO.updateTransaction(transaction);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Unable to update transaction.");
+        }
+    }   
+
+    //start of deleteTransaction
+    public boolean deleteTransaction(int id) {
+
+        //if the user did not select any transaction
+        if (id <= 0) {
+            throw new IllegalArgumentException("Please select a transaction first.");
+        }
+
+        try {
+
+            return transactionDAO.deleteTransaction(id);//calling the method that deletes the data
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+
+            throw new RuntimeException("Unable to delete transaction.");//notice the user of error
+
+        }
+
+    }//end of deleteTransaction
+
+    //start of getTransactionHistory / readAll
+    
+
+    
+
    
     
-// Search transaction history using a filter and keyword
-public List<Transaction> searchTransactionHistory(int userId, String filter, String keyword) {
+    // Search transaction history using a filter and keyword
+    public List<Transaction> searchTransactionHistory(int userId, String filter, String keyword) {
 
         //Validate the user ID
         if (userId <= 0) {

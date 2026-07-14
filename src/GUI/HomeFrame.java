@@ -10,11 +10,15 @@ import utils.Session;
 
 public class HomeFrame extends javax.swing.JFrame {
 
-    private DashBoardPanel dashboardPanel;
-    private ExpensePanel expensePanel;
-    private IncomePanel incomePanel;
-    private HistoryPanel historyPanel;
-    private AccountPanel accountPanel;
+    private final DashBoardPanel dashboardPanel;
+    private final ExpensePanel expensePanel;
+    private final IncomePanel incomePanel;
+    private final HistoryPanel historyPanel;
+    private final AccountPanel accountPanel;
+    
+    public DashBoardPanel getDashboardPanel() {
+        return dashboardPanel;
+    }
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HomeFrame.class.getName());
 
@@ -30,6 +34,10 @@ public class HomeFrame extends javax.swing.JFrame {
         incomePanel = new IncomePanel();
         historyPanel = new HistoryPanel();
         accountPanel = new AccountPanel();
+        
+        expensePanel.setHomeFrame(this);
+    incomePanel.setHomeFrame(this);
+    historyPanel.setHomeFrame(this);
 
         setTitle("Expense Tracker");
         setLocationRelativeTo(null);
@@ -182,7 +190,7 @@ public class HomeFrame extends javax.swing.JFrame {
                 .addComponent(lblWelcome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblUsername)
-                .addGap(68, 68, 68)
+                .addGap(72, 72, 72)
                 .addComponent(btnAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -194,7 +202,7 @@ public class HomeFrame extends javax.swing.JFrame {
                 .addComponent(btnHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
 
         changePanel.setBackground(new java.awt.Color(220, 232, 208));
@@ -294,7 +302,7 @@ public class HomeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryActionPerformed
-        showPanel(new HistoryPanel());
+        showPanel(historyPanel);
     }//GEN-LAST:event_btnHistoryActionPerformed
 
     private void btnExpensesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExpensesActionPerformed
@@ -302,7 +310,7 @@ public class HomeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExpensesActionPerformed
 
     private void btnIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncomeActionPerformed
-        showPanel(new IncomePanel());
+        showPanel(incomePanel);
     }//GEN-LAST:event_btnIncomeActionPerformed
 
     private void btnDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDashboardActionPerformed

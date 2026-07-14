@@ -37,14 +37,28 @@ public class DashBoardPanel extends javax.swing.JPanel {
 
         // Apply card design first
         styleSummaryCards();
+        
+        loadRecentTransactions();
+        setupTransactionTable();
+        
+        styleTransactionTable();
+        
+
+        //makeCardsRounded();
+    }
+    
+    // Refresh all dashboard information.
+    public void refreshDashboard() {
+
+        loadPieChart();
+
+        loadSummaryCards();
 
         loadRecentTransactions();
 
         setupTransactionTable();
 
         styleTransactionTable();
-
-        //makeCardsRounded();
     }
 
     /**

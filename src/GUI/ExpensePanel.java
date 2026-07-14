@@ -20,73 +20,105 @@ import utils.Session;
  *
  * @author Arch Salon
  */
-public class ExpensePanel extends javax.swing.JPanel {
+  
 
-    /**
-     * Creates new form ExpensePanel
-     */
-    
-    private int selectedTransactionId = -1;
-    
-    public ExpensePanel() {
-        initComponents();
+    public class ExpensePanel extends javax.swing.JPanel {
+
+        /**
+         * Creates new form ExpensePanel
+         */
+        private int selectedTransactionId = -1;
+        private HomeFrame homeFrame;
         
-        loadExpenseCategories();
-        
-        loadExpenseTable();
-        
-        expenseTable.getColumnModel().getColumn(0).setMinWidth(0);
-        expenseTable.getColumnModel().getColumn(0).setMaxWidth(0);
-        expenseTable.getColumnModel().getColumn(0).setPreferredWidth(0);  
-    }
-    
-    private void loadExpenseTable() {
-        DefaultTableModel model = (DefaultTableModel) expenseTable.getModel();
-        model.setRowCount(0);
-        TransactionService transactionService = new TransactionService();
-        CategoryService categoryService = new CategoryService();
-        int userId = Session.getCurrentUser().getId();
-        
-        List<Transaction> transactions = transactionService.getTransactionHistoryByType(userId, "expense");
-    
-        for (Transaction transaction : transactions) {
-            String categoryName =
-                    categoryService.getCategoryNameById(
-                            transaction.getCategoryId());
-            model.addRow(new Object[]{
-                transaction.getId(),
-                transaction.getAmount(),
-                categoryName,
-                transaction.getDescription(),
-                transaction.getTransactionDate()
-            });
+        public void setHomeFrame(HomeFrame homeFrame) {
+            this.homeFrame = homeFrame;
         }
-    }
+
+        public ExpensePanel() {
+            initComponents();
+
+            loadExpenseCategories();
+
+            loadExpenseTable();
+
+            expenseTable.getColumnModel().getColumn(0).setMinWidth(0);
+            expenseTable.getColumnModel().getColumn(0).setMaxWidth(0);
+            expenseTable.getColumnModel().getColumn(0).setPreferredWidth(0);
+        }
+
+        private void loadExpenseTable() {
+            DefaultTableModel model = (DefaultTableModel) expenseTable.getModel();
+            model.setRowCount(0);
+            TransactionService transactionService = new TransactionService();
+            CategoryService categoryService = new CategoryService();
+            int userId = Session.getCurrentUser().getId();
+
+            List<Transaction> transactions = transactionService.getTransactionHistoryByType(userId, "expense");
+
+            for (Transaction transaction : transactions) {
+                String categoryName
+                        = categoryService.getCategoryNameById(
+                                transaction.getCategoryId());
+                model.addRow(new Object[]{
+                    transaction.getId(),
+                    transaction.getAmount(),
+                    categoryName,
+                    transaction.getDescription(),
+                    transaction.getTransactionDate()
+                });
+            }
+        }
+
+        private void loadExpenseCategories() {
+
+            CategoryService service = new CategoryService();
+
+            int userId = Session.getCurrentUser().getId();
+
+            ArrayList<Category> categories
+                    = service.getCategories(userId, "expense");
+
+            cmboExpenseCategory.removeAllItems();
+
+            for (Category category : categories) {
+
+                cmboExpenseCategory.addItem(category);
+
+            }
+        }
+        
+        // Clears the expense form.
+        private void clearFields() {
+            expenseAmountField.setText("");
+            expenseDescriptionTextArea.setText("");
+            if (cmboExpenseCategory.getItemCount() > 0) {
+                cmboExpenseCategory.setSelectedIndex(0);
+            }
+            expenseTable.clearSelection();
+            selectedTransactionId = -1;
+        }
     
-    private void loadExpenseCategories() {
+        // Refresh all data after a transaction.
+        private void refreshData() {
 
-    CategoryService service = new CategoryService();
+            // Refresh the expense table.
+            loadExpenseTable();
 
-    int userId = Session.getCurrentUser().getId();
+            // Refresh the dashboard.
+            if (homeFrame != null) {
+            homeFrame.getDashboardPanel().refreshDashboard();
+            }
 
-    ArrayList<Category> categories =
-            service.getCategories(userId, "expense");
+            // Clear the form.
+            clearFields();
+        }
 
-    cmboExpenseCategory.removeAllItems();
-
-    for (Category category : categories) {
-
-        cmboExpenseCategory.addItem(category);
-
-    }
-}
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
+        /**
+         * This method is called from within the constructor to initialize the
+         * form. WARNING: Do NOT modify this code. The content of this method is
+         * always regenerated by the Form Editor.
+         */
+        @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -272,13 +304,17 @@ public class ExpensePanel extends javax.swing.JPanel {
     private void updateExpenseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateExpenseButtonActionPerformed
         if (selectedTransactionId == -1) {
 
-        JOptionPane.showMessageDialog(this,
-                "Please select a transaction first.");
+            JOptionPane.showMessageDialog(this,
+                    "Please select a transaction first.");
 
-        return;
+            return;
         }
 
         try {
+            if (cmboExpenseCategory.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(this, "Please select a category.");
+                return;
+            }
             Category category = (Category) cmboExpenseCategory.getSelectedItem();
 
             BigDecimal amount = new BigDecimal(expenseAmountField.getText());
@@ -291,20 +327,13 @@ public class ExpensePanel extends javax.swing.JPanel {
             transaction.setCategoryId(category.getId());
             transaction.setAmount(amount);
             transaction.setDescription(description);
-        
+
             TransactionService service = new TransactionService();
 
             if (service.updateTransaction(transaction)) {
                 JOptionPane.showMessageDialog(this, "Expense updated successfully!");
-
-                loadExpenseTable();
-
-                expenseAmountField.setText("");
-                expenseDescriptionTextArea.setText("");
-                cmboExpenseCategory.setSelectedIndex(0);
-
-                selectedTransactionId = -1;
-            } else {
+                refreshData();
+        } else {
                 JOptionPane.showMessageDialog(this, "Update failed.");
             }
         } catch (NumberFormatException ex) {
@@ -313,96 +342,86 @@ public class ExpensePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_updateExpenseButtonActionPerformed
 
     private void addExpenseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addExpenseButtonActionPerformed
-    try {
-        Category category = (Category) cmboExpenseCategory.getSelectedItem();
-
-        if (category == null) {
-            JOptionPane.showMessageDialog(this, "Please select a category.");
-            return;
-        }
-
-        String amountText = expenseAmountField.getText().trim();
-
-        if (amountText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter an amount.");
-            return;
-        }
-
-        BigDecimal amount = new BigDecimal(amountText);
-
-        String description = expenseDescriptionTextArea.getText().trim();
-
-        Transaction transaction = new Transaction();
-
-        transaction.setUserId(Session.getCurrentUser().getId());
-        transaction.setCategoryId(category.getId());
-        transaction.setType("expense");
-        transaction.setAmount(amount);
-        transaction.setDescription(description);
-
-        // Automatically use today's date
-        transaction.setTransactionDate(java.sql.Date.valueOf(LocalDate.now()));
-
-        TransactionService service = new TransactionService();
-
-        if (service.addTransaction(transaction)) {
+        try {
+            if (cmboExpenseCategory.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(this, "Please select a category.");
+                return;
+            }
+            
+            // Get the selected category.
+            Category category = (Category) cmboExpenseCategory.getSelectedItem();
+            
+            // Create the service and transaction objects.
+            TransactionService transactionService = new TransactionService();
+            Transaction transaction = new Transaction();
+            
+            // Store the logged-in user's ID.
+            transaction.setUserId(Session.getCurrentUser().getId());
+            
+             // Store the selected category.
+            transaction.setCategoryId(category.getId());
+            
+            // Set the transaction type.
+            transaction.setType("expense");
+            
+            // Store the entered amount.
+            transaction.setAmount(new BigDecimal(expenseAmountField.getText().trim()));
+            
+            // Store the description.
+            transaction.setDescription(expenseDescriptionTextArea.getText().trim());
+            
+            // Automatically use today's date.
+            transaction.setTransactionDate(java.sql.Date.valueOf(LocalDate.now()));
+            
+            // Save the transaction.
+            if (transactionService.addTransaction(transaction)) {
             JOptionPane.showMessageDialog(this, "Expense added successfully!");
 
-            // Refresh the JTable
-            loadExpenseTable();
-
-            // Clear the form
-            expenseAmountField.setText("");
-            expenseDescriptionTextArea.setText("");
-
-            if (cmboExpenseCategory.getItemCount() > 0) {
-                cmboExpenseCategory.setSelectedIndex(0);
+            refreshData();
             }
+        } catch (IllegalArgumentException e) {
+            // Display validation errors.
+            JOptionPane.showMessageDialog(this, e.getMessage());
 
-            // Reset selection
-            expenseTable.clearSelection();
-            selectedTransactionId = -1;
-        } else {
-            JOptionPane.showMessageDialog(this, "Unable to save expense.");
+        } catch (Exception e) {
+            // Display unexpected errors.
+            JOptionPane.showMessageDialog(this, "Unable to add expense.");
+            e.printStackTrace();
         }
-    } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(this, "Please enter a valid amount.");
-    } catch (Exception ex) {
-        ex.printStackTrace();
-        JOptionPane.showMessageDialog(this, "An error occurred while saving the expense.");
-    }
     }//GEN-LAST:event_addExpenseButtonActionPerformed
 
     private void expenseTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_expenseTableMouseClicked
+        // Get the selected row.
         int row = expenseTable.getSelectedRow();
-        if (row == -1) {
-            return;
-        }
+        
+        // Store the selected transaction ID.
+        if (row >= 0) {
+            selectedTransactionId = Integer.parseInt(expenseTable.getValueAt(row, 0).toString());
 
-        // Save the selected transaction ID
-        selectedTransactionId = Integer.parseInt(expenseTable.getValueAt(row, 0).toString());
+            expenseAmountField.setText(expenseTable.getValueAt(row, 1).toString());
 
-        // Fill the form
-        expenseAmountField.setText(expenseTable.getValueAt(row, 1).toString());
+            expenseDescriptionTextArea.setText(expenseTable.getValueAt(row, 3).toString());
 
-        String categoryName = expenseTable.getValueAt(row, 2).toString();
+            // Automatically select the correct category.
+            String categoryName = expenseTable.getValueAt(row, 2).toString();
 
         for (int i = 0; i < cmboExpenseCategory.getItemCount(); i++) {
             Category category = cmboExpenseCategory.getItemAt(i);
-            if (category.getName().equals(categoryName)) {
-                cmboExpenseCategory.setSelectedIndex(i);
-                break;
+                if (category.getName().equals(categoryName)) {
+                    cmboExpenseCategory.setSelectedIndex(i);
+                    break;
+                }
             }
         }
-        expenseDescriptionTextArea.setText(expenseTable.getValueAt(row, 3).toString());
     }//GEN-LAST:event_expenseTableMouseClicked
 
     private void deleteExpenseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteExpenseButtonActionPerformed
         if (selectedTransactionId == -1) {
-        JOptionPane.showMessageDialog(this, "Please select a transaction first.");
-        return;
+            JOptionPane.showMessageDialog(this, "Please select a transaction first.");
+            return;
         }
 
+        
         int choice = JOptionPane.showConfirmDialog(
                 this,
                 "Delete this transaction?",
@@ -417,17 +436,8 @@ public class ExpensePanel extends javax.swing.JPanel {
 
         if (service.deleteTransaction(selectedTransactionId)) {
             JOptionPane.showMessageDialog(this, "Transaction deleted!");
-
-            loadExpenseTable();
-
-            expenseAmountField.setText("");
-            expenseDescriptionTextArea.setText("");
-            cmboExpenseCategory.setSelectedIndex(0);
-
-            selectedTransactionId = -1;
-        } else {
-            JOptionPane.showMessageDialog(this, "Unable to delete.");
-        }
+            refreshData();
+    }
     }//GEN-LAST:event_deleteExpenseButtonActionPerformed
 
     private void clearExpenseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearExpenseButtonActionPerformed
@@ -451,9 +461,9 @@ public class ExpensePanel extends javax.swing.JPanel {
         Category category = (Category) cmboExpenseCategory.getSelectedItem();
 
         if (category == null) {
-        JOptionPane.showMessageDialog(this,
-                "Please select a category.");
-        return;
+            JOptionPane.showMessageDialog(this,
+                    "Please select a category.");
+            return;
         }
 
         CategoryService service = new CategoryService();
@@ -461,37 +471,37 @@ public class ExpensePanel extends javax.swing.JPanel {
         // Check if the category is already used
         if (service.isCategoryInUse(category.getId())) {
 
-        JOptionPane.showMessageDialog(
-                this,
-                "This category cannot be deleted because it is already used in one or more transactions.",
-                "Delete Category",
-                JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(
+                    this,
+                    "This category cannot be deleted because it is already used in one or more transactions.",
+                    "Delete Category",
+                    JOptionPane.WARNING_MESSAGE);
 
-        return;
+            return;
         }
 
         int confirm = JOptionPane.showConfirmDialog(
-            this,
-            "Delete \"" + category.getName() + "\"?",
-            "Confirm Delete",
-            JOptionPane.YES_NO_OPTION);
+                this,
+                "Delete \"" + category.getName() + "\"?",
+                "Confirm Delete",
+                JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
 
-        if (service.deleteCategory(category.getId())) {
+            if (service.deleteCategory(category.getId())) {
 
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Category deleted successfully.");
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Category deleted successfully.");
 
-            loadExpenseCategories();
+                loadExpenseCategories();
 
-        } else {
+            } else {
 
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Unable to delete category.");
-        }
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Unable to delete category.");
+            }
         }
     }//GEN-LAST:event_btnDeleteExpenseCategoryActionPerformed
 
@@ -524,7 +534,7 @@ public class ExpensePanel extends javax.swing.JPanel {
 
         // Create Category object
         Category category = new Category();
-        
+
         category.setUserId(userId);
         category.setName(categoryName);
         category.setType("expense");
@@ -539,14 +549,14 @@ public class ExpensePanel extends javax.swing.JPanel {
             // Automatically select the newly added category
             for (int i = 0; i < cmboExpenseCategory.getItemCount(); i++) {
                 Category c = cmboExpenseCategory.getItemAt(i);
-            
+
                 if (c.getName().equalsIgnoreCase(categoryName)) {
                     cmboExpenseCategory.setSelectedIndex(i);
                     break;
                 }
             }
         } else {
-            JOptionPane.showMessageDialog( this, "Failed to add category.");
+            JOptionPane.showMessageDialog(this, "Failed to add category.");
         }
     }//GEN-LAST:event_btnAddExpenseCategory1ActionPerformed
 

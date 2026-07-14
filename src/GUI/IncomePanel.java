@@ -18,6 +18,11 @@ import utils.Session;
 public class IncomePanel extends javax.swing.JPanel {
 
     private int selectedTransactionId = -1;
+    private HomeFrame homeFrame;
+    
+    public void setHomeFrame(HomeFrame homeFrame) {
+        this.homeFrame = homeFrame;
+    }
 
     public IncomePanel() {
 
@@ -74,6 +79,32 @@ public class IncomePanel extends javax.swing.JPanel {
             });
         }
 
+    }
+    
+    // Clears all input fields.
+    private void clearFields() {
+        incomeAmountField.setText("");
+
+        incomeDescriptionTextArea.setText("");
+
+        if (cmboIncomeCategory.getItemCount() > 0) {
+            cmboIncomeCategory.setSelectedIndex(0);
+        }
+
+        incomeTable.clearSelection();
+
+        selectedTransactionId = -1;
+    }
+
+    // Refreshes the Income Panel and Dashboard.
+    private void refreshData() {
+
+        loadIncomeTable();
+
+        if (homeFrame != null) {
+            homeFrame.getDashboardPanel().refreshDashboard();
+        }
+        clearFields();
     }
 
     // Style the income table
@@ -424,9 +455,7 @@ public class IncomePanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this,
                     "Income updated successfully.");
 
-            loadIncomeTable();
-
-            clearIncomeButton.doClick();
+            refreshData();
 
         } catch (IllegalArgumentException ex) {
 
@@ -442,16 +471,7 @@ public class IncomePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_updateIncomeButtonActionPerformed
 
     private void clearIncomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearIncomeButtonActionPerformed
-        incomeAmountField.setText("");
-
-        incomeDescriptionTextArea.setText("");
-
-        if (cmboIncomeCategory.getItemCount() > 0) {
-            cmboIncomeCategory.setSelectedIndex(0);
-        }
-        incomeTable.clearSelection();
-
-        selectedTransactionId = -1;
+        clearFields();
     }//GEN-LAST:event_clearIncomeButtonActionPerformed
 
     private void deleteIncomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteIncomeButtonActionPerformed
@@ -480,10 +500,7 @@ public class IncomePanel extends javax.swing.JPanel {
 
             JOptionPane.showMessageDialog(this,
                     "Income deleted.");
-
-            loadIncomeTable();
-
-            clearIncomeButton.doClick();
+            refreshData();
 
         } catch (IllegalArgumentException ex) {
 
@@ -527,19 +544,12 @@ public class IncomePanel extends javax.swing.JPanel {
             if (service.addTransaction(transaction)) {
                 JOptionPane.showMessageDialog(this, "Income added successfully!");
 
-                loadIncomeTable();
-
-                incomeAmountField.setText("");
-                incomeDescriptionTextArea.setText("");
-
-                if (cmboIncomeCategory.getItemCount() > 0) {
-                    cmboIncomeCategory.setSelectedIndex(0);
-                }
-                incomeTable.clearSelection();
-                selectedTransactionId = -1;
+                refreshData();
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Invalid amount.");
+        } catch (Exception e) {   
+            JOptionPane.showMessageDialog(
+                this,
+                e.getClass().getSimpleName() + "\n" + e.getMessage());
         }
     }//GEN-LAST:event_addIncomeButtonActionPerformed
 

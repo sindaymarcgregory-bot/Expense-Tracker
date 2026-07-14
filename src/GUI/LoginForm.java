@@ -35,6 +35,7 @@ public class LoginForm extends javax.swing.JFrame {
         btnSignup = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        chkShowLoginPassword = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
@@ -69,6 +70,12 @@ public class LoginForm extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lblLogo.png"))); // NOI18N
 
+        chkShowLoginPassword.setBackground(new java.awt.Color(220, 232, 208));
+        chkShowLoginPassword.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        chkShowLoginPassword.setForeground(new java.awt.Color(111, 151, 143));
+        chkShowLoginPassword.setText("Show Password");
+        chkShowLoginPassword.addActionListener(this::chkShowLoginPasswordActionPerformed);
+
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
         loginPanel.setLayout(loginPanelLayout);
         loginPanelLayout.setHorizontalGroup(
@@ -82,7 +89,8 @@ public class LoginForm extends javax.swing.JFrame {
                             .addComponent(txtPassword)
                             .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(chkShowLoginPassword))
                         .addGap(322, 322, 322))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -106,13 +114,15 @@ public class LoginForm extends javax.swing.JFrame {
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkShowLoginPassword)
+                .addGap(2, 2, 2)
                 .addComponent(btnLogin)
-                .addGap(37, 37, 37)
+                .addGap(31, 31, 31)
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(btnSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         getContentPane().add(loginPanel);
@@ -170,6 +180,14 @@ public class LoginForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
+    private void chkShowLoginPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkShowLoginPasswordActionPerformed
+       if (chkShowLoginPassword.isSelected()) {
+            lblPassword.setEchoChar((char) 0);
+        } else {
+            lblPassword.setEchoChar('•');
+        }
+    }//GEN-LAST:event_chkShowLoginPasswordActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -198,6 +216,7 @@ public class LoginForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnSignup;
+    private javax.swing.JCheckBox chkShowLoginPassword;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField lblPassword;
