@@ -36,7 +36,7 @@ public class HomeFrame extends javax.swing.JFrame {
         setSize(1056, 650);
     }
 
-    private void showPanel(javax.swing.JPanel panel) {
+    void showPanel(javax.swing.JPanel panel) {
 
         changePanel.removeAll();
         changePanel.setLayout(new BorderLayout());

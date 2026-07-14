@@ -6,14 +6,10 @@ import model.User;
 
 public class UserService {
 
-  
     //User DAO Object
-   
     private final UserDAO userDAO = new UserDAO();
 
-   
     //Register New User
-   
     public User register(User user) {
 
         try {
@@ -57,7 +53,7 @@ public class UserService {
     }
 
     // Update Profile Picture
-    public boolean updateProfilePicture(int userId, String imagePath)  {
+    public boolean updateProfilePicture(int userId, String imagePath) {
 
         try {
 
@@ -121,7 +117,6 @@ public class UserService {
     }
 
     // Update User Information
-
     public boolean updateUser(User user) {
 
         try {
@@ -136,7 +131,7 @@ public class UserService {
 
         return false;
     }
-    
+
     // Delete User
     public boolean deleteUser(int id) {
 
@@ -152,5 +147,22 @@ public class UserService {
 
         return false;
     }
+
+    // Change User Password
+    public boolean changePassword(int userId, String hashedPassword) {
+
+        try {
+
+            return userDAO.changePassword(userId, hashedPassword);
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+
+        }
+
+        return false;
+    }
+// Change User Password end
 
 }
