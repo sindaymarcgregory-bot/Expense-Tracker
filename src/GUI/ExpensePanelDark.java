@@ -24,125 +24,127 @@ import utils.Session;
  *
  * @author Arch Salon
  */
-  
+public class ExpensePanelDark extends javax.swing.JPanel {
 
-    public class ExpensePanel extends javax.swing.JPanel {
+    /**
+     * Creates new form ExpensePanel
+     */
+    private int selectedTransactionId = -1;
+    private HomeFrame homeFrame;
 
-        /**
-         * Creates new form ExpensePanel
-         */
-        private int selectedTransactionId = -1;
-        private HomeFrame homeFrame;
-        
-        public void setHomeFrame(HomeFrame homeFrame) {
-            this.homeFrame = homeFrame;
-        }
+    public void setHomeFrame(HomeFrame homeFrame) {
+        this.homeFrame = homeFrame;
+    }
 
-        public ExpensePanel() {
-            initComponents();
+    public ExpensePanelDark() {
+        initComponents();
 
-            loadExpenseCategories();
+        loadExpenseCategories();
 
-            loadExpenseTable();
-            
-            updateTotalExpense();
-            
-            styleExpenseTable();
+        loadExpenseTable();
 
-            expenseTable.getColumnModel().getColumn(0).setMinWidth(0);
-            expenseTable.getColumnModel().getColumn(0).setMaxWidth(0);
-            expenseTable.getColumnModel().getColumn(0).setPreferredWidth(0);
-        }
-        
-        private void updateTotalExpense() {
-            BigDecimal total = BigDecimal.ZERO;
+        updateTotalExpense();
 
-            for (int row = 0; row < expenseTable.getRowCount(); row++) {
-                Object value = expenseTable.getValueAt(row, 1); // Amount column
+        styleExpenseTable();
 
-                if (value == null) continue;
+        expenseTable.getColumnModel().getColumn(0).setMinWidth(0);
+        expenseTable.getColumnModel().getColumn(0).setMaxWidth(0);
+        expenseTable.getColumnModel().getColumn(0).setPreferredWidth(0);
+    }
 
-                String amount = value.toString()
-                        .replace("₱", "")
-                        .replace(",", "")
-                        .trim();
+    private void updateTotalExpense() {
+        BigDecimal total = BigDecimal.ZERO;
 
-                if (amount.isEmpty()) continue;
+        for (int row = 0; row < expenseTable.getRowCount(); row++) {
+            Object value = expenseTable.getValueAt(row, 1); // Amount column
 
-                total = total.add(new BigDecimal(amount));
+            if (value == null) {
+                continue;
             }
-            lblTotalExpense.setText("Total Expense: ₱" + String.format("%,.2f", total));
-        }
 
-        private void loadExpenseTable() {
-            DefaultTableModel model = (DefaultTableModel) expenseTable.getModel();
-            model.setRowCount(0);
-            TransactionService transactionService = new TransactionService();
-            CategoryService categoryService = new CategoryService();
-            int userId = Session.getCurrentUser().getId();
+            String amount = value.toString()
+                    .replace("₱", "")
+                    .replace(",", "")
+                    .trim();
 
-            List<Transaction> transactions = transactionService.getTransactionHistoryByType(userId, "expense");
-
-            for (Transaction transaction : transactions) {
-                String categoryName
-                        = categoryService.getCategoryNameById(
-                                transaction.getCategoryId());
-                model.addRow(new Object[]{
-                    transaction.getId(),
-                    transaction.getAmount(),
-                    categoryName,
-                    transaction.getDescription(),
-                    transaction.getTransactionDate()
-                });
+            if (amount.isEmpty()) {
+                continue;
             }
+
+            total = total.add(new BigDecimal(amount));
         }
+        lblTotalExpense.setText("Total Expense: ₱" + String.format("%,.2f", total));
+    }
 
-        private void loadExpenseCategories() {
+    private void loadExpenseTable() {
+        DefaultTableModel model = (DefaultTableModel) expenseTable.getModel();
+        model.setRowCount(0);
+        TransactionService transactionService = new TransactionService();
+        CategoryService categoryService = new CategoryService();
+        int userId = Session.getCurrentUser().getId();
 
-            CategoryService service = new CategoryService();
+        List<Transaction> transactions = transactionService.getTransactionHistoryByType(userId, "expense");
 
-            int userId = Session.getCurrentUser().getId();
-
-            ArrayList<Category> categories
-                    = service.getCategories(userId, "expense");
-
-            cmboExpenseCategory.removeAllItems();
-
-            for (Category category : categories) {
-
-                cmboExpenseCategory.addItem(category);
-
-            }
+        for (Transaction transaction : transactions) {
+            String categoryName
+                    = categoryService.getCategoryNameById(
+                            transaction.getCategoryId());
+            model.addRow(new Object[]{
+                transaction.getId(),
+                transaction.getAmount(),
+                categoryName,
+                transaction.getDescription(),
+                transaction.getTransactionDate()
+            });
         }
-        
-        // Clears the expense form.
-        private void clearFields() {
-            expenseAmountField.setText("");
-            expenseDescriptionTextArea.setText("");
-            if (cmboExpenseCategory.getItemCount() > 0) {
-                cmboExpenseCategory.setSelectedIndex(0);
-            }
-            expenseTable.clearSelection();
-            selectedTransactionId = -1;
+    }
+
+    private void loadExpenseCategories() {
+
+        CategoryService service = new CategoryService();
+
+        int userId = Session.getCurrentUser().getId();
+
+        ArrayList<Category> categories
+                = service.getCategories(userId, "expense");
+
+        cmboExpenseCategory.removeAllItems();
+
+        for (Category category : categories) {
+
+            cmboExpenseCategory.addItem(category);
+
         }
-    
-        // Refresh all data after a transaction.
-        private void refreshData() {
+    }
 
-            // Refresh the expense table.
-            loadExpenseTable();
-            updateTotalExpense();
+    // Clears the expense form.
+    private void clearFields() {
+        expenseAmountField.setText("");
+        expenseDescriptionTextArea.setText("");
+        if (cmboExpenseCategory.getItemCount() > 0) {
+            cmboExpenseCategory.setSelectedIndex(0);
+        }
+        expenseTable.clearSelection();
+        selectedTransactionId = -1;
+    }
 
-            // Refresh the dashboard.
-            if (homeFrame != null) {
+    // Refresh all data after a transaction.
+    private void refreshData() {
+
+        // Refresh the expense table.
+        loadExpenseTable();
+        updateTotalExpense();
+
+        // Refresh the dashboard.
+        if (homeFrame != null) {
             homeFrame.getDashboardPanel().refreshDashboard();
-            }
-
-            // Clear the form.
-            clearFields();
         }
-        
-        // Style the expense table
+
+        // Clear the form.
+        clearFields();
+    }
+
+    // Style the expense table
     private void styleExpenseTable() {
 
         // Hide ID column
@@ -157,7 +159,7 @@ import utils.Session;
         expenseTable.getColumnModel()
                 .getColumn(0)
                 .setPreferredWidth(0);
-        
+
         jScrollPaneExpense.setPreferredSize(new Dimension(520, 335));
 
         // Table font
@@ -184,12 +186,18 @@ import utils.Session;
 
         // Background
         expenseTable.setBackground(
-                new Color(220, 232, 208)
+                new Color(153, 153, 153)
         );
+        expenseTable.setGridColor(new Color(120, 120, 120));
+        expenseTable.getTableHeader().setBackground(
+                new Color(153, 153, 153)
+        );
+
+        expenseTable.getTableHeader().setForeground(Color.WHITE);
 
         // Selection
         expenseTable.setSelectionBackground(
-                new Color(111, 151, 143)
+                new Color(120, 120, 120)
         );
 
         expenseTable.setSelectionForeground(
@@ -198,6 +206,9 @@ import utils.Session;
 
         // Scroll pane design
         jScrollPaneExpense.setBorder(null);
+        jScrollPaneExpense.getViewport().setBackground(
+                new Color(153, 153, 153)
+        );
 
         // Column sizes
         expenseTable.getColumnModel()
@@ -259,12 +270,12 @@ import utils.Session;
 
     }
 
-        /**
-         * This method is called from within the constructor to initialize the
-         * form. WARNING: Do NOT modify this code. The content of this method is
-         * always regenerated by the Form Editor.
-         */
-        @SuppressWarnings("unchecked")
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -288,20 +299,24 @@ import utils.Session;
         btnAddExpenseCategory1 = new javax.swing.JButton();
         lblTotalExpense = new javax.swing.JLabel();
 
-        jPanel1.setBackground(new java.awt.Color(220, 232, 208));
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setMaximumSize(null);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(111, 151, 143));
         jLabel2.setText("Category");
 
+        cmboExpenseCategory.setBackground(new java.awt.Color(153, 153, 153));
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(111, 151, 143));
         jLabel1.setText("Amount");
 
-        jScrollPaneExpense.setBackground(new java.awt.Color(220, 232, 208));
+        expenseAmountField.setBackground(new java.awt.Color(153, 153, 153));
 
-        expenseTable.setBackground(new java.awt.Color(220, 232, 208));
+        jScrollPaneExpense.setBackground(new java.awt.Color(51, 51, 51));
+
+        expenseTable.setBackground(new java.awt.Color(51, 51, 51));
         expenseTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -325,27 +340,28 @@ import utils.Session;
         jLabel3.setForeground(new java.awt.Color(111, 151, 143));
         jLabel3.setText("Notes");
 
+        expenseDescriptionTextArea.setBackground(new java.awt.Color(153, 153, 153));
         expenseDescriptionTextArea.setColumns(20);
         expenseDescriptionTextArea.setRows(5);
         expenseDescriptionTextArea.setText("\n\n");
         jScrollPane2.setViewportView(expenseDescriptionTextArea);
 
-        updateExpenseButton.setBackground(new java.awt.Color(111, 151, 143));
+        updateExpenseButton.setBackground(new java.awt.Color(102, 102, 102));
         updateExpenseButton.setForeground(new java.awt.Color(242, 242, 242));
         updateExpenseButton.setText("Update");
         updateExpenseButton.addActionListener(this::updateExpenseButtonActionPerformed);
 
-        clearExpenseButton.setBackground(new java.awt.Color(111, 151, 143));
+        clearExpenseButton.setBackground(new java.awt.Color(102, 102, 102));
         clearExpenseButton.setForeground(new java.awt.Color(242, 242, 242));
         clearExpenseButton.setText("Clear");
         clearExpenseButton.addActionListener(this::clearExpenseButtonActionPerformed);
 
-        deleteExpenseButton.setBackground(new java.awt.Color(111, 151, 143));
+        deleteExpenseButton.setBackground(new java.awt.Color(102, 102, 102));
         deleteExpenseButton.setForeground(new java.awt.Color(242, 242, 242));
         deleteExpenseButton.setText("Delete");
         deleteExpenseButton.addActionListener(this::deleteExpenseButtonActionPerformed);
 
-        addExpenseButton.setBackground(new java.awt.Color(111, 151, 143));
+        addExpenseButton.setBackground(new java.awt.Color(102, 102, 102));
         addExpenseButton.setForeground(new java.awt.Color(242, 242, 242));
         addExpenseButton.setText("Add");
         addExpenseButton.addActionListener(this::addExpenseButtonActionPerformed);
@@ -354,13 +370,13 @@ import utils.Session;
         jLabel4.setForeground(new java.awt.Color(111, 151, 143));
         jLabel4.setText("Enter your description here...");
 
-        btnDeleteExpenseCategory.setBackground(new java.awt.Color(111, 151, 143));
+        btnDeleteExpenseCategory.setBackground(new java.awt.Color(102, 102, 102));
         btnDeleteExpenseCategory.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnDeleteExpenseCategory.setForeground(new java.awt.Color(242, 242, 242));
         btnDeleteExpenseCategory.setText("-");
         btnDeleteExpenseCategory.addActionListener(this::btnDeleteExpenseCategoryActionPerformed);
 
-        btnAddExpenseCategory1.setBackground(new java.awt.Color(111, 151, 143));
+        btnAddExpenseCategory1.setBackground(new java.awt.Color(102, 102, 102));
         btnAddExpenseCategory1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnAddExpenseCategory1.setForeground(new java.awt.Color(242, 242, 242));
         btnAddExpenseCategory1.setText("+");
@@ -493,7 +509,7 @@ import utils.Session;
             if (service.updateTransaction(transaction)) {
                 JOptionPane.showMessageDialog(this, "Expense updated successfully!");
                 refreshData();
-        } else {
+            } else {
                 JOptionPane.showMessageDialog(this, "Update failed.");
             }
         } catch (NumberFormatException ex) {
@@ -507,37 +523,37 @@ import utils.Session;
                 JOptionPane.showMessageDialog(this, "Please select a category.");
                 return;
             }
-            
+
             // Get the selected category.
             Category category = (Category) cmboExpenseCategory.getSelectedItem();
-            
+
             // Create the service and transaction objects.
             TransactionService transactionService = new TransactionService();
             Transaction transaction = new Transaction();
-            
+
             // Store the logged-in user's ID.
             transaction.setUserId(Session.getCurrentUser().getId());
-            
-             // Store the selected category.
+
+            // Store the selected category.
             transaction.setCategoryId(category.getId());
-            
+
             // Set the transaction type.
             transaction.setType("expense");
-            
+
             // Store the entered amount.
             transaction.setAmount(new BigDecimal(expenseAmountField.getText().trim()));
-            
+
             // Store the description.
             transaction.setDescription(expenseDescriptionTextArea.getText().trim());
-            
+
             // Automatically use today's date.
             transaction.setTransactionDate(java.sql.Date.valueOf(LocalDate.now()));
-            
+
             // Save the transaction.
             if (transactionService.addTransaction(transaction)) {
-            JOptionPane.showMessageDialog(this, "Expense added successfully!");
+                JOptionPane.showMessageDialog(this, "Expense added successfully!");
 
-            refreshData();
+                refreshData();
             }
         } catch (IllegalArgumentException e) {
             // Display validation errors.
@@ -553,7 +569,7 @@ import utils.Session;
     private void expenseTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_expenseTableMouseClicked
         // Get the selected row.
         int row = expenseTable.getSelectedRow();
-        
+
         // Store the selected transaction ID.
         if (row >= 0) {
             selectedTransactionId = Integer.parseInt(expenseTable.getValueAt(row, 0).toString());
@@ -565,8 +581,8 @@ import utils.Session;
             // Automatically select the correct category.
             String categoryName = expenseTable.getValueAt(row, 2).toString();
 
-        for (int i = 0; i < cmboExpenseCategory.getItemCount(); i++) {
-            Category category = cmboExpenseCategory.getItemAt(i);
+            for (int i = 0; i < cmboExpenseCategory.getItemCount(); i++) {
+                Category category = cmboExpenseCategory.getItemAt(i);
                 if (category.getName().equals(categoryName)) {
                     cmboExpenseCategory.setSelectedIndex(i);
                     break;
@@ -581,7 +597,6 @@ import utils.Session;
             return;
         }
 
-        
         int choice = JOptionPane.showConfirmDialog(
                 this,
                 "Delete this transaction?",
@@ -597,7 +612,7 @@ import utils.Session;
         if (service.deleteTransaction(selectedTransactionId)) {
             JOptionPane.showMessageDialog(this, "Transaction deleted!");
             refreshData();
-    }
+        }
     }//GEN-LAST:event_deleteExpenseButtonActionPerformed
 
     private void clearExpenseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearExpenseButtonActionPerformed

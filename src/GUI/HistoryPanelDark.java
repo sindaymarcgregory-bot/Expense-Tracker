@@ -23,18 +23,18 @@ import utils.Session;
  *
  * @author Arch Salon
  */
-public class HistoryPanel extends javax.swing.JPanel {
+public class HistoryPanelDark extends javax.swing.JPanel {
 
     /**
      * Creates new form HistoryPanel
      */
     private HomeFrame homeFrame;
-    
+
     public void setHomeFrame(HomeFrame homeFrame) {
         this.homeFrame = homeFrame;
     }
-    
-    public HistoryPanel() {
+
+    public HistoryPanelDark() {
 
         initComponents();
 
@@ -159,11 +159,19 @@ public class HistoryPanel extends javax.swing.JPanel {
         );
 
         historyTable.setBackground(
-                new Color(220, 232, 208)
+                new Color(153, 153, 153)
+        );
+        
+        historyTable.setForeground(Color.WHITE);
+        historyTable.setGridColor(new Color(120, 120, 120));
+        historyTable.getTableHeader().setBackground(
+                new Color(153, 153, 153)
         );
 
+        historyTable.getTableHeader().setForeground(Color.WHITE);
+
         historyTable.setSelectionBackground(
-                new Color(111, 151, 143)
+                new Color(120, 120, 120)
         );
 
         historyTable.setSelectionForeground(
@@ -171,6 +179,9 @@ public class HistoryPanel extends javax.swing.JPanel {
         );
 
         jScrollPane1.setBorder(null);
+        jScrollPane1.getViewport().setBackground(
+                new Color(153, 153, 153)
+        );
 
         historyTable.getColumnModel()
                 .getColumn(1)
@@ -236,7 +247,6 @@ public class HistoryPanel extends javax.swing.JPanel {
         historyTable.getColumnModel()
                 .getColumn(1)
                 .setCellRenderer(descriptionRenderer);
-        
 
     }
 
@@ -310,7 +320,7 @@ public class HistoryPanel extends javax.swing.JPanel {
         cmboHistoryFilter = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
 
-        jPanel1.setBackground(new java.awt.Color(220, 232, 208));
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setMinimumSize(new java.awt.Dimension(895, 600));
         jPanel1.setPreferredSize(new java.awt.Dimension(917, 361));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -320,8 +330,9 @@ public class HistoryPanel extends javax.swing.JPanel {
         jLabel2.setText("History");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, 90, 30));
 
-        jScrollPane1.setBackground(new java.awt.Color(220, 232, 208));
+        jScrollPane1.setBackground(new java.awt.Color(102, 102, 102));
 
+        historyTable.setBackground(new java.awt.Color(102, 102, 102));
         historyTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -335,11 +346,11 @@ public class HistoryPanel extends javax.swing.JPanel {
                 "ID", "Date", "Type", "Category", "Amount", "Description"
             }
         ));
-        historyTable.setEnabled(false);
         jScrollPane1.setViewportView(historyTable);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 810, 440));
 
+        historySearchField.setBackground(new java.awt.Color(102, 102, 102));
         historySearchField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 historySearchFieldKeyReleased(evt);
@@ -352,6 +363,7 @@ public class HistoryPanel extends javax.swing.JPanel {
         jLabel1.setText("Search:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 100, -1, -1));
 
+        cmboHistoryFilter.setBackground(new java.awt.Color(102, 102, 102));
         cmboHistoryFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Income", "Expense" }));
         cmboHistoryFilter.addActionListener(this::cmboHistoryFilterActionPerformed);
         jPanel1.add(cmboHistoryFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 100, -1));

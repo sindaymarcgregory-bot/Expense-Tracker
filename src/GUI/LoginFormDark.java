@@ -7,11 +7,11 @@ import model.User;
 import services.UserService;
 import utils.Session;
 
-public class LoginForm extends javax.swing.JFrame {
+public class LoginFormDark extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginForm.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginFormDark.class.getName());
 
-    public LoginForm() {
+    public LoginFormDark() {
         initComponents();
         setLocationRelativeTo(null);
 
@@ -41,11 +41,15 @@ public class LoginForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
-        loginPanel.setBackground(new java.awt.Color(220, 232, 208));
+        loginPanel.setBackground(new java.awt.Color(51, 51, 51));
         loginPanel.setMaximumSize(null);
         loginPanel.setMinimumSize(new java.awt.Dimension(1024, 600));
 
-        btnLogin.setBackground(new java.awt.Color(111, 151, 143));
+        lblbUsername.setBackground(new java.awt.Color(102, 102, 102));
+
+        lblPassword.setBackground(new java.awt.Color(102, 102, 102));
+
+        btnLogin.setBackground(new java.awt.Color(153, 153, 153));
         btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("Login");
@@ -59,7 +63,7 @@ public class LoginForm extends javax.swing.JFrame {
         txtPassword.setForeground(new java.awt.Color(111, 151, 143));
         txtPassword.setText("Password");
 
-        btnSignup.setBackground(new java.awt.Color(220, 232, 208));
+        btnSignup.setBackground(new java.awt.Color(51, 51, 51));
         btnSignup.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSignup.setForeground(new java.awt.Color(111, 151, 143));
         btnSignup.setText("SignUp");
@@ -71,7 +75,7 @@ public class LoginForm extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lblLogo.png"))); // NOI18N
 
-        chkShowLoginPassword.setBackground(new java.awt.Color(220, 232, 208));
+        chkShowLoginPassword.setBackground(new java.awt.Color(51, 51, 51));
         chkShowLoginPassword.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         chkShowLoginPassword.setForeground(new java.awt.Color(111, 151, 143));
         chkShowLoginPassword.setText("Show Password");
@@ -228,13 +232,7 @@ public class LoginForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            if (ThemeManager.isDarkMode()) {
-                new LoginFormDark().setVisible(true);
-            } else {
-                new LoginForm().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> new LoginFormDark().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

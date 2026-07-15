@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import Utils.ThemeManager;
 import java.awt.BorderLayout;
 import javax.swing.JOptionPane;
 import utils.Session;
@@ -19,13 +20,16 @@ public class HomeFrame extends javax.swing.JFrame {
     public DashBoardPanel getDashboardPanel() {
         return dashboardPanel;
     }
+    // Show the account panel
+
+    public void openAccountPanel() {
+        showPanel(accountPanel);
+    }
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HomeFrame.class.getName());
 
     public HomeFrame() {
         initComponents();
-
-        
 
         lblUsername.setText(Session.getCurrentUser().getUsername());
         if (Session.getCurrentUser() != null) {
@@ -297,9 +301,13 @@ public class HomeFrame extends javax.swing.JFrame {
         );
 
         if (choice == JOptionPane.YES_OPTION) {
-            LoginForm login = new LoginForm();
-            login.setVisible(true);
-            this.dispose();
+            if (ThemeManager.isDarkMode()) {
+                new LoginFormDark().setVisible(true);
+            } else {
+                new LoginForm().setVisible(true);
+            }
+
+            dispose();
         }
         // If NO is clicked, nothing happens.
     }//GEN-LAST:event_btnLogoutActionPerformed

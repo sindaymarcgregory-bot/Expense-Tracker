@@ -1,17 +1,22 @@
-package utils;
+package Utils;
+
+import java.util.prefs.Preferences;
 
 public class ThemeManager {
 
-    private static boolean darkMode = false;
+    // Save the theme settings
+    private static final Preferences prefs
+            = Preferences.userNodeForPackage(ThemeManager.class);
 
-    // Change theme state
-    public static void setDark(boolean value) {
-        darkMode = value;
+    private static final String THEME_KEY = "darkMode";
+
+    // Save the current theme
+    public static void setDarkMode(boolean enabled) {
+        prefs.putBoolean(THEME_KEY, enabled);
     }
 
-    // Check current theme
-    public static boolean isDark() {
-        return darkMode;
+    // Check if dark mode is enabled
+    public static boolean isDarkMode() {
+        return prefs.getBoolean(THEME_KEY, false);
     }
-
 }

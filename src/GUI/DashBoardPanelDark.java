@@ -19,9 +19,9 @@ import java.util.List;
 import java.util.Random;
 import org.knowm.xchart.style.Styler;
 
-public class DashBoardPanel extends javax.swing.JPanel {
+public class DashBoardPanelDark extends javax.swing.JPanel {
 
-    public DashBoardPanel() {
+    public DashBoardPanelDark() {
         initComponents();
 
         // Display the pie chart.
@@ -77,9 +77,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
                 );
             }
 
-            
             // Generate different random colors for each category
-            
             List<Color> colorList = new ArrayList<>();
             Random rand = new Random();
             int totalCategories = categories.size();
@@ -95,9 +93,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
             // Apply the generated colors to the chart
             chart.getStyler().setSeriesColors(colorList.toArray(new Color[0]));
 
-            
             // Chart appearance settings
-            
             chart.getStyler().setChartTitleVisible(false);
             chart.getStyler().setLegendVisible(true);
             chart.getStyler().setPlotBorderVisible(false);
@@ -107,9 +103,12 @@ public class DashBoardPanel extends javax.swing.JPanel {
             chart.getStyler().setCircular(true);
 
             // Set background color
-            Color bgColor = new Color(220, 232, 208);
+            Color bgColor = new Color(51, 51, 51);
             chart.getStyler().setChartBackgroundColor(bgColor);
             chart.getStyler().setPlotBackgroundColor(bgColor);
+            chart.getStyler().setLegendBackgroundColor(bgColor);
+            chart.getStyler().setChartFontColor(Color.WHITE);
+            chart.getStyler().setLegendBorderColor(bgColor);
 
             // Show chart on your panel
             XChartPanel<PieChart> xChartPanel = new XChartPanel<>(chart);
@@ -209,9 +208,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
 
         // Income Card Styling
         // Light green background
-        pnlIncome.setBackground(
-                new Color(220, 245, 220)
-        );
+        pnlIncome.setBackground(new Color(70, 70, 70));
 
         // Remove default black border
         pnlIncome.setBorder(null);
@@ -220,6 +217,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
         lblIncomeTitle.setText(
                 "💰 Total Income"
         );
+        lblIncomeTitle.setForeground(Color.WHITE);
 
         // Center the amount
         lblIncomeValue.setHorizontalAlignment(
@@ -233,9 +231,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
 
         // Expense Card Styling
         // Light red background
-        pnlExpense.setBackground(
-                new Color(255, 225, 225)
-        );
+        pnlExpense.setBackground(new Color(70, 70, 70));
 
         // Remove border
         pnlExpense.setBorder(null);
@@ -244,6 +240,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
         lblExpenseTitle.setText(
                 "🛒 Total Expense"
         );
+        lblExpenseTitle.setForeground(Color.WHITE);
 
         // Center amount
         lblExpenseValue.setHorizontalAlignment(
@@ -257,9 +254,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
 
         // Balance Card Styling
         // Light blue background
-        pnlBalance.setBackground(
-                new Color(220, 235, 255)
-        );
+        pnlBalance.setBackground(new Color(70, 70, 70));
 
         // Remove border
         pnlBalance.setBorder(null);
@@ -268,6 +263,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
         lblBalanceTitle.setText(
                 "💳 Current Balance"
         );
+        lblBalanceTitle.setForeground(Color.WHITE);
 
         // Center amount
         lblBalanceValue.setHorizontalAlignment(
@@ -281,7 +277,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
         // Makes the cards look rounded
         pnlIncome.setBorder(
                 new LineBorder(
-                        new Color(220, 245, 220),
+                        new Color(90,90,90),
                         2,
                         true
                 )
@@ -289,7 +285,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
 
         pnlExpense.setBorder(
                 new LineBorder(
-                        new Color(255, 225, 225),
+                        new Color(90,90,90),
                         2,
                         true
                 )
@@ -297,7 +293,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
 
         pnlBalance.setBorder(
                 new LineBorder(
-                        new Color(220, 235, 255),
+                        new Color(90,90,90),
                         2,
                         true
                 )
@@ -369,7 +365,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(220, 232, 208));
+        setBackground(new java.awt.Color(51, 51, 51));
         setEnabled(false);
         setPreferredSize(new java.awt.Dimension(866, 626));
 
@@ -386,8 +382,10 @@ public class DashBoardPanel extends javax.swing.JPanel {
             .addGap(0, 334, Short.MAX_VALUE)
         );
 
-        summaryPanel.setBackground(new java.awt.Color(220, 232, 208));
+        summaryPanel.setBackground(new java.awt.Color(51, 51, 51));
         summaryPanel.setEnabled(false);
+
+        pnlIncome.setBackground(new java.awt.Color(153, 153, 153));
 
         lblIncomeTitle.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblIncomeTitle.setForeground(new java.awt.Color(102, 102, 102));
@@ -420,6 +418,8 @@ public class DashBoardPanel extends javax.swing.JPanel {
                 .addGap(16, 16, 16))
         );
 
+        pnlExpense.setBackground(new java.awt.Color(153, 153, 153));
+
         lblExpenseTitle.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblExpenseTitle.setForeground(new java.awt.Color(102, 102, 102));
         lblExpenseTitle.setText("Total Expense");
@@ -451,6 +451,8 @@ public class DashBoardPanel extends javax.swing.JPanel {
                 .addComponent(lblExpenseValue)
                 .addContainerGap(10, Short.MAX_VALUE))
         );
+
+        pnlBalance.setBackground(new java.awt.Color(153, 153, 153));
 
         lblBalanceTitle.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblBalanceTitle.setForeground(new java.awt.Color(102, 102, 102));
@@ -507,6 +509,9 @@ public class DashBoardPanel extends javax.swing.JPanel {
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
+        jScrollPane1.setBackground(new java.awt.Color(153, 153, 153));
+
+        expenseCategoryTable.setBackground(new java.awt.Color(153, 153, 153));
         expenseCategoryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -553,9 +558,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 810, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(363, 363, 363)))
+                    .addComponent(jLabel2))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

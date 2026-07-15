@@ -101,7 +101,7 @@ public class UserDAO {
             ps.setInt(2, userId);
 
             return ps.executeUpdate() > 0;
-        }
+        } 
     }
 //end of update profile picture
 

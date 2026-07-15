@@ -4,17 +4,18 @@
  */
 package GUI;
 
+import Utils.ThemeManager;
 import java.awt.BorderLayout;
 import javax.swing.JOptionPane;
 import utils.Session;
 
 public class HomeFrameDark extends javax.swing.JFrame {
 
-    private DashBoardPanel dashboardPanel;
-    private ExpensePanel expensePanel;
-    private IncomePanel incomePanel;
-    private HistoryPanel historyPanel;
-    private AccountPanel accountPanel;
+    private DashBoardPanelDark dashboardPanel;
+    private ExpensePanelDark expensePanel;
+    private IncomePanelDark incomePanel;
+    private HistoryPanelDark historyPanel;
+    private AccountPanelDark accountPanel;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HomeFrameDark.class.getName());
 
@@ -25,15 +26,20 @@ public class HomeFrameDark extends javax.swing.JFrame {
             lblUsername.setText(Session.getCurrentUser().getUsername());
         }
 
-        dashboardPanel = new DashBoardPanel();
-        expensePanel = new ExpensePanel();
-        incomePanel = new IncomePanel();
-        historyPanel = new HistoryPanel();
-        accountPanel = new AccountPanel();
+        dashboardPanel = new DashBoardPanelDark();
+        expensePanel = new ExpensePanelDark();
+        incomePanel = new IncomePanelDark();
+        historyPanel = new HistoryPanelDark();
+        accountPanel = new AccountPanelDark();
 
         setTitle("Expense Tracker");
         setLocationRelativeTo(null);
         setSize(1056, 650);
+    }
+
+    // Show the account panel
+    public void openAccountPanel() {
+        showPanel(accountPanel);
     }
 
     void showPanel(javax.swing.JPanel panel) {
@@ -274,7 +280,7 @@ public class HomeFrameDark extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccountActionPerformed
-        showPanel(new AccountPanel());
+        showPanel(accountPanel);
     }//GEN-LAST:event_btnAccountActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
@@ -287,15 +293,19 @@ public class HomeFrameDark extends javax.swing.JFrame {
         );
 
         if (choice == JOptionPane.YES_OPTION) {
-            LoginForm login = new LoginForm();
-            login.setVisible(true);
-            this.dispose();
+            if (ThemeManager.isDarkMode()) {
+                new LoginFormDark().setVisible(true);
+            } else {
+                new LoginForm().setVisible(true);
+            }
+
+            dispose();
         }
         // If NO is clicked, nothing happens.
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryActionPerformed
-        showPanel(new HistoryPanel());
+        showPanel(historyPanel);
     }//GEN-LAST:event_btnHistoryActionPerformed
 
     private void btnExpensesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExpensesActionPerformed
@@ -303,7 +313,7 @@ public class HomeFrameDark extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExpensesActionPerformed
 
     private void btnIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncomeActionPerformed
-        showPanel(new IncomePanel());
+        showPanel(incomePanel);
     }//GEN-LAST:event_btnIncomeActionPerformed
 
     private void btnDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDashboardActionPerformed

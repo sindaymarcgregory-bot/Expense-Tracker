@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import Utils.ThemeManager;
 import javax.swing.JOptionPane;
 import model.User;
 import org.mindrot.jbcrypt.BCrypt;
@@ -238,7 +239,7 @@ public class SignUpForm extends javax.swing.JFrame {
                     JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         // Validate password length before hashing
         if (password.length() < 6) {
             JOptionPane.showMessageDialog(
@@ -303,10 +304,14 @@ public class SignUpForm extends javax.swing.JFrame {
     }//GEN-LAST:event_chkShowPasswordActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        LoginForm loginForm = new LoginForm();
-        loginForm.setVisible(true);
 
-        dispose(); // Closes the current SignUpForm
+        if (ThemeManager.isDarkMode()) {
+            new LoginFormDark().setVisible(true);
+        } else {
+            new LoginForm().setVisible(true);
+        }
+
+        dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
     /**

@@ -15,23 +15,23 @@ import java.awt.Font;
 import javax.swing.table.DefaultTableCellRenderer;
 import utils.Session;
 
-public class IncomePanel extends javax.swing.JPanel {
+public class IncomePanelDark extends javax.swing.JPanel {
 
     private int selectedTransactionId = -1;
     private HomeFrame homeFrame;
-    
+
     public void setHomeFrame(HomeFrame homeFrame) {
         this.homeFrame = homeFrame;
     }
 
-    public IncomePanel() {
+    public IncomePanelDark() {
 
         initComponents();
 
         loadIncomeCategories();
 
         loadIncomeTable();
-        
+
         updateTotalIncome();
 
         styleIncomeTable();
@@ -40,21 +40,25 @@ public class IncomePanel extends javax.swing.JPanel {
         incomeTable.getColumnModel().getColumn(0).setMaxWidth(0);
         incomeTable.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
-    
+
     private void updateTotalIncome() {
         BigDecimal total = BigDecimal.ZERO;
 
         for (int row = 0; row < incomeTable.getRowCount(); row++) {
             Object value = incomeTable.getValueAt(row, 1); // Amount column
 
-            if (value == null) continue;
+            if (value == null) {
+                continue;
+            }
 
             String amount = value.toString()
                     .replace("₱", "")
                     .replace(",", "")
                     .trim();
 
-            if (amount.isEmpty()) continue;
+            if (amount.isEmpty()) {
+                continue;
+            }
 
             total = total.add(new BigDecimal(amount));
         }
@@ -102,7 +106,7 @@ public class IncomePanel extends javax.swing.JPanel {
         }
 
     }
-    
+
     // Clears all input fields.
     private void clearFields() {
         incomeAmountField.setText("");
@@ -145,7 +149,7 @@ public class IncomePanel extends javax.swing.JPanel {
         incomeTable.getColumnModel()
                 .getColumn(0)
                 .setPreferredWidth(0);
-        
+
         jScrollPane1.setPreferredSize(new Dimension(520, 335));
 
         // Table font
@@ -172,13 +176,22 @@ public class IncomePanel extends javax.swing.JPanel {
 
         // Background
         incomeTable.setBackground(
-                new Color(220, 232, 208)
+                new Color(153, 153, 153)
         );
+        incomeTable.setForeground(Color.WHITE);
+        incomeTable.setGridColor(new Color(120, 120, 120));
+
+        incomeTable.getTableHeader().setBackground(
+                new Color(153, 153, 153)
+        );
+
+        incomeTable.getTableHeader().setForeground(Color.WHITE);
 
         // Selection
         incomeTable.setSelectionBackground(
-                new Color(111, 151, 143)
+                new Color(120, 120, 120)
         );
+        incomeTable.setSelectionForeground(Color.WHITE);
 
         incomeTable.setSelectionForeground(
                 Color.WHITE
@@ -186,6 +199,9 @@ public class IncomePanel extends javax.swing.JPanel {
 
         // Scroll pane design
         jScrollPane1.setBorder(null);
+        jScrollPane1.getViewport().setBackground(
+                new Color(153, 153, 153)
+        );
 
         // Column sizes
         incomeTable.getColumnModel()
@@ -277,7 +293,7 @@ public class IncomePanel extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(882, 620));
 
-        jPanel1.setBackground(new java.awt.Color(220, 232, 208));
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setMaximumSize(null);
         jPanel1.setPreferredSize(new java.awt.Dimension(1020, 604));
         jPanel1.setRequestFocusEnabled(false);
@@ -286,16 +302,20 @@ public class IncomePanel extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(111, 151, 143));
         jLabel2.setText("Category");
 
+        cmboIncomeCategory.setBackground(new java.awt.Color(153, 153, 153));
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(111, 151, 143));
         jLabel1.setText("Amount");
 
-        jScrollPane1.setBackground(new java.awt.Color(220, 232, 208));
+        incomeAmountField.setBackground(new java.awt.Color(153, 153, 153));
+
+        jScrollPane1.setBackground(new java.awt.Color(153, 153, 153));
         jScrollPane1.setMaximumSize(new java.awt.Dimension(375, 100));
         jScrollPane1.setMinimumSize(new java.awt.Dimension(375, 100));
         jScrollPane1.setPreferredSize(new java.awt.Dimension(375, 100));
 
-        incomeTable.setBackground(new java.awt.Color(220, 232, 208));
+        incomeTable.setBackground(new java.awt.Color(153, 153, 153));
         incomeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -320,38 +340,39 @@ public class IncomePanel extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(111, 151, 143));
         jLabel3.setText("Notes");
 
+        incomeDescriptionTextArea.setBackground(new java.awt.Color(153, 153, 153));
         incomeDescriptionTextArea.setColumns(20);
         incomeDescriptionTextArea.setRows(5);
         incomeDescriptionTextArea.setText("\n\n");
         jScrollPane2.setViewportView(incomeDescriptionTextArea);
 
-        updateIncomeButton.setBackground(new java.awt.Color(111, 151, 143));
+        updateIncomeButton.setBackground(new java.awt.Color(102, 102, 102));
         updateIncomeButton.setForeground(new java.awt.Color(242, 242, 242));
         updateIncomeButton.setText("Update");
         updateIncomeButton.addActionListener(this::updateIncomeButtonActionPerformed);
 
-        clearIncomeButton.setBackground(new java.awt.Color(111, 151, 143));
+        clearIncomeButton.setBackground(new java.awt.Color(102, 102, 102));
         clearIncomeButton.setForeground(new java.awt.Color(242, 242, 242));
         clearIncomeButton.setText("Clear");
         clearIncomeButton.addActionListener(this::clearIncomeButtonActionPerformed);
 
-        deleteIncomeButton.setBackground(new java.awt.Color(111, 151, 143));
+        deleteIncomeButton.setBackground(new java.awt.Color(102, 102, 102));
         deleteIncomeButton.setForeground(new java.awt.Color(242, 242, 242));
         deleteIncomeButton.setText("Delete");
         deleteIncomeButton.addActionListener(this::deleteIncomeButtonActionPerformed);
 
-        addIncomeButton.setBackground(new java.awt.Color(111, 151, 143));
+        addIncomeButton.setBackground(new java.awt.Color(102, 102, 102));
         addIncomeButton.setForeground(new java.awt.Color(242, 242, 242));
         addIncomeButton.setText("Add");
         addIncomeButton.addActionListener(this::addIncomeButtonActionPerformed);
 
-        btnDeleteIncomeCategory.setBackground(new java.awt.Color(111, 151, 143));
+        btnDeleteIncomeCategory.setBackground(new java.awt.Color(102, 102, 102));
         btnDeleteIncomeCategory.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnDeleteIncomeCategory.setForeground(new java.awt.Color(242, 242, 242));
         btnDeleteIncomeCategory.setText("-");
         btnDeleteIncomeCategory.addActionListener(this::btnDeleteIncomeCategoryActionPerformed);
 
-        btnAddIncomeCategory.setBackground(new java.awt.Color(111, 151, 143));
+        btnAddIncomeCategory.setBackground(new java.awt.Color(102, 102, 102));
         btnAddIncomeCategory.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnAddIncomeCategory.setForeground(new java.awt.Color(242, 242, 242));
         btnAddIncomeCategory.setText("+");
@@ -610,10 +631,10 @@ public class IncomePanel extends javax.swing.JPanel {
 
                 refreshData();
             }
-        } catch (Exception e) {   
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(
-                this,
-                e.getClass().getSimpleName() + "\n" + e.getMessage());
+                    this,
+                    e.getClass().getSimpleName() + "\n" + e.getMessage());
         }
     }//GEN-LAST:event_addIncomeButtonActionPerformed
 
@@ -658,7 +679,7 @@ public class IncomePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAddIncomeCategoryActionPerformed
 
     private void btnDeleteIncomeCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteIncomeCategoryActionPerformed
-          Category category = (Category) cmboIncomeCategory.getSelectedItem();
+        Category category = (Category) cmboIncomeCategory.getSelectedItem();
 
         if (category == null) {
             JOptionPane.showMessageDialog(this,
@@ -689,7 +710,7 @@ public class IncomePanel extends javax.swing.JPanel {
         if (confirm == JOptionPane.YES_OPTION) {
             //deleting the category
             if (service.deleteCategory(category.getId())) {
-                
+
                 JOptionPane.showMessageDialog(
                         this,
                         "Category deleted successfully.");
@@ -703,13 +724,8 @@ public class IncomePanel extends javax.swing.JPanel {
                         "Unable to delete category.");
             }
         }
-        
-        
-        
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_btnDeleteIncomeCategoryActionPerformed
 
 
