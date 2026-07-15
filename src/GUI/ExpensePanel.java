@@ -28,9 +28,9 @@ import utils.Session;
 
     public class ExpensePanel extends javax.swing.JPanel {
 
-        /**
-         * Creates new form ExpensePanel
-         */
+       
+         //Creates new form ExpensePanel
+      
         private int selectedTransactionId = -1;
         private HomeFrame homeFrame;
         
@@ -433,10 +433,11 @@ import utils.Session;
                         .addComponent(clearExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(55, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAddExpenseCategory1)
-                            .addComponent(btnDeleteExpenseCategory)
-                            .addComponent(cmboExpenseCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmboExpenseCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnAddExpenseCategory1)
+                                .addComponent(btnDeleteExpenseCategory)))
                         .addGap(38, 38, 38)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

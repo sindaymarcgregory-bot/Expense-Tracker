@@ -24,6 +24,7 @@ public class CategoryDAO {
             return ps.executeUpdate() > 0;
         }
     }
+    //end of add category
 
     // Get Categories
     public ArrayList<Category> getCategories(int userId, String type) throws SQLException {
@@ -57,6 +58,7 @@ public class CategoryDAO {
         }
         return categories;
     }
+    //end of getCategory
 
     // Delete Category
     public boolean deleteCategory(int id) throws SQLException {
@@ -68,7 +70,7 @@ public class CategoryDAO {
             ps.setInt(1, id);
             return ps.executeUpdate() > 0;
         }
-    }
+    }//end of deleteCategory
 
     // Insert Default Categories
     public void insertDefaultCategories(int userId) throws SQLException {
@@ -86,7 +88,7 @@ public class CategoryDAO {
             "Personal Care",
             "Savings",
             "Other"
-        };
+        };//default categories
 
         String[] incomeCategories = {
             "Salary",
@@ -104,7 +106,7 @@ public class CategoryDAO {
                 INSERT INTO categories
                 (user_id, category_name, category_type)
                 VALUES (?, ?, ?)
-                """;
+                """;//differentiating the type 
         
         try (
                 Connection conn = DBConnection.getConnection();
@@ -114,7 +116,7 @@ public class CategoryDAO {
 
                 ps.setInt(1, userId);
                 ps.setString(2, category);
-                ps.setString(3, "expense");
+                ps.setString(3, "expense");//setting the category type
 
                 ps.executeUpdate();
             }
@@ -122,14 +124,14 @@ public class CategoryDAO {
 
                 ps.setInt(1, userId);
                 ps.setString(2, category);
-                ps.setString(3, "income");
+                ps.setString(3, "income");//setting the category type
 
                 ps.executeUpdate();
             }
         } 
-    }
+    }//end of insert default categories
 
-    // Get Category Name
+    //Get Category Name
     public String getCategoryNameById(int categoryId) throws SQLException {
         String sql = """
                 SELECT category_name
@@ -150,8 +152,9 @@ public class CategoryDAO {
             }
         } 
         return "";
-    }
+    }//end of Get Category Name
     
+    //checking if the category exists 
     public boolean categoryExists(int userId, String categoryName, String type) throws SQLException {
         String sql = """
                 SELECT COUNT(*)
@@ -175,9 +178,9 @@ public class CategoryDAO {
             }
         }
         return false;
-    }
+    }//end of check category
     
-    // Check if category is used in any transaction
+    //Check if category is used in any transaction
 public boolean isCategoryInUse(int categoryId) throws SQLException 
 {
     String sql = """
@@ -202,5 +205,7 @@ public boolean isCategoryInUse(int categoryId) throws SQLException
         }
     }
     return false;
-    }
-}
+    }//end of isCategoryInUse method
+
+
+}//end of class

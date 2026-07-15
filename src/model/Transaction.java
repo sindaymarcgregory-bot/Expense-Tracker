@@ -20,7 +20,9 @@ public class Transaction {
 
     public Transaction() {
     }
+  
 
+    //constructor
     public Transaction(int id, int userId, int categoryId,
             String type, BigDecimal amount,
             Date transactionDate,
@@ -39,9 +41,9 @@ public class Transaction {
         this.updatedAt = updatedAt;
     }
 
-    //==========================
-    // GETTERS AND SETTERS
-    //==========================
+   
+    //getters and setters
+   
 
     public int getId() {
         return id;
