@@ -1,6 +1,5 @@
 package services;
 
-import database.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import model.Category;
