@@ -39,7 +39,11 @@ public class UserService {
         // Validate password
         validatePassword(user.getPassword());
 
+        // Validate email
         validateEmail(user.getEmail());
+
+        // Validate phone number
+        validatePhone(user.getPhone());
 
         // Check if username already exists
         if (usernameExists(user.getUsername())) {
@@ -85,6 +89,30 @@ public class UserService {
             throw new IllegalArgumentException("Please enter a valid email address.");
         }
 
+    }
+    
+    // Validate phone number
+    private void validatePhone(String phone) {
+
+        // Check if phone number is empty
+        if (validationService.isEmpty(phone)) {
+            throw new IllegalArgumentException("Phone number is required.");
+        }
+
+        // Check if phone number contains only digits
+        if (!phone.matches("\\d+")) {
+            throw new IllegalArgumentException("Phone number must contain numbers only.");
+        }
+
+        // Check phone number length
+        if (phone.length() != 11) {
+            throw new IllegalArgumentException("Phone number must be exactly 11 digits.");
+        }
+
+        // Check if phone number starts with 09
+        if (!phone.startsWith("09")) {
+            throw new IllegalArgumentException("Phone number must start with 09.");
+        }
     }
 
     // Login User

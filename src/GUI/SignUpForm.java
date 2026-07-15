@@ -231,33 +231,66 @@ public class SignUpForm extends javax.swing.JFrame {
         try {
             age = Integer.parseInt(setagefield.getText().trim());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Please enter a valid age.");
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please enter a valid age.",
+                    "Invalid Input",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // Validate password length before hashing
+        if (password.length() < 6) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Password must be at least 6 characters.",
+                    "Invalid Password",
+                    JOptionPane.WARNING_MESSAGE);
+            setpasswordfield.requestFocus();
             return;
         }
 
-        // Hash the password
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        try {
 
-        User user = new User();
-        user.setFullname(fullname);
-        user.setUsername(username);
-        user.setEmail(email);
-        user.setPhone(phone);
-        user.setAge(age);
-        user.setPassword(hashedPassword);
+            // Hash the password
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
-        UserService service = new UserService();
+            User user = new User();
+            user.setFullname(fullname);
+            user.setUsername(username);
+            user.setEmail(email);
+            user.setPhone(phone);
+            user.setAge(age);
+            user.setPassword(hashedPassword);
 
-        User registeredUser = service.register(user);
+            UserService service = new UserService();
 
-        if (registeredUser != null) {
-            JOptionPane.showMessageDialog(this, "Account created successfully!");
+            User registeredUser = service.register(user);
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Account created successfully!",
+                    "Success",
+                    JOptionPane.INFORMATION_MESSAGE);
 
             LoginForm login = new LoginForm();
             login.setVisible(true);
             dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Registration failed.");
+
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    e.getMessage(),
+                    "Registration Failed",
+                    JOptionPane.WARNING_MESSAGE);
+
+        } catch (RuntimeException e) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSignUp2ActionPerformed
 

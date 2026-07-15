@@ -141,30 +141,27 @@ public class LoginForm extends javax.swing.JFrame {
         String password = String.valueOf(lblPassword.getPassword());
 
         if (loginInput.isEmpty() && password.isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                    "Please enter your username or email and password.");
+            JOptionPane.showMessageDialog(this, "Please enter your username or email and password.");
             lblbUsername.requestFocus();
             return;
         }
 
         if (loginInput.isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                    "Please enter your username or email.");
+            JOptionPane.showMessageDialog(this, "Please enter your username or email.");
             lblbUsername.requestFocus();
             return;
         }
 
         if (password.isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                    "Please enter your password.");
+            JOptionPane.showMessageDialog(this, "Please enter your password.");
             lblPassword.requestFocus();
             return;
         }
 
         UserService service = new UserService();
-        User user = service.login(loginInput, password);
 
-        if (user != null) {
+        try {
+            User user = service.login(loginInput, password);
 
             Session.setCurrentUser(user);
 
@@ -172,11 +169,21 @@ public class LoginForm extends javax.swing.JFrame {
             home.setVisible(true);
             dispose();
 
-        } else {
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    e.getMessage(),
+                    "Login Failed",
+                    JOptionPane.WARNING_MESSAGE
+            );
 
-            JOptionPane.showMessageDialog(this,
-                    "Invalid username/email or password.");
-
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 

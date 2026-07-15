@@ -47,7 +47,7 @@ import utils.Session;
             
             updateTotalExpense();
             
-            styleIncomeTable();
+            styleExpenseTable();
 
             expenseTable.getColumnModel().getColumn(0).setMinWidth(0);
             expenseTable.getColumnModel().getColumn(0).setMaxWidth(0);
@@ -142,8 +142,8 @@ import utils.Session;
             clearFields();
         }
         
-        // Style the income table
-    private void styleIncomeTable() {
+        // Style the expense table
+    private void styleExpenseTable() {
 
         // Hide ID column
         expenseTable.getColumnModel()
@@ -157,6 +157,8 @@ import utils.Session;
         expenseTable.getColumnModel()
                 .getColumn(0)
                 .setPreferredWidth(0);
+        
+        jScrollPaneExpense.setPreferredSize(new Dimension(520, 335));
 
         // Table font
         expenseTable.setFont(
@@ -195,7 +197,7 @@ import utils.Session;
         );
 
         // Scroll pane design
-        jScrollPane1.setBorder(null);
+        jScrollPaneExpense.setBorder(null);
 
         // Column sizes
         expenseTable.getColumnModel()
@@ -272,7 +274,7 @@ import utils.Session;
         cmboExpenseCategory = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         expenseAmountField = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPaneExpense = new javax.swing.JScrollPane();
         expenseTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -297,7 +299,7 @@ import utils.Session;
         jLabel1.setForeground(new java.awt.Color(111, 151, 143));
         jLabel1.setText("Amount");
 
-        jScrollPane1.setBackground(new java.awt.Color(220, 232, 208));
+        jScrollPaneExpense.setBackground(new java.awt.Color(220, 232, 208));
 
         expenseTable.setBackground(new java.awt.Color(220, 232, 208));
         expenseTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -317,7 +319,7 @@ import utils.Session;
                 expenseTableMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(expenseTable);
+        jScrollPaneExpense.setViewportView(expenseTable);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(111, 151, 143));
@@ -380,11 +382,11 @@ import utils.Session;
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPaneExpense, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1)
                             .addComponent(expenseAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(cmboExpenseCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAddExpenseCategory1)
@@ -421,7 +423,7 @@ import utils.Session;
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                         .addComponent(addExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(updateExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -429,21 +431,21 @@ import utils.Session;
                         .addComponent(deleteExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(clearExpenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(55, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmboExpenseCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAddExpenseCategory1)
-                            .addComponent(btnDeleteExpenseCategory))
-                        .addGap(36, 36, 36)
+                            .addComponent(btnDeleteExpenseCategory)
+                            .addComponent(cmboExpenseCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(38, 38, 38)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(expenseAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPaneExpense, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotalExpense, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(22, Short.MAX_VALUE))))
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -454,7 +456,7 @@ import utils.Session;
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -734,8 +736,8 @@ import utils.Session;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPaneExpense;
     private javax.swing.JLabel lblTotalExpense;
     private javax.swing.JButton updateExpenseButton;
     // End of variables declaration//GEN-END:variables
