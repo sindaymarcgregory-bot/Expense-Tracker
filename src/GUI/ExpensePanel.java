@@ -28,9 +28,9 @@ import utils.Session;
 
     public class ExpensePanel extends javax.swing.JPanel {
 
-        /**
-         * Creates new form ExpensePanel
-         */
+       
+         //Creates new form ExpensePanel
+      
         private int selectedTransactionId = -1;
         private HomeFrame homeFrame;
         

@@ -3,7 +3,7 @@ package DAO;
 import database.DBConnection;
 import java.sql.*;
 import model.User;
-import org.mindrot.jbcrypt.BCrypt;
+import org.mindrot.jbcrypt.BCrypt;//import needed to hash password
 
 public class UserDAO {
 

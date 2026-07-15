@@ -3,6 +3,7 @@ package model;
 import java.sql.Timestamp;
 
 public class Category {
+    //attributes
 
     private int id;
     private int userId;
@@ -13,7 +14,8 @@ public class Category {
 
     public Category() {
     }
-
+ 
+    //constructor
     public Category(int id, int userId, String name, String type,
             Timestamp createdAt, Timestamp updatedAt) {
 
@@ -25,6 +27,7 @@ public class Category {
         this.updatedAt = updatedAt;
     }
 
+    //getter and setters
     public int getId() {
         return id;
     }
