@@ -75,7 +75,7 @@ public class TransactionDAO {
         }
 
         return transactions;
-    }//end of getALlTransactions
+    }//end of getAllTransactions
 
     //read one / getTransactions
     public Transaction getTransactionById(int transactionId) throws SQLException {

@@ -24,10 +24,7 @@ public class TransactionService {
             throw new IllegalArgumentException("Please select a category.");
         }
 
-         // Validate description
-        if (validationService.isEmpty(transaction.getDescription())) {
-            throw new IllegalArgumentException("Please enter a description.");
-        }
+        
 
         // If this is an expense, check available balance
         if (transaction.getType().equalsIgnoreCase("expense")) {
