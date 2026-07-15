@@ -91,7 +91,7 @@ public class HomeFrameDark extends javax.swing.JFrame {
         btnDashboard.setBackground(new java.awt.Color(0, 51, 51));
         btnDashboard.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDashboard.setForeground(new java.awt.Color(255, 255, 255));
-        btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/statisctics (1).png"))); // NOI18N
+        btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/statisctics (1).png"))); // NOI18N
         btnDashboard.setText("Dashboard");
         btnDashboard.setBorder(null);
         btnDashboard.addActionListener(this::btnDashboardActionPerformed);
@@ -99,7 +99,7 @@ public class HomeFrameDark extends javax.swing.JFrame {
         btnIncome.setBackground(new java.awt.Color(0, 51, 51));
         btnIncome.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnIncome.setForeground(new java.awt.Color(255, 255, 255));
-        btnIncome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/financial-statement (1).png"))); // NOI18N
+        btnIncome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/financial-statement (1).png"))); // NOI18N
         btnIncome.setText("Income");
         btnIncome.setBorder(null);
         btnIncome.setIconTextGap(2);
@@ -108,7 +108,7 @@ public class HomeFrameDark extends javax.swing.JFrame {
         btnExpenses.setBackground(new java.awt.Color(0, 51, 51));
         btnExpenses.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnExpenses.setForeground(new java.awt.Color(255, 255, 255));
-        btnExpenses.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/spending (1).png"))); // NOI18N
+        btnExpenses.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/spending (1).png"))); // NOI18N
         btnExpenses.setText("Expenses");
         btnExpenses.setBorder(null);
         btnExpenses.addActionListener(this::btnExpensesActionPerformed);
@@ -116,7 +116,7 @@ public class HomeFrameDark extends javax.swing.JFrame {
         btnHistory.setBackground(new java.awt.Color(0, 51, 51));
         btnHistory.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnHistory.setForeground(new java.awt.Color(255, 255, 255));
-        btnHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/history (1).png"))); // NOI18N
+        btnHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/history (1).png"))); // NOI18N
         btnHistory.setText("History");
         btnHistory.setBorder(null);
         btnHistory.addActionListener(this::btnHistoryActionPerformed);
@@ -124,7 +124,7 @@ public class HomeFrameDark extends javax.swing.JFrame {
         btnLogout.setBackground(new java.awt.Color(0, 51, 51));
         btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLogout.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/logout (1).png"))); // NOI18N
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout (1).png"))); // NOI18N
         btnLogout.setText("Logout");
         btnLogout.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         btnLogout.addActionListener(this::btnLogoutActionPerformed);
@@ -132,7 +132,7 @@ public class HomeFrameDark extends javax.swing.JFrame {
         btnAccount.setBackground(new java.awt.Color(0, 51, 51));
         btnAccount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnAccount.setForeground(new java.awt.Color(255, 255, 255));
-        btnAccount.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/accountant (1).png"))); // NOI18N
+        btnAccount.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/accountant (1).png"))); // NOI18N
         btnAccount.setText("Account");
         btnAccount.setBorder(null);
         btnAccount.addActionListener(this::btnAccountActionPerformed);
@@ -143,7 +143,7 @@ public class HomeFrameDark extends javax.swing.JFrame {
 
         lblUsername.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblUsername.setForeground(new java.awt.Color(0, 204, 204));
-        lblUsername.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/user (1).png"))); // NOI18N
+        lblUsername.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user (1).png"))); // NOI18N
         lblUsername.setText("Username");
 
         javax.swing.GroupLayout sideBarPanelLayout = new javax.swing.GroupLayout(sideBarPanel);
