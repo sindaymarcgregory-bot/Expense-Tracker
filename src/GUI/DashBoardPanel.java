@@ -17,12 +17,13 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utils.Session;
 import utils.ThemeManager;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.List;
 
 public class DashBoardPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form DashBoardPanel
-     */
+    
     public DashBoardPanel() {
         initComponents();
 
@@ -34,16 +35,14 @@ public class DashBoardPanel extends javax.swing.JPanel {
 
         // Apply card design first
         styleSummaryCards();
-        
-        loadRecentTransactions();
-        setupTransactionTable();
-        
-        styleTransactionTable();
-        
 
-        //makeCardsRounded();
+        // loading the table
+        loadCategoryTable(); 
+      
+
+        
     }
-    
+
     // Refresh all dashboard information.
     public void refreshDashboard() {
 
@@ -51,11 +50,6 @@ public class DashBoardPanel extends javax.swing.JPanel {
 
         loadSummaryCards();
 
-        loadRecentTransactions();
-
-        setupTransactionTable();
-
-        styleTransactionTable();
     }
 
     /**
@@ -65,21 +59,9 @@ public class DashBoardPanel extends javax.swing.JPanel {
      * Displays the Income vs Expense pie chart.
      */
     // Set the names of the table columns
-    private void setupTransactionTable() {
+    
 
-        DefaultTableModel model
-                = (DefaultTableModel) recentTransactionTable.getModel();
-
-        model.setColumnIdentifiers(new String[]{
-            "Description",
-            "Type",
-            "Amount",
-            "Date"
-        });
-
-    }
-
-    private void loadPieChart() {
+     private void loadPieChart() {
 
         try {
 
@@ -89,40 +71,37 @@ public class DashBoardPanel extends javax.swing.JPanel {
             // Get the logged in user's ID.
             int userId = Session.getCurrentUser().getId();
 
-            // Read totals from the database.
-            double income
-                    = dao.getTotalByType(userId, "income").doubleValue();
-
-            double expense
-                    = dao.getTotalByType(userId, "expense").doubleValue();
-
-            // Create the pie chart.
             PieChart chart = new PieChartBuilder()
                     .width(420)
                     .height(320)
                     .build();
+            // Read totals from the database.
+            LinkedHashMap<String, Double> categories
+                    = dao.getExpenseCategoryPercentages(userId);
 
-            // Add slices.
-            chart.addSeries("Income", income);
+          
+            for (Map.Entry<String, Double> entry : categories.entrySet()) {
+                chart.addSeries(
+                        entry.getKey() + " (" + String.format("%.1f%%", entry.getValue()) + ")",
+                        entry.getValue()
+                );
+            }
 
-            chart.addSeries("Expense", expense);
-
-            // -----------------------------
             // Customize the appearance
-            // -----------------------------
             chart.getStyler().setChartTitleVisible(false);
 
             chart.getStyler().setLegendVisible(true);
 
             chart.getStyler().setPlotBorderVisible(false);
 
+            chart.getStyler().setAnnotationDistance(1.15);
+            chart.getStyler().setPlotContentSize(.9);
+
             chart.getStyler().setChartBackgroundColor(
                     new Color(220, 232, 208));
 
             chart.getStyler().setPlotBackgroundColor(
                     new Color(220, 232, 208));
-
-            chart.getStyler().setAnnotationDistance(1.15);
 
             // Create the Swing component.
             XChartPanel<PieChart> xChartPanel
@@ -189,49 +168,38 @@ public class DashBoardPanel extends javax.swing.JPanel {
     }
 
     // Load recent transactions into the dashboard table
-    private void loadRecentTransactions() {
 
-        try {
+    private void loadCategoryTable() {
 
-            // Create DAO object
-            TransactionDAO dao = new TransactionDAO();
+    TransactionDAO transactionDAO = new TransactionDAO();
 
-            // Get current user ID
-            int userId = Session.getCurrentUser().getId();
+    int userId = Session.getCurrentUser().getId();   // <-- Add this
 
-            // Get recent transactions
-            ArrayList<Transaction> transactions
-                    = dao.getRecentTransactions(userId);
+    DefaultTableModel model
+            = (DefaultTableModel) expenseCategoryTable.getModel();
 
-            // Create table model
-            DefaultTableModel model
-                    = (DefaultTableModel) recentTransactionTable.getModel();
+    model.setRowCount(0);
 
-            // Clear existing rows
-            model.setRowCount(0);
+    try {
 
-            // Add transactions to table
-            for (Transaction transaction : transactions) {
+        List<Object[]> data =
+                transactionDAO.getExpenseCategorySummary(userId);
 
-                model.addRow(new Object[]{
-                    transaction.getDescription(),
-                    transaction.getType(),
-                    "₱" + String.format(
-                    "%,.2f",
-                    transaction.getAmount()
-                    ),
-                    transaction.getTransactionDate()
-                });
+        for (Object[] row : data) {
 
-            }
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
+            model.addRow(new Object[]{
+                row[0],
+                String.format("₱%,.2f", row[1]),
+                String.format("%.1f%%", row[2]),
+                row[3]
+            });
         }
 
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
+
 
     /*
     This method controls the appearance
@@ -376,107 +344,11 @@ public class DashBoardPanel extends javax.swing.JPanel {
         );
     }
 
-    // Style the recent transactions table
-    private void styleTransactionTable() {
+   
+    
 
-        // Change table header appearance
-        recentTransactionTable.getTableHeader()
-                .setFont(
-                        new java.awt.Font(
-                                "Segoe UI",
-                                java.awt.Font.BOLD,
-                                14
-                        )
-                );
 
-        // Center table headers
-        recentTransactionTable.getTableHeader()
-                .setReorderingAllowed(false);
-
-        // Change table font
-        recentTransactionTable.setFont(
-                new java.awt.Font(
-                        "Segoe UI",
-                        java.awt.Font.PLAIN,
-                        13
-                )
-        );
-
-        // Adjust column widths
-        recentTransactionTable.getColumnModel()
-                .getColumn(0)
-                .setPreferredWidth(250);
-
-        recentTransactionTable.getColumnModel()
-                .getColumn(1)
-                .setPreferredWidth(100);
-
-        recentTransactionTable.getColumnModel()
-                .getColumn(2)
-                .setPreferredWidth(120);
-
-        recentTransactionTable.getColumnModel()
-                .getColumn(3)
-                .setPreferredWidth(120);
-
-        // Increase row height
-        recentTransactionTable.setRowHeight(35);
-
-        // Remove grid lines for cleaner look
-        recentTransactionTable.setShowGrid(false);
-
-        // Add spacing between cells
-        recentTransactionTable.setIntercellSpacing(
-                new java.awt.Dimension(0, 0)
-        );
-
-        // Make table background match dashboard
-        recentTransactionTable.setBackground(
-                new Color(220, 232, 208)
-        );
-
-        // Set selection color
-        recentTransactionTable.setSelectionBackground(
-                new Color(111, 151, 143)
-        );
-
-        // Set selection text color
-        recentTransactionTable.setSelectionForeground(
-                Color.WHITE
-        );
-        // Remove scroll pane border
-        jScrollPane1.setBorder(null);
-
-        // Center the type, category and description columns
-        DefaultTableCellRenderer centerRenderer
-                = new DefaultTableCellRenderer();
-
-        centerRenderer.setHorizontalAlignment(
-                SwingConstants.CENTER
-        );
-
-        recentTransactionTable.getColumnModel()
-                .getColumn(0)
-                .setCellRenderer(centerRenderer);
-
-        recentTransactionTable.getColumnModel()
-                .getColumn(1)
-                .setCellRenderer(centerRenderer);
-
-        recentTransactionTable.getColumnModel()
-                .getColumn(3)
-                .setCellRenderer(centerRenderer);
-
-        // Apply colored renderer to Type column
-        recentTransactionTable
-                .getColumnModel()
-                .getColumn(1)
-                .setCellRenderer(
-                        new TypeBadgeRenderer()
-                );
-
-    }
-
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -498,7 +370,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
         lblBalanceTitle = new javax.swing.JLabel();
         lblBalanceValue = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        recentTransactionTable = new javax.swing.JTable();
+        expenseCategoryTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -641,7 +513,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        recentTransactionTable.setModel(new javax.swing.table.DefaultTableModel(
+        expenseCategoryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -649,10 +521,27 @@ public class DashBoardPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Category", "Amount", "Percentage", "Transactions"
             }
-        ));
-        jScrollPane1.setViewportView(recentTransactionTable);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        expenseCategoryTable.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+                expenseCategoryTableAncestorMoved(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jScrollPane1.setViewportView(expenseCategoryTable);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(111, 151, 143));
@@ -660,7 +549,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(111, 151, 143));
-        jLabel2.setText("Recent Transactions");
+        jLabel2.setText("Expense Overview");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -694,14 +583,19 @@ public class DashBoardPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(124, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void expenseCategoryTableAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_expenseCategoryTableAncestorMoved
+
+    }//GEN-LAST:event_expenseCategoryTableAncestorMoved
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel chartPanel;
+    private javax.swing.JTable expenseCategoryTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -714,8 +608,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
     private javax.swing.JPanel pnlBalance;
     private javax.swing.JPanel pnlExpense;
     private javax.swing.JPanel pnlIncome;
-    private javax.swing.JTable recentTransactionTable;
     private javax.swing.JPanel summaryPanel;
     // End of variables declaration//GEN-END:variables
-
 }
+

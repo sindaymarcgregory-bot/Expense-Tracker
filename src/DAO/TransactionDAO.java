@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.ResultSet;
 import model.Transaction;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class TransactionDAO {
 
@@ -456,5 +458,114 @@ public class TransactionDAO {
         }
 
         return transactions;
+    }
+
+    //for the dashboard panel
+    public LinkedHashMap<String, Double> getExpenseCategoryPercentages(int userId)
+            throws SQLException {
+
+        LinkedHashMap<String, Double> data = new LinkedHashMap<>();
+
+        String sql = """
+        SELECT c.category_name,
+               SUM(t.amount) AS total
+        FROM transactions t
+        JOIN categories c
+             ON t.category_id = c.id
+        WHERE t.user_id = ?
+          AND t.type = 'expense'
+        GROUP BY c.category_name
+        ORDER BY total DESC
+    """;
+
+        try (
+                Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+
+            ResultSet rs = ps.executeQuery();
+
+            double grandTotal = 0;
+
+            ArrayList<String> names = new ArrayList<>();
+            ArrayList<Double> totals = new ArrayList<>();
+
+            while (rs.next()) {
+
+                String category = rs.getString("category_name");
+                double total = rs.getDouble("total");
+
+                names.add(category);
+                totals.add(total);
+
+                grandTotal += total;
+            }
+
+            for (int i = 0; i < names.size(); i++) {
+
+                double percent = (totals.get(i) / grandTotal) * 100;
+
+                data.put(names.get(i), percent);
+            }
+        }
+
+        return data;
+    }
+
+    //for expenseOverviewTable
+    public List<Object[]> getExpenseCategorySummary(int userId) throws SQLException {
+        List<Object[]> list = new ArrayList<>();
+
+        String sql
+                = "SELECT c.category_name, "
+                + "SUM(t.amount) total_amount, "
+                + "COUNT(*) transaction_count "
+                + "FROM transactions t "
+                + "JOIN categories c ON t.category_id = c.id "
+                + "WHERE t.user_id=? AND t.type='expense' "
+                + "GROUP BY c.category_name "
+                + "ORDER BY total_amount DESC";
+
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+
+        ps.setInt(1, userId);
+
+        ResultSet rs = ps.executeQuery();
+
+        double grandTotal = 0;
+
+        ArrayList<Object[]> temp = new ArrayList<>();
+
+        while (rs.next()) {
+
+            String category = rs.getString("category_name");
+            double amount = rs.getDouble("total_amount");
+            int count = rs.getInt("transaction_count");
+
+            grandTotal += amount;
+
+            temp.add(new Object[]{
+                category,
+                amount,
+                count
+            });
+        }
+
+        for (Object[] row : temp) {
+
+            double amount = (double) row[1];
+
+            double percent = amount / grandTotal * 100;
+
+            list.add(new Object[]{
+                row[0],
+                amount,
+                percent,
+                row[2]
+            });
+        }
+
+        return list;
     }
 }

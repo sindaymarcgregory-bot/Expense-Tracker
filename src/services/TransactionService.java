@@ -35,10 +35,6 @@ public class TransactionService {
             throw new IllegalArgumentException("Amount must be greater than zero.");
         }
 
-        // Validate description
-        if (validationService.isEmpty(transaction.getDescription())) {
-            throw new IllegalArgumentException("Please enter a description.");
-        }
 
         // Validate description length
         if (validationService.exceedsMaximumLength(transaction.getDescription(), 255)) {
