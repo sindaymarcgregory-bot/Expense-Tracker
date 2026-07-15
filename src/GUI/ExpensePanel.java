@@ -4,6 +4,9 @@
  */
 package GUI;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import model.Category;
@@ -11,6 +14,7 @@ import services.CategoryService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.Transaction;
 import services.TransactionService;
@@ -40,6 +44,8 @@ import utils.Session;
             loadExpenseCategories();
 
             loadExpenseTable();
+            
+            styleIncomeTable();
 
             expenseTable.getColumnModel().getColumn(0).setMinWidth(0);
             expenseTable.getColumnModel().getColumn(0).setMaxWidth(0);
@@ -112,6 +118,121 @@ import utils.Session;
             // Clear the form.
             clearFields();
         }
+        
+        // Style the income table
+    private void styleIncomeTable() {
+
+        // Hide ID column
+        expenseTable.getColumnModel()
+                .getColumn(0)
+                .setMinWidth(0);
+
+        expenseTable.getColumnModel()
+                .getColumn(0)
+                .setMaxWidth(0);
+
+        expenseTable.getColumnModel()
+                .getColumn(0)
+                .setPreferredWidth(0);
+
+        // Table font
+        expenseTable.setFont(
+                new Font("Segoe UI", Font.PLAIN, 13)
+        );
+
+        // Header font
+        expenseTable.getTableHeader()
+                .setFont(
+                        new Font("Segoe UI", Font.BOLD, 14)
+                );
+
+        // Row height
+        expenseTable.setRowHeight(35);
+
+        // Remove grid
+        expenseTable.setShowGrid(false);
+
+        // Remove spacing
+        expenseTable.setIntercellSpacing(
+                new Dimension(0, 0)
+        );
+
+        // Background
+        expenseTable.setBackground(
+                new Color(220, 232, 208)
+        );
+
+        // Selection
+        expenseTable.setSelectionBackground(
+                new Color(111, 151, 143)
+        );
+
+        expenseTable.setSelectionForeground(
+                Color.WHITE
+        );
+
+        // Scroll pane design
+        jScrollPane1.setBorder(null);
+
+        // Column sizes
+        expenseTable.getColumnModel()
+                .getColumn(1)
+                .setPreferredWidth(120);
+
+        expenseTable.getColumnModel()
+                .getColumn(2)
+                .setPreferredWidth(120);
+
+        expenseTable.getColumnModel()
+                .getColumn(3)
+                .setPreferredWidth(200);
+
+        expenseTable.getColumnModel()
+                .getColumn(4)
+                .setPreferredWidth(120);
+
+        DefaultTableCellRenderer incomeRenderer
+                = new DefaultTableCellRenderer();
+
+        incomeRenderer.setForeground(
+                new Color(0, 170, 80)
+        );
+
+        expenseTable.getColumnModel()
+                .getColumn(1)
+                .setCellRenderer(incomeRenderer);
+
+        // Center the category column
+        DefaultTableCellRenderer centerRenderer
+                = new DefaultTableCellRenderer();
+
+        centerRenderer.setHorizontalAlignment(
+                javax.swing.SwingConstants.CENTER
+        );
+
+        expenseTable.getColumnModel()
+                .getColumn(1)
+                .setCellRenderer(centerRenderer);
+
+        expenseTable.getColumnModel()
+                .getColumn(2)
+                .setCellRenderer(centerRenderer);
+
+        // Center the description column
+        expenseTable.getColumnModel()
+                .getColumn(3)
+                .setCellRenderer(centerRenderer);
+
+        expenseTable.getColumnModel()
+                .getColumn(4)
+                .setCellRenderer(centerRenderer);
+
+        // Center the description column
+        centerRenderer.setHorizontalAlignment(
+                javax.swing.SwingConstants.CENTER
+        );
+
+    }
 
         /**
          * This method is called from within the constructor to initialize the
@@ -294,7 +415,7 @@ import utils.Session;
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 862, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 879, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
