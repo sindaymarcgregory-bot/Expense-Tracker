@@ -188,6 +188,7 @@ public class ExpensePanelDark extends javax.swing.JPanel {
         expenseTable.setBackground(
                 new Color(153, 153, 153)
         );
+        expenseTable.setForeground(Color.WHITE);
         expenseTable.setGridColor(new Color(120, 120, 120));
         expenseTable.getTableHeader().setBackground(
                 new Color(153, 153, 153)
