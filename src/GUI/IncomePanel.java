@@ -31,12 +31,34 @@ public class IncomePanel extends javax.swing.JPanel {
         loadIncomeCategories();
 
         loadIncomeTable();
+        
+        updateTotalIncome();
 
         styleIncomeTable();
 
         incomeTable.getColumnModel().getColumn(0).setMinWidth(0);
         incomeTable.getColumnModel().getColumn(0).setMaxWidth(0);
         incomeTable.getColumnModel().getColumn(0).setPreferredWidth(0);
+    }
+    
+    private void updateTotalIncome() {
+        BigDecimal total = BigDecimal.ZERO;
+
+        for (int row = 0; row < incomeTable.getRowCount(); row++) {
+            Object value = incomeTable.getValueAt(row, 1); // Amount column
+
+            if (value == null) continue;
+
+            String amount = value.toString()
+                    .replace("₱", "")
+                    .replace(",", "")
+                    .trim();
+
+            if (amount.isEmpty()) continue;
+
+            total = total.add(new BigDecimal(amount));
+        }
+        lblTotalIncome.setText("Total Income: ₱" + String.format("%,.2f", total));
     }
 
     private void loadIncomeCategories() {
@@ -100,6 +122,7 @@ public class IncomePanel extends javax.swing.JPanel {
     private void refreshData() {
 
         loadIncomeTable();
+        updateTotalIncome();
 
         if (homeFrame != null) {
             homeFrame.getDashboardPanel().refreshDashboard();
@@ -248,6 +271,7 @@ public class IncomePanel extends javax.swing.JPanel {
         btnDeleteIncomeCategory = new javax.swing.JButton();
         btnAddIncomeCategory = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        lblTotalIncome = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(882, 620));
 
@@ -332,6 +356,10 @@ public class IncomePanel extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(111, 151, 143));
         jLabel4.setText("Enter your description here...");
 
+        lblTotalIncome.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblTotalIncome.setForeground(new java.awt.Color(0, 204, 51));
+        lblTotalIncome.setText("Total Income:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -343,11 +371,12 @@ public class IncomePanel extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(30, Short.MAX_VALUE)
+                        .addContainerGap(32, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel1)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblTotalIncome))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(cmboIncomeCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -358,7 +387,7 @@ public class IncomePanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 3, Short.MAX_VALUE)
+                        .addGap(0, 5, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
@@ -403,14 +432,16 @@ public class IncomePanel extends javax.swing.JPanel {
                         .addComponent(incomeAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTotalIncome)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 878, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 882, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -688,6 +719,7 @@ public class IncomePanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblTotalIncome;
     private javax.swing.JButton updateIncomeButton;
     // End of variables declaration//GEN-END:variables
 }
