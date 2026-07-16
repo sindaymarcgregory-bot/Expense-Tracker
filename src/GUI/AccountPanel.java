@@ -4,17 +4,8 @@
  */
 package GUI;
 
-import DAO.TransactionDAO;
 import DAO.UserDAO;
 import Utils.ThemeManager;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import model.User;
@@ -24,20 +15,10 @@ import javax.swing.ImageIcon;
 import java.awt.Image;
 import java.awt.Window;
 import java.io.File;
-import java.math.BigDecimal;
-import java.text.NumberFormat;
-import java.util.Locale;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.mindrot.jbcrypt.BCrypt;
 import java.sql.SQLException;
-import java.util.List;
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListModel;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
  *
@@ -188,7 +169,7 @@ public class AccountPanel extends javax.swing.JPanel {
         btnUploadPicture.setText("Upload Picture");
         btnUploadPicture.addActionListener(this::btnUploadPictureActionPerformed);
 
-        namefield.setFont(new java.awt.Font("Segoe UI", 0, 26)); // NOI18N
+        namefield.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         namefield.setForeground(new java.awt.Color(47, 72, 88));
         namefield.setText("FULL NAME");
 
@@ -296,7 +277,7 @@ public class AccountPanel extends javax.swing.JPanel {
                                 .addComponent(email1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(agefield)))
-                        .addGap(0, 8, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         pnlSettings.setAlignmentX(35.0F);
@@ -373,7 +354,7 @@ public class AccountPanel extends javax.swing.JPanel {
                 .addComponent(ChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(DeleteAccount)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

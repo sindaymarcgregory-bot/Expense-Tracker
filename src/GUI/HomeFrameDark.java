@@ -11,7 +11,7 @@ import utils.Session;
 
 public class HomeFrameDark extends javax.swing.JFrame {
 
-    private DashBoardPanelDark dashboardPanel;
+    private DashBoardPanelDark dashboardPanelDark;
     private ExpensePanelDark expensePanel;
     private IncomePanelDark incomePanel;
     private HistoryPanelDark historyPanel;
@@ -26,7 +26,7 @@ public class HomeFrameDark extends javax.swing.JFrame {
             lblUsername.setText(Session.getCurrentUser().getUsername());
         }
 
-        dashboardPanel = new DashBoardPanelDark();
+        dashboardPanelDark = new DashBoardPanelDark();
         expensePanel = new ExpensePanelDark();
         incomePanel = new IncomePanelDark();
         historyPanel = new HistoryPanelDark();
@@ -35,6 +35,18 @@ public class HomeFrameDark extends javax.swing.JFrame {
         setTitle("Expense Tracker");
         setLocationRelativeTo(null);
         setSize(1056, 650);
+        
+        expensePanel.setHomeFrame(this);
+        incomePanel.setHomeFrame(this);
+        historyPanel.setHomeFrame(this);
+    }
+    
+    public DashBoardPanelDark getDashboardPanel() {
+        return dashboardPanelDark;
+    }
+    
+    public void refreshDashboard() {
+        dashboardPanelDark.refreshDashboard();
     }
 
     // Show the account panel
@@ -74,6 +86,8 @@ public class HomeFrameDark extends javax.swing.JFrame {
         lblWelcome = new javax.swing.JLabel();
         lblUsername = new javax.swing.JLabel();
         changePanel = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         jMenuItem1.setText("jMenuItem1");
@@ -88,7 +102,7 @@ public class HomeFrameDark extends javax.swing.JFrame {
         bodyPanel.setBackground(new java.awt.Color(220, 232, 208));
         bodyPanel.setLayout(new javax.swing.BoxLayout(bodyPanel, javax.swing.BoxLayout.LINE_AXIS));
 
-        mainPanel.setBackground(new java.awt.Color(51, 51, 51));
+        mainPanel.setBackground(new java.awt.Color(38, 38, 38));
         mainPanel.setMaximumSize(null);
         mainPanel.setMinimumSize(new java.awt.Dimension(1024, 600));
 
@@ -203,28 +217,39 @@ public class HomeFrameDark extends javax.swing.JFrame {
                 .addContainerGap(128, Short.MAX_VALUE))
         );
 
-        changePanel.setBackground(new java.awt.Color(51, 51, 51));
+        changePanel.setBackground(new java.awt.Color(38, 38, 38));
         changePanel.setMinimumSize(new java.awt.Dimension(895, 600));
         changePanel.setName(""); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lblLogo.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lblLogoDark.png"))); // NOI18N
 
         javax.swing.GroupLayout changePanelLayout = new javax.swing.GroupLayout(changePanel);
         changePanel.setLayout(changePanelLayout);
         changePanelLayout.setHorizontalGroup(
             changePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, changePanelLayout.createSequentialGroup()
-                .addContainerGap(180, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(219, 219, 219))
+            .addGroup(changePanelLayout.createSequentialGroup()
+                .addGap(126, 126, 126)
+                .addGroup(changePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(changePanelLayout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 627, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         changePanelLayout.setVerticalGroup(
             changePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(changePanelLayout.createSequentialGroup()
-                .addGap(128, 128, 128)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(changePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(changePanelLayout.createSequentialGroup()
+                        .addGap(245, 245, 245)
+                        .addComponent(jLabel3)
+                        .addGap(254, 254, 254))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, changePanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addGap(133, 133, 133)))
+                .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -235,7 +260,8 @@ public class HomeFrameDark extends javax.swing.JFrame {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addComponent(sideBarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(changePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(changePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 874, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,7 +343,8 @@ public class HomeFrameDark extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIncomeActionPerformed
 
     private void btnDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDashboardActionPerformed
-        showPanel(dashboardPanel);
+        dashboardPanelDark.refreshDashboard();
+        showPanel(dashboardPanelDark);
     }//GEN-LAST:event_btnDashboardActionPerformed
 
     /**
@@ -355,6 +382,8 @@ public class HomeFrameDark extends javax.swing.JFrame {
     private javax.swing.JButton btnLogout;
     private javax.swing.JPanel changePanel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel lblWelcome;

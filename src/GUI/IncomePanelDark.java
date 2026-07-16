@@ -18,9 +18,9 @@ import utils.Session;
 public class IncomePanelDark extends javax.swing.JPanel {
 
     private int selectedTransactionId = -1;
-    private HomeFrame homeFrame;
+    private HomeFrameDark homeFrame;
 
-    public void setHomeFrame(HomeFrame homeFrame) {
+    public void setHomeFrame(HomeFrameDark homeFrame) {
         this.homeFrame = homeFrame;
     }
 
@@ -293,7 +293,7 @@ public class IncomePanelDark extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(882, 620));
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel1.setBackground(new java.awt.Color(38, 38, 38));
         jPanel1.setMaximumSize(null);
         jPanel1.setPreferredSize(new java.awt.Dimension(1020, 604));
         jPanel1.setRequestFocusEnabled(false);
@@ -523,7 +523,9 @@ public class IncomePanelDark extends javax.swing.JPanel {
             Transaction transaction = new Transaction();
 
             transaction.setId(selectedTransactionId);
+            transaction.setUserId(Session.getCurrentUser().getId()); 
             transaction.setCategoryId(category.getId());
+            transaction.setType("income"); 
 
             transaction.setAmount(
                     new BigDecimal(incomeAmountField.getText().trim())
@@ -628,7 +630,7 @@ public class IncomePanelDark extends javax.swing.JPanel {
 
             if (service.addTransaction(transaction)) {
                 JOptionPane.showMessageDialog(this, "Income added successfully!");
-
+                homeFrame.refreshDashboard();
                 refreshData();
             }
         } catch (Exception e) {

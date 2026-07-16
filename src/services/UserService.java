@@ -3,6 +3,7 @@ package services;
 import DAO.UserDAO;
 import java.sql.SQLException;
 import model.User;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class UserService {
 
@@ -32,6 +33,9 @@ public class UserService {
     
     // Validate all registration information
     private void validateUser(User user) {
+        
+        // Validate full name
+        validateFullName(user.getFullname());
 
         // Validate username
         validateUsername(user.getUsername());
@@ -44,6 +48,9 @@ public class UserService {
 
         // Validate phone number
         validatePhone(user.getPhone());
+        
+        // Validate age
+        validateAge(user.getAge());
 
         // Check if username already exists
         if (usernameExists(user.getUsername())) {
@@ -58,10 +65,13 @@ public class UserService {
 
     // Register New User
     public User register(User user) {
-        try {
-            // Validate all registration fields
+        
+        // Validate all registration fields
             validateUser(user);
-
+        
+        try {
+            user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+            
             // Register the user
             User registeredUser = userDAO.register(user);
 
@@ -192,6 +202,9 @@ public class UserService {
 
         // Validate username
         validateUsername(user.getUsername());
+        validateFullName(user.getFullname());
+        validatePhone(user.getPhone());
+        validateAge(user.getAge());
 
        validateEmail(user.getEmail());
 
@@ -215,7 +228,7 @@ public class UserService {
     }
 
     /// Change User Password
-    public boolean changePassword(int userId, String hashedPassword) {
+    public boolean changePassword(int userId, String password) {
 
         // Validate user ID
         if (userId <= 0) {
@@ -223,7 +236,9 @@ public class UserService {
         }
 
         // Validate password
-        validatePassword(hashedPassword);
+        validatePassword(password);
+        
+         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
         try {
             return userDAO.changePassword(userId, hashedPassword);
@@ -232,4 +247,30 @@ public class UserService {
             throw new RuntimeException("Unable to change password.");
         }
     }// Change User Password end
+    
+    // Validate full name
+    private void validateFullName(String fullName) {
+
+        // Check if full name is empty
+        if (validationService.isEmpty(fullName)) {
+            throw new IllegalArgumentException("Full name is required.");
+        }
+
+        // Check maximum length
+        if (validationService.exceedsMaximumLength(fullName, 100)) {
+            throw new IllegalArgumentException("Full name cannot exceed 100 characters.");
+        }
+    }
+    
+    // Validate age
+    private void validateAge(int age) {
+
+        if (age < 13) {
+            throw new IllegalArgumentException("Age must be at least 13.");
+        }
+
+        if (age > 120) {
+            throw new IllegalArgumentException("Please enter a valid age.");
+        }
+    }
 }

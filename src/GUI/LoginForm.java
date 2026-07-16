@@ -167,34 +167,23 @@ public class LoginForm extends javax.swing.JFrame {
             Session.setCurrentUser(user);
 
             if (ThemeManager.isDarkMode()) {
-
-                HomeFrameDark home = new HomeFrameDark();
-                home.setVisible(true);
-
+                new HomeFrameDark().setVisible(true);
             } else {
-
-                HomeFrame home = new HomeFrame();
-                home.setVisible(true);
-
+            new HomeFrame().setVisible(true);
             }
-
             dispose();
-
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(
-                    this,
-                    e.getMessage(),
-                    "Login Failed",
-                    JOptionPane.WARNING_MESSAGE
-            );
-
+                this,
+                e.getMessage(),
+                "Login Failed",
+                JOptionPane.WARNING_MESSAGE);
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(
-                    this,
-                    e.getMessage(),
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE
-            );
+                this,
+                e.getMessage(),
+                "Database Error",
+                JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 

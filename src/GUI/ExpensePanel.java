@@ -481,12 +481,18 @@ import utils.Session;
 
             String description = expenseDescriptionTextArea.getText();
 
+            
+            
             Transaction transaction = new Transaction();
 
             transaction.setId(selectedTransactionId);
+            transaction.setUserId(Session.getCurrentUser().getId());
             transaction.setCategoryId(category.getId());
             transaction.setAmount(amount);
             transaction.setDescription(description);
+            transaction.setType("expense");
+            
+            
 
             TransactionService service = new TransactionService();
 

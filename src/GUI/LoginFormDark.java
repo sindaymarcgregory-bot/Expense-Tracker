@@ -1,7 +1,6 @@
 package GUI;
 
 import Utils.ThemeManager;
-import java.awt.Color;
 import javax.swing.JOptionPane;
 import model.User;
 import services.UserService;
@@ -41,7 +40,7 @@ public class LoginFormDark extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
-        loginPanel.setBackground(new java.awt.Color(51, 51, 51));
+        loginPanel.setBackground(new java.awt.Color(38, 38, 38));
         loginPanel.setMaximumSize(null);
         loginPanel.setMinimumSize(new java.awt.Dimension(1024, 600));
 
@@ -73,7 +72,7 @@ public class LoginFormDark extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(111, 151, 143));
         jLabel1.setText("Don't have an account?");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lblLogo.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lblLogoDark.png"))); // NOI18N
 
         chkShowLoginPassword.setBackground(new java.awt.Color(51, 51, 51));
         chkShowLoginPassword.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -85,33 +84,33 @@ public class LoginFormDark extends javax.swing.JFrame {
         loginPanel.setLayout(loginPanelLayout);
         loginPanelLayout.setHorizontalGroup(
             loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
-                .addContainerGap(256, Short.MAX_VALUE)
-                .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
-                        .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblbUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPassword)
-                            .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(chkShowLoginPassword))
-                        .addGap(322, 322, 322))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(246, 246, 246))))
             .addGroup(loginPanelLayout.createSequentialGroup()
                 .addGap(400, 400, 400)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSignup)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblbUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPassword)
+                    .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chkShowLoginPassword))
+                .addGap(322, 322, 322))
+            .addGroup(loginPanelLayout.createSequentialGroup()
+                .addGap(182, 182, 182)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(198, Short.MAX_VALUE))
         );
         loginPanelLayout.setVerticalGroup(
             loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(loginPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(57, 57, 57)
+                .addGap(51, 51, 51)
                 .addComponent(txtUsername)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblbUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -171,34 +170,23 @@ public class LoginFormDark extends javax.swing.JFrame {
             Session.setCurrentUser(user);
 
             if (ThemeManager.isDarkMode()) {
-
-                HomeFrameDark home = new HomeFrameDark();
-                home.setVisible(true);
-
+                new HomeFrameDark().setVisible(true);
             } else {
-
-                HomeFrame home = new HomeFrame();
-                home.setVisible(true);
-
+                new HomeFrame().setVisible(true);
             }
-
             dispose();
-
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(
                     this,
                     e.getMessage(),
                     "Login Failed",
-                    JOptionPane.WARNING_MESSAGE
-            );
-
+                    JOptionPane.WARNING_MESSAGE);
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(
                     this,
                     e.getMessage(),
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE
-            );
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 

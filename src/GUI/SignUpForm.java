@@ -124,10 +124,6 @@ public class SignUpForm extends javax.swing.JFrame {
             .addGroup(loginPanelLayout.createSequentialGroup()
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(loginPanelLayout.createSequentialGroup()
-                        .addComponent(btnBack)
-                        .addGap(179, 179, 179)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(loginPanelLayout.createSequentialGroup()
                         .addGap(395, 395, 395)
                         .addComponent(jLabel1))
                     .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,8 +158,12 @@ public class SignUpForm extends javax.swing.JFrame {
                                     .addGap(18, 18, 18)
                                     .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(chkShowPassword)
-                                        .addComponent(setpasswordfield, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(329, Short.MAX_VALUE))
+                                        .addComponent(setpasswordfield, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(loginPanelLayout.createSequentialGroup()
+                        .addComponent(btnBack)
+                        .addGap(201, 201, 201)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(307, Short.MAX_VALUE))
         );
         loginPanelLayout.setVerticalGroup(
             loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,21 +240,7 @@ public class SignUpForm extends javax.swing.JFrame {
             return;
         }
 
-        // Validate password length before hashing
-        if (password.length() < 6) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Password must be at least 6 characters.",
-                    "Invalid Password",
-                    JOptionPane.WARNING_MESSAGE);
-            setpasswordfield.requestFocus();
-            return;
-        }
-
         try {
-
-            // Hash the password
-            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
             User user = new User();
             user.setFullname(fullname);
@@ -262,21 +248,24 @@ public class SignUpForm extends javax.swing.JFrame {
             user.setEmail(email);
             user.setPhone(phone);
             user.setAge(age);
-            user.setPassword(hashedPassword);
+            user.setPassword(password);
 
             UserService service = new UserService();
 
-            User registeredUser = service.register(user);
+            service.register(user);
 
             JOptionPane.showMessageDialog(
-                    this,
-                    "Account created successfully!",
-                    "Success",
-                    JOptionPane.INFORMATION_MESSAGE);
+                this,
+                "Account created successfully!",
+                "Success",
+                JOptionPane.INFORMATION_MESSAGE);
 
-            LoginForm login = new LoginForm();
-            login.setVisible(true);
-            dispose();
+                if (ThemeManager.isDarkMode()) {
+                    new LoginFormDark().setVisible(true);
+                } else {
+                    new LoginForm().setVisible(true);
+                }
+                dispose();
 
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(

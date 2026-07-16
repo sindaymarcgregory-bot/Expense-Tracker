@@ -502,7 +502,9 @@ public class IncomePanel extends javax.swing.JPanel {
             Transaction transaction = new Transaction();
 
             transaction.setId(selectedTransactionId);
+            transaction.setUserId(Session.getCurrentUser().getId());
             transaction.setCategoryId(category.getId());
+            transaction.setType("income");
 
             transaction.setAmount(
                     new BigDecimal(incomeAmountField.getText().trim())

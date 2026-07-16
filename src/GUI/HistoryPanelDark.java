@@ -12,7 +12,6 @@ import services.TransactionService;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.Component;
 import javax.swing.BorderFactory;
 import javax.swing.JTable;
@@ -25,12 +24,10 @@ import utils.Session;
  */
 public class HistoryPanelDark extends javax.swing.JPanel {
 
-    /**
-     * Creates new form HistoryPanel
-     */
-    private HomeFrame homeFrame;
+    // Creates new form HistoryPanel
+    private HomeFrameDark homeFrame;
 
-    public void setHomeFrame(HomeFrame homeFrame) {
+    public void setHomeFrame(HomeFrameDark homeFrame) {
         this.homeFrame = homeFrame;
     }
 
@@ -320,7 +317,7 @@ public class HistoryPanelDark extends javax.swing.JPanel {
         cmboHistoryFilter = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel1.setBackground(new java.awt.Color(38, 38, 38));
         jPanel1.setMinimumSize(new java.awt.Dimension(895, 600));
         jPanel1.setPreferredSize(new java.awt.Dimension(917, 361));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

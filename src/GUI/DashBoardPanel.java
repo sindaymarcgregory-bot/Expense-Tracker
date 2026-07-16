@@ -1,9 +1,7 @@
 package GUI;
 
 import DAO.TransactionDAO;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import javax.swing.border.EmptyBorder;
@@ -17,7 +15,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.List;
 import java.util.Random;
-import org.knowm.xchart.style.Styler;
 
 public class DashBoardPanel extends javax.swing.JPanel {
 
@@ -553,9 +550,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 810, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(363, 363, 363)))
+                    .addComponent(jLabel2))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -565,9 +560,9 @@ public class DashBoardPanel extends javax.swing.JPanel {
                         .addGap(31, 31, 31)
                         .addComponent(summaryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(252, 252, 252)
+                        .addGap(364, 364, 364)
                         .addComponent(jLabel1)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

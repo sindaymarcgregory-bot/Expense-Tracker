@@ -26,13 +26,11 @@ import utils.Session;
  */
 public class ExpensePanelDark extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ExpensePanel
-     */
+    // Creates new form ExpensePanel
     private int selectedTransactionId = -1;
-    private HomeFrame homeFrame;
+    private HomeFrameDark homeFrame;
 
-    public void setHomeFrame(HomeFrame homeFrame) {
+    public void setHomeFrame(HomeFrameDark homeFrame) {
         this.homeFrame = homeFrame;
     }
 
@@ -300,7 +298,7 @@ public class ExpensePanelDark extends javax.swing.JPanel {
         btnAddExpenseCategory1 = new javax.swing.JButton();
         lblTotalExpense = new javax.swing.JLabel();
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel1.setBackground(new java.awt.Color(38, 38, 38));
         jPanel1.setMaximumSize(null);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -501,9 +499,11 @@ public class ExpensePanelDark extends javax.swing.JPanel {
             Transaction transaction = new Transaction();
 
             transaction.setId(selectedTransactionId);
+            transaction.setUserId(Session.getCurrentUser().getId());
             transaction.setCategoryId(category.getId());
             transaction.setAmount(amount);
             transaction.setDescription(description);
+            transaction.setType("expense");
 
             TransactionService service = new TransactionService();
 
@@ -553,7 +553,7 @@ public class ExpensePanelDark extends javax.swing.JPanel {
             // Save the transaction.
             if (transactionService.addTransaction(transaction)) {
                 JOptionPane.showMessageDialog(this, "Expense added successfully!");
-
+                homeFrame.refreshDashboard();
                 refreshData();
             }
         } catch (IllegalArgumentException e) {
@@ -669,7 +669,7 @@ public class ExpensePanelDark extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(
                         this,
                         "Category deleted successfully.");
-
+                homeFrame.refreshDashboard();
                 loadExpenseCategories();
 
             } else {
@@ -730,6 +730,11 @@ public class ExpensePanelDark extends javax.swing.JPanel {
                     cmboExpenseCategory.setSelectedIndex(i);
                     break;
                 }
+            }
+
+            // Refresh the Dashboard
+            if (homeFrame != null) {
+                homeFrame.refreshDashboard();
             }
         } else {
             JOptionPane.showMessageDialog(this, "Failed to add category.");
